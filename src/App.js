@@ -1,25 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { publicRoutes } from './routes';
+import { Fragment } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    {publicRoutes.map((route, i) => {
+                        const Layout = route.layout ? route.layout : Fragment;
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={i}
+                                path={route.path}
+                                element={
+                                    route.path === '/' ? (
+                                        <Navigate to={'/signup'} />
+                                    ) : (
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    )
+                                }
+                            />
+                        );
+                    })}
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

@@ -1,0 +1,275 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    width: 80%;
+    display: flex;
+    //justify-content: center;
+    padding: 15px 0;
+}
+
+.sign-up-section {
+}
+
+.sign-up-section,
+.customer-section {
+    width: 100%;
+    padding: 12px;
+}
+
+.sign-up-content,
+.customer-content {
+}
+
+.sign-up-form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: left;
+}
+
+.form-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+
+    .usa-icon {
+        width: 30px;
+        height: 30px;
+        padding: 6px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+    }
+
+    label {
+        display: inline-block;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .phone-number-section {
+        display: flex;
+        padding: 10.5px 14px;
+        font-size: 1.6rem;
+        color: rgba(0, 0, 0, 0.87);
+        border: 1px solid transparent;
+        border-color: rgb(221, 217, 217);
+        border-radius: 5px;
+    }
+
+    .input {
+        display: flex;
+        align-items: center;
+        padding: 10.5px 14px;
+        color: rgba(0, 0, 0, 0.87);
+        border: 1px solid transparent;
+        border-color: rgb(221, 217, 217);
+        border-radius: 5px;
+        max-height: 40px;
+    }
+
+    input {
+        width: 100%;
+        outline: none;
+        font-size: 1.6rem;
+        border: none;
+        background-color: transparent;
+
+        &:focus > .input {
+            outline: none;
+            border: 1px solid blue;
+        }
+    }
+
+    .eye-slash-icon {
+        cursor: pointer;
+    }
+
+    .dropdown-icon {
+        opacity: 0.5;
+        font-size: 1.8rem;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}
+
+.business-types-section {
+    position: relative;
+    width: 100%;
+
+    .business-container {
+        display: none;
+        width: 100%;
+        padding: 4px 0;
+        margin-top: 4px;
+        max-height: 300px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 11px;
+        z-index: 1000;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        left: 0;
+        user-select: none;
+    }
+
+    .business-types {
+        overflow-y: auto;
+    }
+
+    .business-type {
+        font-size: inherit;
+        padding: 8px 12px;
+        &:hover {
+            background-color: rgb(222, 235, 255);
+        }
+    }
+
+    .active {
+        display: block;
+    }
+}
+
+.title {
+    font-size: 2.8rem;
+    font-weight: lighter;
+    margin-bottom: 32px;
+}
+
+.description {
+    font-size: 1.8rem;
+    font-weight: lighter;
+}
+
+.submit-btn-container {
+    padding: 8px;
+}
+
+.submit-btn {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background-color: #ff00a3;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    height: 40px;
+    line-height: 1.75;
+    margin-top: 24px;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.sign-in-option {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+
+    span {
+        color: #838383;
+        margin-right: 4px;
+    }
+
+    p {
+        color: #0076ff;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.seperate {
+    display: flex;
+    margin: 24px 0;
+
+    &::before {
+        content: '';
+        width: 100%;
+        height: 3px;
+        border-bottom: 1px solid #ccc;
+        margin: auto;
+        margin-right: 10px;
+    }
+
+    &::after {
+        content: '';
+        width: 100%;
+        height: 3px;
+        border-bottom: 1px solid #ccc;
+        margin: auto;
+        margin-left: 10px;
+    }
+}
+
+.login-methods {
+    width: 100%;
+    display: flex;
+}
+
+.btn-container {
+    width: 100%;
+    padding: 8px;
+}
+
+.login-method-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 5px 15px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    border: 0.5px solid #cdcdcd;
+    border-radius: 8px;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.fb-style {
+    color: blue;
+}
+
+.gg-style {
+    color: red;
+}
+
+.customer-section {
+    height: fit-content;
+    max-width: 41.67%;
+    min-width: 301px;
+}
+
+.booker-line {
+    color: blue;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
