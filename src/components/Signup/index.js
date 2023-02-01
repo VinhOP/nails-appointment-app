@@ -10,26 +10,12 @@ import { useState } from 'react';
 import Button from '../Button';
 import { Link } from 'react-router-dom';
 import InputForm from '../InputForm';
+import LoginMethods from '../LoginMethods';
 
 const cx = classNames.bind(styles);
 
 function Signup() {
     const [isOpen, setIsOpen] = useState(false);
-
-    const loginMethods = [
-        {
-            name: 'Facebook',
-            icon: <FontAwesomeIcon icon={faFacebook} className={cx('fb-style')} />,
-            color: 'blue',
-            style: 'fb-style',
-        },
-        {
-            name: 'Google',
-            icon: <FontAwesomeIcon icon={faGoogle} className={cx('gg-style')} />,
-            color: 'red',
-            style: 'gg-style',
-        },
-    ];
 
     return (
         <div className={cx('wrapper')}>
@@ -81,7 +67,7 @@ function Signup() {
                             </div>
                         </form>
                         <div className={cx('submit-btn-container')}>
-                            <Button type="submit" className={cx('submit-btn')}>
+                            <Button type="submit" className={cx('submit-btn')} submit>
                                 Đăng ký
                             </Button>
                         </div>
@@ -91,18 +77,7 @@ function Signup() {
                                 <p> Đăng nhập ngay</p>
                             </Link>
                         </div>
-                        <p className={cx('seperate')}> Hoặc </p>
-                        <div className={cx('login-methods')}>
-                            {loginMethods.map((method, i) => {
-                                return (
-                                    <div key={i} className={cx('btn-container')}>
-                                        <Button className={cx('login-method-btn')} leftIcon={method.icon}>
-                                            <p className={cx(method.style)}> Đăng nhập bằng {method.name}</p>
-                                        </Button>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                        <LoginMethods />
                     </Popper>
                 </div>
                 <div className={cx('customer-section')}>

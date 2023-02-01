@@ -1,0 +1,63 @@
+.seperate {
+    display: flex;
+    margin: 24px 0;
+
+    &::before {
+        content: '';
+        width: 100%;
+        height: 3px;
+        border-bottom: 1px solid #ccc;
+        margin: auto;
+        margin-right: 10px;
+    }
+
+    &::after {
+        content: '';
+        width: 100%;
+        height: 3px;
+        border-bottom: 1px solid #ccc;
+        margin: auto;
+        margin-left: 10px;
+    }
+}
+
+.login-methods {
+    width: 100%;
+    display: flex;
+}
+
+.btn-container {
+    width: 100%;
+    padding: 8px;
+}
+
+.login-method-btn {
+    padding: 5px 15px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    border: 0.5px solid #cdcdcd;
+    border-radius: 8px;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.fb-style {
+    color: blue;
+}
+
+.gg-style {
+    color: red;
+}

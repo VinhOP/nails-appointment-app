@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    min-width: 60px;
     height: 40px;
     line-height: 1.75;
     position: relative;
@@ -18,4 +19,14 @@
     position: absolute;
     left: 0;
     padding: 0 10px;
+}
+
+.submit {
+    background-color: #ff00a3;
+    border-radius: 20px;
+    margin-top: 24px;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border: 1px solid transparent;
 }

@@ -2,26 +2,49 @@ import classNames from 'classnames/bind';
 import styles from './Signin.module.scss';
 import Popper from '../../layouts/Popper';
 import InputForm from '../InputForm';
+import Button from '../Button';
+import { Link } from 'react-router-dom';
+import LoginMethods from '../LoginMethods';
 
 const cx = classNames.bind(styles);
 
 function Signin() {
     return (
         <div className={cx('wrapper')}>
-            <Popper>
-                <h1 className={cx('title')}> Đăng nhập tài khoản đối tác miễn phí </h1>
-                <form>
-                    <div className="sign-in-form">
-                        <div className={cx('form-item')}>
-                            <InputForm type="email"> ID Hộp thư</InputForm>
+            <div className={cx('content')}>
+                <Popper>
+                    <h1 className={cx('title')}> Đăng nhập tài khoản đối tác miễn phí </h1>
+                    <form>
+                        <div className="sign-in-form">
+                            <div className={cx('form-item')}>
+                                <InputForm type="email"> ID Hộp thư</InputForm>
+                            </div>
+                            <div className={cx('form-item')}>
+                                <InputForm type="password"> Mật khẩu </InputForm>
+                            </div>
                         </div>
-                        <div className={cx('form-item')}>
-                            <InputForm type="password"> Mật khẩu </InputForm>
+                    </form>
+                    <Button submit> Đăng nhập </Button>
+                    <div className={cx('actions')}>
+                        <div className={cx('action-item')}>
+                            <input id="save-info" className={cx('checkbox')} type="checkbox" />
+                            <label for="save-info">Lưu thông tin đăng nhập</label>
                         </div>
-                        <div className={cx('form-item')}></div>
+                        <div className={cx('action-item')}>
+                            <Link to="/reset-password" className={cx('reset-password-btn')}>
+                                <i> Quên mật khẩu? </i>
+                            </Link>
+                        </div>
                     </div>
-                </form>
-            </Popper>
+                    <div className={cx('sign-in-option')}>
+                        <span> Đã có một tài khoản chuyên nghiệp? </span>
+                        <Link to={'/signup'} className={cx('sign-in-btn')}>
+                            <p> Đăng nhập ngay</p>
+                        </Link>
+                    </div>
+                    <LoginMethods />
+                </Popper>
+            </div>
         </div>
     );
 }
