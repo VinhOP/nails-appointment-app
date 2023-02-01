@@ -7,6 +7,7 @@ import usaFlag from '../../assets/icon/united-states.png';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import Popper from '../../layouts/Popper';
 import { useState } from 'react';
+import Button from '../Button';
 
 const cx = classNames.bind(styles);
 
@@ -93,7 +94,9 @@ function Signup() {
                             </div>
                         </form>
                         <div className={cx('submit-btn-container')}>
-                            <input type="submit" value="Sign Up" className={cx('submit-btn')} />
+                            <Button type="submit" className={cx('submit-btn')}>
+                                Sign Up
+                            </Button>
                         </div>
                         <div className={cx('sign-in-option')}>
                             <span> Already have a professional account? </span>
@@ -104,25 +107,24 @@ function Signup() {
                             {loginMethods.map((method, i) => {
                                 return (
                                     <div key={i} className={cx('btn-container')}>
-                                        <button className={cx('login-method-btn')}>
-                                            <i className={cx('brand-icon')}> {method.icon} </i>
+                                        <Button className={cx('login-method-btn')} leftIcon={method.icon}>
                                             <p className={cx(method.style)}> Login with {method.name}</p>
-                                        </button>
+                                        </Button>
                                     </div>
                                 );
                             })}
                         </div>
                     </Popper>
                 </div>
-                <Popper>
-                    <div className={cx('customer-content')}>
+                <div className={cx('customer-section')}>
+                    <Popper>
                         <div className={cx('title')}> Booking as a customer? </div>
                         <div className={cx('description')}>
                             Đây là khu vực đối tác, vui lòng chuyển đến
                             <span className={cx('booker-line')}> booker đăng nhập </span> để thay thế
                         </div>
-                    </div>
-                </Popper>
+                    </Popper>
+                </div>
             </div>
         </div>
     );

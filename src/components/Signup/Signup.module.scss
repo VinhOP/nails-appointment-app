@@ -11,6 +11,7 @@
 }
 
 .sign-up-section {
+    min-width: 501px;
 }
 
 .sign-up-section,
@@ -153,22 +154,13 @@
 }
 
 .submit-btn {
-    width: 100%;
-    border-radius: 20px;
-    border: 1px solid transparent;
     background-color: #ff00a3;
+    border-radius: 20px;
+    margin-top: 24px;
     color: #fff;
     font-size: 1.8rem;
     font-weight: 600;
-    height: 40px;
-    line-height: 1.75;
-    margin-top: 24px;
-
-    &:hover {
-        cursor: pointer;
-        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-            0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-    }
+    border: 1px solid transparent;
 }
 
 .sign-in-option {
@@ -225,10 +217,6 @@
 }
 
 .login-method-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
     padding: 5px 15px;
     margin-bottom: 8px;
     background-color: transparent;
@@ -262,7 +250,7 @@
 .customer-section {
     height: fit-content;
     max-width: 41.67%;
-    min-width: 301px;
+    min-width: 401px;
 }
 
 .booker-line {
