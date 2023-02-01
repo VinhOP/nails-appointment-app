@@ -48,12 +48,6 @@
         }
     }
 
-    label {
-        display: inline-block;
-        font-weight: 600;
-        margin-bottom: 8px;
-    }
-
     .phone-number-section {
         display: flex;
         padding: 10.5px 14px;
@@ -62,6 +56,12 @@
         border: 1px solid transparent;
         border-color: rgb(221, 217, 217);
         border-radius: 5px;
+    }
+
+    label {
+        display: inline-block;
+        font-weight: 600;
+        margin-bottom: 8px;
     }
 
     .input {
@@ -73,19 +73,6 @@
         border-color: rgb(221, 217, 217);
         border-radius: 5px;
         max-height: 40px;
-    }
-
-    input {
-        width: 100%;
-        outline: none;
-        font-size: 1.6rem;
-        border: none;
-        background-color: transparent;
-
-        &:focus > .input {
-            outline: none;
-            border: 1px solid blue;
-        }
     }
 
     .eye-slash-icon {
@@ -173,9 +160,10 @@
         margin-right: 4px;
     }
 
-    p {
+    .sign-in-btn {
         color: #0076ff;
         cursor: pointer;
+        text-decoration: none;
 
         &:hover {
             text-decoration: underline;

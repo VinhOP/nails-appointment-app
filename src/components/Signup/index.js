@@ -8,6 +8,8 @@ import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import Popper from '../../layouts/Popper';
 import { useState } from 'react';
 import Button from '../Button';
+import { Link } from 'react-router-dom';
+import InputForm from '../InputForm';
 
 const cx = classNames.bind(styles);
 
@@ -34,23 +36,17 @@ function Signup() {
             <div className={cx('content')}>
                 <div className={cx('sign-up-section')}>
                     <Popper>
-                        <h1 className={cx('title')}> Create Your Free Partner Account</h1>
+                        <h1 className={cx('title')}> Tạo tài khoản đối tác miễn phí </h1>
                         <form>
                             <div className={cx('sign-up-form')}>
                                 <div className={cx('form-item')}>
-                                    <label> First name </label>
-                                    <div className={cx('input')}>
-                                        <input type="text" />
-                                    </div>
+                                    <InputForm type="text"> Họ </InputForm>
                                 </div>
                                 <div className={cx('form-item')}>
-                                    <label> Last name </label>
-                                    <div className={cx('input')}>
-                                        <input type="text" />
-                                    </div>
+                                    <InputForm type="text"> Tên </InputForm>
                                 </div>
                                 <div className={cx('form-item')}>
-                                    <label> Phone Number </label>
+                                    <label>Số điện thoại</label>
                                     <div className={cx('input')}>
                                         <img className={cx('usa-icon')} src={usaFlag} alt={'usa-flag'} />
                                         +
@@ -58,25 +54,16 @@ function Signup() {
                                     </div>
                                 </div>
                                 <div className={cx('form-item')}>
-                                    <label> Email </label>
-                                    <div className={cx('input')}>
-                                        <input id={cx('email')} type="email" />
-                                    </div>
+                                    <InputForm type="email"> Email </InputForm>
                                 </div>
                                 <div className={cx('form-item')}>
-                                    <label> Password </label>
-                                    <div className={cx('input')}>
-                                        <input id={cx('password')} type="password" />
-                                        <i className={cx('eye-slash-icon')}>
-                                            <FontAwesomeIcon icon={faEyeSlash} />
-                                        </i>
-                                    </div>
+                                    <InputForm type="password"> Mật khẩu </InputForm>
                                 </div>
                                 <div
                                     className={cx('business-types-section', 'form-item')}
                                     onClick={() => setIsOpen(!isOpen)}
                                 >
-                                    <label> Business type </label>
+                                    <label> Loại hình kinh doanh </label>
                                     <div className={cx('input')}>
                                         <input type="text" disabled />
                                         <i className={cx('dropdown-icon')}>
@@ -95,12 +82,14 @@ function Signup() {
                         </form>
                         <div className={cx('submit-btn-container')}>
                             <Button type="submit" className={cx('submit-btn')}>
-                                Sign Up
+                                Đăng ký
                             </Button>
                         </div>
                         <div className={cx('sign-in-option')}>
-                            <span> Already have a professional account? </span>
-                            <p> Sign in now </p>
+                            <span> Đã có một tài khoản chuyên nghiệp? </span>
+                            <Link to={'/signin'} className={cx('sign-in-btn')}>
+                                <p> Đăng nhập ngay</p>
+                            </Link>
                         </div>
                         <p className={cx('seperate')}> Hoặc </p>
                         <div className={cx('login-methods')}>
@@ -108,7 +97,7 @@ function Signup() {
                                 return (
                                     <div key={i} className={cx('btn-container')}>
                                         <Button className={cx('login-method-btn')} leftIcon={method.icon}>
-                                            <p className={cx(method.style)}> Login with {method.name}</p>
+                                            <p className={cx(method.style)}> Đăng nhập bằng {method.name}</p>
                                         </Button>
                                     </div>
                                 );
