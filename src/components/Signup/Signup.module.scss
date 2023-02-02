@@ -64,17 +64,6 @@
         margin-bottom: 8px;
     }
 
-    .input {
-        display: flex;
-        align-items: center;
-        padding: 10.5px 14px;
-        color: rgba(0, 0, 0, 0.87);
-        border: 1px solid transparent;
-        border-color: rgb(221, 217, 217);
-        border-radius: 5px;
-        max-height: 40px;
-    }
-
     .eye-slash-icon {
         cursor: pointer;
     }
@@ -114,6 +103,7 @@
 
     .business-type {
         font-size: inherit;
+        text-align: left;
         padding: 8px 12px;
         &:hover {
             background-color: rgb(222, 235, 255);
@@ -159,6 +149,37 @@
             text-decoration: underline;
         }
     }
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 10.5px 14px;
+    color: rgba(0, 0, 0, 0.87);
+    border: 1px solid transparent;
+    border-color: rgb(221, 217, 217);
+    border-radius: 5px;
+    max-height: 40px;
+
+    input {
+        width: 100%;
+        color: #646464;
+        outline: none;
+        font-size: 1.6rem;
+        border: none;
+        background-color: transparent;
+
+        &:focus > .input-container {
+            outline: none;
+            border: 1px solid blue;
+        }
+    }
+}
+
+.error-notice {
+    color: red;
+    margin-top: 4px;
+    font-size: 1.4rem;
 }
 
 .customer-section {

@@ -37,9 +37,9 @@ function Signin() {
                         </div>
                     </div>
                     <div className={cx('sign-in-option')}>
-                        <span> Đã có một tài khoản chuyên nghiệp? </span>
+                        <span>Chưa có một tài khoản chuyên nghiệp? </span>
                         <Link to={'/signup'} className={cx('sign-in-btn')}>
-                            <p> Đăng nhập ngay</p>
+                            <p> Đăng ký ngay</p>
                         </Link>
                     </div>
                     <LoginMethods />

@@ -3,16 +3,7 @@ import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({
-    children,
-    className,
-    type,
-    value,
-    leftIcon = false,
-    rightIcon = false,
-    submit = false,
-    onClick = false,
-}) {
+function Button({ children, className, type, value, leftIcon = false, rightIcon = false, submit = false, onClick }) {
     let Comp = 'button';
     const props = {
         onClick,

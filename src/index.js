@@ -4,14 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Globalstyles from './Globalstyles';
+import UserInfoProvider from './Contexts/UserInfoContext';
+import AuthProvider from './Contexts/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <Globalstyles>
-            <App />
-        </Globalstyles>
-    </React.StrictMode>,
+    <Globalstyles>
+        <AuthProvider>
+            <UserInfoProvider>
+                <App />
+            </UserInfoProvider>
+        </AuthProvider>
+    </Globalstyles>,
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,8 +2,10 @@ import './App.css';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { Fragment } from 'react';
+import { useAuth } from './Contexts/AuthContext';
 
 function App() {
+    const auth = useAuth();
     return (
         <Router>
             <div className="App">
@@ -16,7 +18,7 @@ function App() {
                                 key={i}
                                 path={route.path}
                                 element={
-                                    route.path === '/' ? (
+                                    route.path === '/' && !auth.currentUser ? (
                                         <Navigate to={'/signup'} />
                                     ) : (
                                         <Layout>

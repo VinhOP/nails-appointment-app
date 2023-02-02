@@ -9,7 +9,7 @@
     margin-bottom: 8px;
 }
 
-.input {
+.input-container {
     display: flex;
     align-items: center;
     padding: 10.5px 14px;
@@ -18,6 +18,11 @@
     border-color: rgb(221, 217, 217);
     border-radius: 5px;
     max-height: 40px;
+
+    &:focus-within {
+        outline: none;
+        border-color: blue;
+    }
 }
 
 .title {

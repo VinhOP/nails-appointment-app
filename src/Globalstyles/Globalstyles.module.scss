@@ -10,12 +10,6 @@ html {
     font-size: 62.5%;
 }
 
-body {
-    font-size: 1.6rem;
-    font-family: 'Montserrat', sans-serif;
-    background-color: #fafafa;
-}
-
 input {
     width: 100%;
     color: #646464;
@@ -23,11 +17,12 @@ input {
     font-size: 1.6rem;
     border: none;
     background-color: transparent;
+}
 
-    &:focus > .input {
-        outline: none;
-        border: 1px solid blue;
-    }
+body {
+    font-size: 1.6rem;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fafafa;
 }
 
 .wrapper {

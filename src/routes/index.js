@@ -3,6 +3,7 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import Signup from '../components/Signup';
 import { Navigate } from 'react-router-dom';
 import Signin from '../components/Signin';
+import MainLayout from '../layouts/MainLayout';
 
 const publicRoutes = [
     {
@@ -19,6 +20,11 @@ const publicRoutes = [
         path: '/signin',
         component: Signin,
         layout: DefaultLayout,
+    },
+    {
+        path: '/appointment',
+        component: Home,
+        layout: MainLayout,
     },
 ];
 
