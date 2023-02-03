@@ -8,11 +8,14 @@ import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import Popper from '../../layouts/Popper';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputForm from '../InputForm';
 import LoginMethods from '../LoginMethods';
 import { useUserInfo } from '../../Contexts/UserInfoContext';
 import { useAuth } from '../../Contexts/AuthContext';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import Spinner from '../Spinner';
 
 const cx = classNames.bind(styles);
 
@@ -21,16 +24,26 @@ function Signup() {
 
     const userInfo = useUserInfo();
     const auth = useAuth();
+    const navigate = useNavigate();
 
     const businessTypeModalRef = useRef();
 
     useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (businessTypeModalRef && !businessTypeModalRef.current.contains(e.target)) {
-                setIsOpen(false);
-            }
+        // const handleClickOutside = (e) => {
+        //     if (businessTypeModalRef && !businessTypeModalRef.current.contains(e.target)) {
+        //         setIsOpen(false);
+        //     }
+        // };
+        // document.addEventListener('mousedown', handleClickOutside);
+
+        if (auth.isToken) {
+            navigate('/appointment');
+        }
+        return () => {
+            userInfo.requiredFields.forEach((field) => {
+                field.setToUndefined();
+            });
         };
-        document.addEventListener('mousedown', handleClickOutside);
     }, []);
 
     const handleSetBusiness = (e) => {
@@ -50,12 +63,21 @@ function Signup() {
         }
     };
 
-    const handleRegister = () => {
+    const handleRegister = async (e) => {
+        e.preventDefault();
         userInfo.requiredFields.forEach((field) => {
             !field.value && field.setToEmpty();
         });
         if (userInfo.requiredFields.every((field) => field.value)) {
-            auth.signup(userInfo.email, userInfo.password, userInfo.businessID);
+            await auth.signup(
+                userInfo.email,
+                userInfo.password,
+                userInfo.businessID,
+                userInfo.firstName,
+                userInfo.lastName,
+                userInfo.phone,
+            );
+            navigate('/signin');
         }
     };
 
@@ -99,7 +121,7 @@ function Signup() {
                                     >
                                         Họ
                                     </InputForm>
-                                    {userInfo.firstName === '' && (
+                                    {userInfo.firstName?.trim().length < 1 && (
                                         <p className={cx('error-notice')}> Vui lòng nhập họ</p>
                                     )}
                                 </div>
@@ -112,24 +134,23 @@ function Signup() {
                                     >
                                         Tên
                                     </InputForm>
-                                    {userInfo.lastName === '' && (
+                                    {userInfo.lastName?.trim().length < 1 && (
                                         <p className={cx('error-notice')}> Vui lòng nhập tên</p>
                                     )}
                                 </div>
                                 <div className={cx('form-item')}>
                                     <label>Số điện thoại</label>
                                     <div className={cx('input-container')}>
-                                        <img className={cx('usa-icon')} src={usaFlag} alt={'usa-flag'} />
-                                        +
-                                        <input
+                                        <PhoneInput
                                             id={cx('phone-number')}
-                                            type="tel"
                                             name="phone"
-                                            onChange={(e) => userInfo.setPhone(e.target.value)}
+                                            defaultCountry="US"
+                                            value={userInfo.phone}
+                                            onChange={userInfo.setPhone}
                                             onBlur={handleOnBlur}
                                         />
                                     </div>
-                                    {userInfo.phone === '' && (
+                                    {userInfo.phone?.trim().length < 1 && (
                                         <p className={cx('error-notice')}> Vui lòng nhập số điện thoại</p>
                                     )}
                                 </div>
@@ -142,7 +163,7 @@ function Signup() {
                                     >
                                         Email
                                     </InputForm>
-                                    {userInfo.email === '' && (
+                                    {userInfo.email?.trim().length < 1 && (
                                         <p className={cx('error-notice')}> Vui lòng nhập email của bạn</p>
                                     )}
                                 </div>
@@ -155,7 +176,7 @@ function Signup() {
                                     >
                                         Mật khẩu
                                     </InputForm>
-                                    {userInfo.password === '' && (
+                                    {userInfo.password?.trim().length < 1 && (
                                         <p className={cx('error-notice')}> Vui lòng nhập mật khẩu</p>
                                     )}
                                 </div>
@@ -193,23 +214,23 @@ function Signup() {
                                             />
                                         </ul>
                                     </Popper>
-                                    {userInfo.business === '' && (
+                                    {userInfo.business?.trim().length < 1 && (
                                         <p className={cx('error-notice')}> Vui lòng chọn hình thức kinh doanh</p>
                                     )}
                                 </div>
                             </div>
+                            <div className={cx('submit-btn-container')}>
+                                <Button
+                                    type="submit"
+                                    className={cx('submit-btn')}
+                                    submit
+                                    disabled={auth.isLoading}
+                                    onClick={handleRegister}
+                                >
+                                    {auth.isLoading ? <Spinner /> : 'Đăng ký'}
+                                </Button>
+                            </div>
                         </form>
-                        <div className={cx('submit-btn-container')}>
-                            <Button type="submit" className={cx('submit-btn')} submit onClick={handleRegister}>
-                                {auth.isLoading ? (
-                                    <i>
-                                        <FontAwesomeIcon icon={faSpinner} />
-                                    </i>
-                                ) : (
-                                    'Đăng ký'
-                                )}
-                            </Button>
-                        </div>
                         <div className={cx('sign-in-option')}>
                             <span> Đã có một tài khoản chuyên nghiệp? </span>
                             <Link to={'/signin'} className={cx('sign-in-btn')}>

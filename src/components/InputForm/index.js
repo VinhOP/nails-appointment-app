@@ -4,7 +4,7 @@ import styles from './InputForm.module.scss';
 
 const cx = classNames.bind(styles);
 
-function InputForm({ children, id, type, name, value, onBlur, onChange }) {
+function InputForm({ children, id, type, name, value, error, onBlur, onChange }) {
     const inputContainerRef = useRef();
 
     const props = {
@@ -12,6 +12,7 @@ function InputForm({ children, id, type, name, value, onBlur, onChange }) {
         id,
         name,
         value,
+        error,
         onBlur,
         onChange,
     };
@@ -19,7 +20,7 @@ function InputForm({ children, id, type, name, value, onBlur, onChange }) {
     return (
         <div className={cx('wrapper')}>
             <label className={cx('title')}>{children} </label>
-            <div ref={inputContainerRef} className={cx('input-container')}>
+            <div ref={inputContainerRef} className={cx('input-container', { error: error })}>
                 <input {...props} />
             </div>
         </div>

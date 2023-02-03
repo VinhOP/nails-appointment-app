@@ -18,11 +18,17 @@ function UserInfoProvider({ children }) {
             setToEmpty: () => {
                 setFirstName('');
             },
+            setToUndefined: () => {
+                setFirstName();
+            },
         },
         {
             value: lastName,
             setToEmpty: () => {
                 setLastName('');
+            },
+            setToUndefined: () => {
+                setLastName();
             },
         },
         {
@@ -30,11 +36,17 @@ function UserInfoProvider({ children }) {
             setToEmpty: () => {
                 setEmail('');
             },
+            setToUndefined: () => {
+                setEmail();
+            },
         },
         {
             value: phone,
             setToEmpty: () => {
                 setPhone('');
+            },
+            setToUndefined: () => {
+                setPhone();
             },
         },
         {
@@ -42,11 +54,17 @@ function UserInfoProvider({ children }) {
             setToEmpty: () => {
                 setPassword('');
             },
+            setToUndefined: () => {
+                setPassword();
+            },
         },
         {
             value: business,
             setToEmpty: () => {
                 setBusiness('');
+            },
+            setToUndefined: () => {
+                setBusiness();
             },
         },
     ];
