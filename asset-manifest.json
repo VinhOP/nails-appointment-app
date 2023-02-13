@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/nails-appointment-app/static/css/main.25628e70.css",
+    "main.js": "/nails-appointment-app/static/js/main.83441d60.js",
+    "static/js/787.6072b675.chunk.js": "/nails-appointment-app/static/js/787.6072b675.chunk.js",
+    "static/media/united-states.png": "/nails-appointment-app/static/media/united-states.348322a7eb6fa906d005.png",
+    "index.html": "/nails-appointment-app/index.html",
+    "main.25628e70.css.map": "/nails-appointment-app/static/css/main.25628e70.css.map",
+    "main.83441d60.js.map": "/nails-appointment-app/static/js/main.83441d60.js.map",
+    "787.6072b675.chunk.js.map": "/nails-appointment-app/static/js/787.6072b675.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.25628e70.css",
+    "static/js/main.83441d60.js"
+  ]
+}
