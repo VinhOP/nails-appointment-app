@@ -8,9 +8,9 @@ import LoginMethods from '../LoginMethods';
 import { useUserInfo } from '../../Contexts/UserInfoContext';
 import { useAuth } from '../../Contexts/AuthContext';
 import { useEffect } from 'react';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../Spinner';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 
@@ -24,9 +24,8 @@ function Signin() {
         userInfo.requiredFields.forEach((field) => {
             !field.value && field.setToEmpty();
         });
-        if (userInfo.email || userInfo.password) {
+        if (userInfo.email && userInfo.password) {
             await auth.signin(userInfo.email, userInfo.password);
-            navigate('/appointment');
         }
     };
 
@@ -34,7 +33,6 @@ function Signin() {
         if (auth.isToken) {
             navigate('/appointment');
         }
-
         return () => {
             userInfo.requiredFields.forEach((field) => {
                 field.setToUndefined();
@@ -99,6 +97,7 @@ function Signin() {
                     <LoginMethods />
                 </Popper>
             </div>
+            <ToastContainer position="bottom-right" hideProgressBar />
         </div>
     );
 }

@@ -16,6 +16,7 @@ import { useAuth } from '../../Contexts/AuthContext';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import Spinner from '../Spinner';
+import { ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -29,16 +30,6 @@ function Signup() {
     const businessTypeModalRef = useRef();
 
     useEffect(() => {
-        // const handleClickOutside = (e) => {
-        //     if (businessTypeModalRef && !businessTypeModalRef.current.contains(e.target)) {
-        //         setIsOpen(false);
-        //     }
-        // };
-        // document.addEventListener('mousedown', handleClickOutside);
-
-        if (auth.isToken) {
-            navigate('/appointment');
-        }
         return () => {
             userInfo.requiredFields.forEach((field) => {
                 field.setToUndefined();
@@ -69,7 +60,7 @@ function Signup() {
             !field.value && field.setToEmpty();
         });
         if (userInfo.requiredFields.every((field) => field.value)) {
-            await auth.signup(
+            const signup = await auth.signup(
                 userInfo.email,
                 userInfo.password,
                 userInfo.businessID,
@@ -77,7 +68,10 @@ function Signup() {
                 userInfo.lastName,
                 userInfo.phone,
             );
-            navigate('/signin');
+            signup &&
+                setTimeout(() => {
+                    navigate('/signin');
+                }, 2000);
         }
     };
 
@@ -250,6 +244,7 @@ function Signup() {
                     </Popper>
                 </div>
             </div>
+            <ToastContainer position="bottom-right" hideProgressBar />
         </div>
     );
 }

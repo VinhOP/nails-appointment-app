@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import * as userService from '../services/userServices';
 
 const AuthContext = createContext();
@@ -7,17 +8,35 @@ export const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [isToken, setIsToken] = useState(localStorage.getItem('userToken'));
+    const [isToken, setIsToken] = useState(!!localStorage.getItem('userToken'));
+
+    const notifySuccess = (message) => toast.success(message);
+    const notifyError = (message) => toast.error(message);
 
     useEffect(() => {
-        setIsToken(localStorage.getItem('userToken'));
+        setIsToken(!!localStorage.getItem('userToken'));
     }, []);
 
     const signup = async (email, password, business_type_id, first_name, last_name, phone) => {
         try {
             setIsLoading(true);
-            const user = await userService.signup({ email, password, business_type_id, first_name, last_name, phone });
+            const response = await userService.signup({
+                email,
+                password,
+                business_type_id,
+                first_name,
+                last_name,
+                phone,
+            });
+
+            if (typeof response !== 'object') {
+                notifyError(response);
+                setIsLoading(false);
+                return;
+            }
+            notifySuccess('Đăng ký thành công');
             setIsLoading(false);
+            return response;
         } catch (err) {
             console.log(err);
         }
@@ -26,18 +45,29 @@ function AuthProvider({ children }) {
     const signin = async (email, password) => {
         try {
             setIsLoading(true);
-            const user = await userService.signin({ email, password });
-            localStorage.setItem('userToken', user.access_token);
-            setIsToken(true);
+            const response = await userService.signin({ email, password });
+
+            if (typeof response !== 'object') {
+                setIsLoading(false);
+                notifyError(response);
+                return;
+            }
+
+            notifySuccess('Đăng nhập thành cônggi');
+            localStorage.setItem('userToken', response.access_token);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsToken(true);
+            }, 2000);
         } catch (err) {
             console.log(err);
+            setIsLoading(false);
         }
     };
 
     const signout = () => {
         localStorage.removeItem('userToken');
-        setIsToken('');
+        setIsToken(false);
     };
 
     const value = {

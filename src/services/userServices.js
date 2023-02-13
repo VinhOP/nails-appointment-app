@@ -12,7 +12,7 @@ export const signup = async ({ email, password, business_type_id, first_name, la
         });
         return user;
     } catch (err) {
-        console.log(err);
+        return err.response.data.error;
     }
 };
 
@@ -24,6 +24,6 @@ export const signin = async ({ email, password }) => {
         });
         return user;
     } catch (err) {
-        console.log(err);
+        return err.response.data.error;
     }
 };
