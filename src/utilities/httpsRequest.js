@@ -4,8 +4,8 @@ const request = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
 });
 
-export const get = async (path, option = {}) => {
-    const respone = await request.get(path, option);
+export const get = async (path, headers = {}, option = {}) => {
+    const respone = await request.get(path, headers, option);
     return respone.data;
 };
 

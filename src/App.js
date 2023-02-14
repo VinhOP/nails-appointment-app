@@ -6,6 +6,9 @@ import { useAuth } from './Contexts/AuthContext';
 
 function App() {
     const auth = useAuth();
+    useEffect(() => {
+        auth.getCurrentUser();
+    }, []);
     return (
         <Router>
             <div className="App">

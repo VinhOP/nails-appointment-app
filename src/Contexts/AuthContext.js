@@ -9,6 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isToken, setIsToken] = useState(!!localStorage.getItem('userToken'));
+    const [currentUser, setCurrentUser] = useState();
 
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
@@ -16,6 +17,18 @@ function AuthProvider({ children }) {
     useEffect(() => {
         setIsToken(!!localStorage.getItem('userToken'));
     }, []);
+
+    const getCurrentUser = async () => {
+        try {
+            if (isToken) {
+                const token = localStorage.getItem('userToken');
+                const response = await userService.getCurrentUser(token);
+                setCurrentUser(response);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const signup = async (email, password, business_type_id, first_name, last_name, phone) => {
         try {
@@ -76,6 +89,7 @@ function AuthProvider({ children }) {
         signout,
         isLoading,
         isToken,
+        getCurrentUser,
     };
 
     return (

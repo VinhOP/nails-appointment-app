@@ -27,3 +27,16 @@ export const signin = async ({ email, password }) => {
         return err.response.data.error;
     }
 };
+
+export const getCurrentUser = async (token) => {
+    try {
+        const user = await httpsRequest.get('partners/me', {
+            headers: {
+                Authorization: token,
+            },
+        });
+        return user.object;
+    } catch (err) {
+        console.log(err);
+    }
+};

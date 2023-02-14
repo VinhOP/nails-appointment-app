@@ -1,10 +1,7 @@
-import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faCaretDown, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
-import usaFlag from '../../assets/icon/united-states.png';
-import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import Popper from '../../layouts/Popper';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../Button';
@@ -37,21 +34,8 @@ function Signup() {
         };
     }, []);
 
-    const handleSetBusiness = (e) => {
-        userInfo.setBusiness(e.target.value);
-        switch (e.target.value) {
-            case 'Beauty Salon':
-                userInfo.setBusinessID('1');
-                break;
-            case 'Hair Salon':
-                userInfo.setBusinessID('2');
-                break;
-            case 'Nail Salon':
-                userInfo.setBusinessID('3');
-                break;
-            default:
-                break;
-        }
+    const handleSetBusiness = (type) => {
+        userInfo.setBusinessSelected({ ...userInfo.businessSelected, id: type.id, value: type.name });
     };
 
     const handleRegister = async (e) => {
@@ -63,7 +47,7 @@ function Signup() {
             const signup = await auth.signup(
                 userInfo.email,
                 userInfo.password,
-                userInfo.businessID,
+                userInfo.businessSelected.id,
                 userInfo.firstName,
                 userInfo.lastName,
                 userInfo.phone,
@@ -174,6 +158,7 @@ function Signup() {
                                         <p className={cx('error-notice')}> Vui lòng nhập mật khẩu</p>
                                     )}
                                 </div>
+
                                 <div
                                     className={cx('business-types-section', 'form-item')}
                                     onClick={() => setIsOpen(!isOpen)}
@@ -181,34 +166,25 @@ function Signup() {
                                 >
                                     <label> Loại hình kinh doanh </label>
                                     <div className={cx('input-container')}>
-                                        <input type="text" value={userInfo.business} disabled />
+                                        <input type="text" value={userInfo.businessSelected.value} disabled />
                                         <i className={cx('dropdown-icon')}>
                                             <FontAwesomeIcon icon={faCaretDown} />
                                         </i>
                                     </div>
                                     <Popper className={cx('business-container', { active: isOpen })}>
-                                        <ul className={cx('business-types')}>
-                                            <input
-                                                type="button"
-                                                className={cx('business-type')}
-                                                onClick={handleSetBusiness}
-                                                value="Beauty Salon"
-                                            />
-                                            <input
-                                                type="button"
-                                                className={cx('business-type')}
-                                                onClick={handleSetBusiness}
-                                                value="Hair Salon"
-                                            />
-                                            <input
-                                                type="button"
-                                                className={cx('business-type')}
-                                                onClick={handleSetBusiness}
-                                                value="Nail Salon"
-                                            />
-                                        </ul>
+                                        {userInfo.businessTypes?.map((type) => {
+                                            return (
+                                                <input
+                                                    type="button"
+                                                    className={cx('business-type')}
+                                                    onClick={() => handleSetBusiness(type)}
+                                                    value={type.name}
+                                                    key={type.id}
+                                                />
+                                            );
+                                        })}
                                     </Popper>
-                                    {userInfo.business?.trim().length < 1 && (
+                                    {userInfo.businessSelected.id?.length < 1 && (
                                         <p className={cx('error-notice')}> Vui lòng chọn hình thức kinh doanh</p>
                                     )}
                                 </div>

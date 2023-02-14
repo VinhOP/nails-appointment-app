@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import * as businessService from '../services/businessService';
 
 export const useUserInfo = () => useContext(UserInfoContext);
 const UserInfoContext = createContext();
@@ -9,8 +10,24 @@ function UserInfoProvider({ children }) {
     const [phone, setPhone] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [business, setBusiness] = useState();
-    const [businessID, setBusinessID] = useState();
+    const [businessTypes, setBusinessTypes] = useState();
+    const [businessSelected, setBusinessSelected] = useState({
+        id: undefined,
+        value: '',
+    });
+
+    useEffect(() => {
+        getBusinessTypes();
+    }, []);
+
+    const getBusinessTypes = async () => {
+        try {
+            const response = await businessService.types();
+            setBusinessTypes(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const requiredFields = [
         {
@@ -59,12 +76,12 @@ function UserInfoProvider({ children }) {
             },
         },
         {
-            value: business,
+            value: businessSelected.id,
             setToEmpty: () => {
-                setBusiness('');
+                setBusinessSelected({ ...businessSelected, id: '' });
             },
             setToUndefined: () => {
-                setBusiness();
+                setBusinessSelected({ ...businessSelected, id: undefined });
             },
         },
     ];
@@ -80,10 +97,10 @@ function UserInfoProvider({ children }) {
         setEmail,
         password,
         setPassword,
-        business,
-        setBusiness,
-        businessID,
-        setBusinessID,
+        businessSelected,
+        setBusinessSelected,
+        businessTypes,
+        setBusinessTypes,
         requiredFields,
     };
     return <UserInfoContext.Provider value={value}>{children}</UserInfoContext.Provider>;
