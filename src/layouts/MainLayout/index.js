@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import Button from '../../components/Button';
+import Sidebar from '../../components/Sidebar';
 import { useAuth } from '../../Contexts/AuthContext';
 import styles from './MainLayout.module.scss';
 
@@ -10,11 +11,7 @@ function MainLayout({ children }) {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('sidebar')}>
-                <div className={cx('logout-btn')}>
-                    <Button onClick={auth.signout}> Log Out </Button>
-                </div>
-            </div>
+            <Sidebar />
             <div className={cx('main-content')}>
                 <div className={cx('navbar')}></div>
                 <div className={cx('content')}> {children}</div>

@@ -26,5 +26,11 @@ body {
     background-color: #fafafa;
 }
 
+button {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .wrapper {
 }

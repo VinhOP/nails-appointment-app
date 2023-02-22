@@ -23,11 +23,12 @@ function Button({
         disabled,
         [className]: className,
     });
+
     return (
         <Comp className={classes} {...props}>
-            <span className={cx('left-icon')}>{leftIcon}</span>
-            {children}
-            <span className={cx('right-icon')}>{rightIcon}</span>
+            {leftIcon && <span className={cx('left-icon')}>{leftIcon}</span>}
+            <span className={cx('title')}>{children}</span>
+            {rightIcon && <span className={cx('right-icon')}>{rightIcon}</span>}
         </Comp>
     );
 }
