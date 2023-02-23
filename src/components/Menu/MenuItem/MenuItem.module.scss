@@ -1,6 +1,17 @@
 .wrapper {
 }
 
+.wrapper > .wrapper {
+    padding-left: 10px;
+    overflow: hidden;
+    max-height: 0;
+    transition: 0.3s ease-out;
+}
+
+.wrapper > .active {
+    max-height: 300px;
+}
+
 .menu-item {
     justify-content: center;
     align-items: center;
@@ -10,6 +21,11 @@
     &:hover {
         background-color: #0000000a;
     }
+}
+
+.menu-item + .wrapper,
+.active {
+    background-color: #3a31ad;
 }
 
 .item-btn {
@@ -32,6 +48,8 @@
     width: 100%;
     height: 100%;
     margin-right: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .right-icon {
