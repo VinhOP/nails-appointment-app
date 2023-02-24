@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+:root {
+    --sidebar-normal-width: 300px;
+    --sidebar-collapse-width: 80px;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -30,6 +35,11 @@ button {
     &:hover {
         cursor: pointer;
     }
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
 }
 
 .wrapper {

@@ -4,12 +4,12 @@
 
 .main-content {
     width: 100%;
+    display: flex;
 }
 
-.navbar {
+.content {
     width: 100%;
-    height: 64px;
-    background-color: #fff;
+    margin-top: 64px;
 }
 
 .logout-btn {

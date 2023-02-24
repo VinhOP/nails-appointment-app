@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
@@ -8,6 +9,7 @@ function Button({
     className,
     type,
     value,
+    to = false,
     leftIcon = false,
     rightIcon = false,
     submit = false,
@@ -15,9 +17,15 @@ function Button({
     onClick,
 }) {
     let Comp = 'button';
+
     const props = {
         onClick,
     };
+
+    if (to) {
+        props.to = to;
+        Comp = Link;
+    }
     const classes = cx('wrapper', {
         submit,
         disabled,
@@ -27,7 +35,7 @@ function Button({
     return (
         <Comp className={classes} {...props}>
             {leftIcon && <span className={cx('left-icon')}>{leftIcon}</span>}
-            <span className={cx('title')}>{children}</span>
+            {children}
             {rightIcon && <span className={cx('right-icon')}>{rightIcon}</span>}
         </Comp>
     );

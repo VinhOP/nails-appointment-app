@@ -25,6 +25,46 @@ const publicRoutes = [
         component: Home,
         layout: MainLayout,
     },
+    {
+        path: '/client-management',
+        component: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/services',
+        component: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/staff',
+        component: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/gift-card',
+        component: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/set-up',
+        component: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/group',
+        component: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/invite',
+        component: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/help',
+        component: Home,
+        layout: MainLayout,
+    },
 ];
 
 export { publicRoutes };

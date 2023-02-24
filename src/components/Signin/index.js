@@ -73,7 +73,13 @@ function Signin() {
                                 )}
                             </div>
                         </div>
-                        <Button submit disabled={auth.isLoading} type="submit" onClick={handleSignIn}>
+                        <Button
+                            className={cx('submit-btn')}
+                            submit
+                            disabled={auth.isLoading}
+                            type="submit"
+                            onClick={handleSignIn}
+                        >
                             {auth.isLoading ? <Spinner /> : 'Đăng nhập'}
                         </Button>
                     </form>

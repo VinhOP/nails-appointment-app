@@ -7,8 +7,11 @@ import {
     faChevronLeft,
     faGear,
     faGift,
+    faHeadphones,
     faIdCardClip,
+    faLanguage,
     faQuestionCircle,
+    faRightFromBracket,
     faUser,
     faUserGroup,
     faUserPlus,
@@ -22,34 +25,42 @@ import {
     faCreditCard,
     faLightbulb,
     faMessage,
+    faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
+import Image from '../Image';
 
 const cx = classNames.bind(styles);
-function Menu() {
+function Menu({ isCollapse }) {
     const [menuList, setMenuList] = useState([
         {
             name: 'Lịch hẹn',
+            url: '/appointment',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faCalendar} />,
         },
         {
             name: 'Khách hàng',
+            url: '/client-management',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faIdCardClip} />,
         },
         {
             name: 'Dịch vụ',
+            url: '/services',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faBriefcase} />,
         },
         {
             name: 'Nhân viên',
+            url: '/staff',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faUser} />,
         },
         {
             name: 'Gift Card',
+            url: '/gift-card',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faGift} />,
         },
         {
             name: 'Set Up',
+            url: '/set-up',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faGear} />,
         },
         {
@@ -60,66 +71,73 @@ function Menu() {
                 {
                     name: 'Smart Campaign',
                     leftIcon: <FontAwesomeIcon icon={faLightbulb} />,
+                    url: '/smart-campaign',
                 },
                 {
                     name: 'Blast Messages',
                     leftIcon: <FontAwesomeIcon icon={faMessage} />,
+                    url: '/blast-messages',
                 },
                 {
                     name: 'Đặt lịch trực tuyến',
                     leftIcon: <FontAwesomeIcon icon={faCalendarCheck} />,
+                    url: '/online-booking',
                 },
                 {
                     name: 'Social Media',
                     leftIcon: <FontAwesomeIcon icon={faFacebook} />,
+                    url: '/social-media',
                 },
                 {
                     name: 'Card Processing',
                     leftIcon: <FontAwesomeIcon icon={faCreditCard} />,
+                    url: '/card-processing',
                 },
             ],
             isOpen: false,
         },
         {
             name: 'Group',
+            url: '/group',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faUserGroup} />,
         },
         {
             name: 'Invite',
+            url: '/invite',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faUserPlus} />,
-            rightIcon: <FontAwesomeIcon className={cx('right-icon')} icon={faChevronLeft} />,
-            children: [
-                {
-                    name: 'Smart Campaign',
-                    leftIcon: <FontAwesomeIcon icon={faLightbulb} />,
-                },
-                {
-                    name: 'Blast Messages',
-                    leftIcon: <FontAwesomeIcon icon={faMessage} />,
-                },
-                {
-                    name: 'Đặt lịch trực tuyến',
-                    leftIcon: <FontAwesomeIcon icon={faCalendarCheck} />,
-                },
-                {
-                    name: 'Social Media',
-                    leftIcon: <FontAwesomeIcon icon={faFacebook} />,
-                },
-                {
-                    name: 'Card Processing',
-                    leftIcon: <FontAwesomeIcon icon={faCreditCard} />,
-                },
-            ],
-            isOpen: false,
         },
         {
             name: 'Help & Support',
             leftIcon: <FontAwesomeIcon className={cx('left-icon')} icon={faQuestionCircle} />,
+            url: '/help',
+        },
+        {
+            name: 'Name',
+            leftIcon: <Image className={cx('left-icon')} src={''} />,
+            rightIcon: <FontAwesomeIcon icon={faChevronLeft} />,
+            children: [
+                {
+                    name: 'Hồ sơ',
+                    leftIcon: <FontAwesomeIcon icon={faUserCircle} />,
+                },
+                {
+                    name: 'Liên hệ hỗ trợ',
+                    leftIcon: <FontAwesomeIcon icon={faHeadphones} />,
+                },
+                {
+                    name: 'Ngôn ngữ ',
+                    leftIcon: <FontAwesomeIcon icon={faLanguage} />,
+                },
+                {
+                    name: 'Đăng xuất',
+                    leftIcon: <FontAwesomeIcon icon={faRightFromBracket} />,
+                },
+            ],
         },
     ]);
     return (
         <div className={cx('wrapper')}>
-            <MenuItem menuList={menuList} setMenuList={setMenuList} />
+            <MenuItem isCollapse={isCollapse} menuList={menuList} setMenuList={setMenuList} />
         </div>
     );
 }

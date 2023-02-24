@@ -7,8 +7,11 @@ import Button from '../../Button';
 import styles from './MenuItem.module.scss';
 const cx = classNames.bind(styles);
 
-function MenuItem({ menuList, setMenuList, active = false }) {
+function MenuItem({ menuList, setMenuList, isCollapse, active = false }) {
     const handleClick = (item, i) => {
+        if (!item.children) {
+            return;
+        }
         const newMenu = [
             ...menuList.slice(0, i),
             {
@@ -29,11 +32,18 @@ function MenuItem({ menuList, setMenuList, active = false }) {
                 return (
                     <Fragment key={i}>
                         <div className={cx('menu-item', { active: item.isOpen })} onClick={() => handleClick(item, i)}>
-                            <Button className={cx('item-btn')} leftIcon={item.leftIcon} rightIcon={item.rightIcon}>
-                                <span className={cx('title')}>{item.name}</span>
+                            <Button
+                                to={item.url}
+                                className={cx('item-btn')}
+                                leftIcon={item.leftIcon}
+                                rightIcon={!isCollapse && item.rightIcon}
+                            >
+                                {!isCollapse && <span className={cx('title')}>{item.name}</span>}
                             </Button>
                         </div>
-                        {item.children && <MenuItem menuList={item.children} active={item.isOpen} />}
+                        {item.children && (
+                            <MenuItem menuList={item.children} isCollapse={isCollapse} active={item.isOpen} />
+                        )}
                     </Fragment>
                 );
             })}

@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import Button from '../../components/Button';
+import Navbar from '../../components/Navbar';
 import Sidebar from '../../components/Sidebar';
 import { useAuth } from '../../Contexts/AuthContext';
 import styles from './MainLayout.module.scss';
@@ -13,7 +14,7 @@ function MainLayout({ children }) {
         <div className={cx('wrapper')}>
             <Sidebar />
             <div className={cx('main-content')}>
-                <div className={cx('navbar')}></div>
+                <Navbar />
                 <div className={cx('content')}> {children}</div>
             </div>
         </div>

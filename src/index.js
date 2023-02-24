@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import Globalstyles from './Globalstyles';
 import UserInfoProvider from './Contexts/UserInfoContext';
 import AuthProvider from './Contexts/AuthContext';
+import SidebarProvider from './Contexts/SidebarContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Globalstyles>
         <AuthProvider>
             <UserInfoProvider>
-                <App />
+                <SidebarProvider>
+                    <App />
+                </SidebarProvider>
             </UserInfoProvider>
         </AuthProvider>
     </Globalstyles>,
