@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/nails-appointment-app/static/css/main.25628e70.css",
-    "main.js": "/nails-appointment-app/static/js/main.8294ad0a.js",
+    "main.css": "/nails-appointment-app/static/css/main.30861acd.css",
+    "main.js": "/nails-appointment-app/static/js/main.700c83cb.js",
     "static/js/787.6072b675.chunk.js": "/nails-appointment-app/static/js/787.6072b675.chunk.js",
     "index.html": "/nails-appointment-app/index.html",
-    "main.25628e70.css.map": "/nails-appointment-app/static/css/main.25628e70.css.map",
-    "main.8294ad0a.js.map": "/nails-appointment-app/static/js/main.8294ad0a.js.map",
+    "main.30861acd.css.map": "/nails-appointment-app/static/css/main.30861acd.css.map",
+    "main.700c83cb.js.map": "/nails-appointment-app/static/js/main.700c83cb.js.map",
     "787.6072b675.chunk.js.map": "/nails-appointment-app/static/js/787.6072b675.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.25628e70.css",
-    "static/js/main.8294ad0a.js"
+    "static/css/main.30861acd.css",
+    "static/js/main.700c83cb.js"
   ]
 }
