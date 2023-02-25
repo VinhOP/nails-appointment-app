@@ -3,6 +3,7 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import Signup from '../components/Signup';
 import Signin from '../components/Signin';
 import MainLayout from '../layouts/MainLayout';
+import Services from '../Pages/Services';
 
 const publicRoutes = [
     {
@@ -32,7 +33,7 @@ const publicRoutes = [
     },
     {
         path: '/services',
-        component: Home,
+        component: Services,
         layout: MainLayout,
     },
     {

@@ -3,6 +3,7 @@ import Button from '../../components/Button';
 import Navbar from '../../components/Navbar';
 import Sidebar from '../../components/Sidebar';
 import { useAuth } from '../../Contexts/AuthContext';
+import { useSidebar } from '../../Contexts/SidebarContext';
 import styles from './MainLayout.module.scss';
 
 const cx = classNames.bind(styles);

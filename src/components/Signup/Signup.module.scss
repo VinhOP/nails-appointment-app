@@ -105,6 +105,8 @@
         font-size: inherit;
         text-align: left;
         padding: 8px 12px;
+        cursor: pointer;
+
         &:hover {
             background-color: rgb(222, 235, 255);
         }
@@ -138,6 +140,7 @@
 .sign-in-option {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 32px;
 
     span {

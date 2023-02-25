@@ -10,6 +10,7 @@ function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isToken, setIsToken] = useState(!!localStorage.getItem('userToken'));
     const [currentUser, setCurrentUser] = useState();
+    console.log(currentUser);
 
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
@@ -89,6 +90,7 @@ function AuthProvider({ children }) {
         signout,
         isLoading,
         isToken,
+        currentUser,
         getCurrentUser,
     };
 

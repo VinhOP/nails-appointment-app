@@ -9,7 +9,12 @@ const cx = classNames.bind(styles);
 
 function MenuItem({ menuList, setMenuList, isCollapse, active = false }) {
     const handleClick = (item, i) => {
+        item.logOut && item.logOut();
         if (!item.children) {
+            const newMenu = menuList.map((item, index) => {
+                return { ...item, isOpen: i === index };
+            });
+            setMenuList(newMenu);
             return;
         }
         const newMenu = [
@@ -28,7 +33,7 @@ function MenuItem({ menuList, setMenuList, isCollapse, active = false }) {
 
     return (
         <div className={cx('wrapper', { active: active })}>
-            {menuList.map((item, i) => {
+            {menuList?.map((item, i) => {
                 return (
                     <Fragment key={i}>
                         <div className={cx('menu-item', { active: item.isOpen })} onClick={() => handleClick(item, i)}>

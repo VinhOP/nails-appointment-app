@@ -7,12 +7,9 @@ function Image({ src, alt, className, fallbackImg = noImage, ...props }) {
 
     const handleError = () => {
         setFallback(fallbackImg);
-        console.log(fallback);
     };
 
-    useEffect(() => {
-        // setFallback('');
-    }, [src]);
+    useEffect(() => {}, [src]);
 
     return <img src={fallback || src} alt={alt} className={className} onError={handleError} {...props} />;
 }
