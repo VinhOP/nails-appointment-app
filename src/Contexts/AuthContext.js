@@ -66,7 +66,6 @@ function AuthProvider({ children }) {
                 notifyError(response);
                 return;
             }
-
             notifySuccess('Đăng nhập thành cônggi');
             localStorage.setItem('userToken', response.access_token);
             setIsLoading(false);

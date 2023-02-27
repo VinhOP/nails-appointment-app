@@ -1,0 +1,44 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    height: 60px;
+}
+
+.btn-container {
+    position: relative;
+    width: 191px;
+}
+
+.add-new-btn {
+    width: 100%;
+    margin-top: 0;
+}
+
+.dropdown-menu {
+    position: absolute;
+    bottom: -90px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s linear, visibility 0.15s linear;
+}
+
+.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.dropdown-item {
+    border: 1px solid;
+    height: 50px;
+    font-size: 1.6rem;
+    justify-content: flex-start;
+    padding: 10px;
+
+    &:hover {
+        background-color: var(--primary-button-hover-bgcolor);
+    }
+}

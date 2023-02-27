@@ -9,14 +9,8 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const auth = useAuth();
-    // const sidebar = useSidebar();
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!auth.isToken) {
-            navigate('/signup');
-        }
-    }, []);
+    const navigate = useNavigate();
 
     return (
         <div className={cx('wrapper')}>

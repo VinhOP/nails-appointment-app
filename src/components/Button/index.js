@@ -12,7 +12,7 @@ function Button({
     to = false,
     leftIcon = false,
     rightIcon = false,
-    submit = false,
+    primary = false,
     disabled = false,
     onClick,
 }) {
@@ -27,7 +27,7 @@ function Button({
         Comp = Link;
     }
     const classes = cx('wrapper', {
-        submit,
+        primary,
         disabled,
         [className]: className,
     });

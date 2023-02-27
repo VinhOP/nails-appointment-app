@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Signin.module.scss';
-import Popper from '../../layouts/Popper';
+import Popper from '../Popper/DropdownPopper';
 import InputForm from '../InputForm';
 import Button from '../Button';
 import { Link, useNavigate } from 'react-router-dom';
@@ -75,7 +75,7 @@ function Signin() {
                         </div>
                         <Button
                             className={cx('submit-btn')}
-                            submit
+                            primary
                             disabled={auth.isLoading}
                             type="submit"
                             onClick={handleSignIn}

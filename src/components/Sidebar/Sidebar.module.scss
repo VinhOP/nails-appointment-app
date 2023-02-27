@@ -9,9 +9,9 @@
     overflow-y: auto;
     overflow-x: hidden;
     position: fixed;
-    z-index: 999;
+    z-index: 1001;
     background-color: #4042c0;
-    transition: 0.25s ease;
+    transition: width 0.25s ease;
     height: 100%;
 }
 

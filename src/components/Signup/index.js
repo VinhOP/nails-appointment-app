@@ -2,7 +2,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
-import Popper from '../../layouts/Popper';
+import Popper from '../Popper/DropdownPopper';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../Button';
 import { Link, useNavigate } from 'react-router-dom';
@@ -193,7 +193,7 @@ function Signup() {
                                 <Button
                                     type="submit"
                                     className={cx('submit-btn')}
-                                    submit
+                                    primary
                                     disabled={auth.isLoading}
                                     onClick={handleRegister}
                                 >

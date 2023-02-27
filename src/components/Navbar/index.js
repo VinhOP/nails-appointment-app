@@ -9,10 +9,14 @@ import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Navbar() {
+function Navbar({ leftButtons = false, rightButtons = false }) {
     const [title, setTitle] = useState('');
     const sidebar = useSidebar();
     const location = useLocation();
+
+    // const props = {
+    //     onClick,
+    // };
 
     useEffect(() => {
         switch (location.pathname) {
@@ -37,13 +41,29 @@ function Navbar() {
     return (
         <header className={cx('wrapper', { collapse: sidebar.isCollapse })}>
             <div className={cx('content')}>
+                {leftButtons && (
+                    <span className={cx('btn-container')}>
+                        {leftButtons.map((button) => {
+                            return (
+                                <Button onClick={button.onClick} className={cx('button')}>
+                                    {button.icon}
+                                </Button>
+                            );
+                        })}
+                    </span>
+                )}
                 <h1 className={cx('title')}> {title} </h1>
-                <Button className={cx('search-btn')}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </Button>
-                <Button className={cx('notify-btn')}>
-                    <FontAwesomeIcon icon={faBell} />
-                </Button>
+                {rightButtons && (
+                    <span className={cx('btn-container')}>
+                        {rightButtons.map((button) => {
+                            return (
+                                <Button onClick={button.onClick} className={cx('button')}>
+                                    {button.icon}
+                                </Button>
+                            );
+                        })}
+                    </span>
+                )}
             </div>
         </header>
     );

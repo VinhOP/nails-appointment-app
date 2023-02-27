@@ -3,12 +3,13 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import Signup from '../components/Signup';
 import Signin from '../components/Signin';
 import MainLayout from '../layouts/MainLayout';
+import PlaceHolder from '../Pages/PlaceHolder';
 import Services from '../Pages/Services';
 
 const publicRoutes = [
     {
         path: '/',
-        component: Home,
+        component: Services,
         layout: MainLayout,
     },
     {
@@ -23,12 +24,12 @@ const publicRoutes = [
     },
     {
         path: '/appointment',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
     {
         path: '/client-management',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
     {
@@ -38,32 +39,32 @@ const publicRoutes = [
     },
     {
         path: '/staff',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
     {
         path: '/gift-card',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
     {
         path: '/set-up',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
     {
         path: '/group',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
     {
         path: '/invite',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
     {
         path: '/help',
-        component: Home,
+        component: PlaceHolder,
         layout: MainLayout,
     },
 ];

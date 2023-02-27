@@ -1,0 +1,35 @@
+.wrapper {
+    visibility: hidden;
+    width: calc(100% - 300px);
+    height: 800px;
+    // background-color: red;
+    z-index: 999;
+    overflow: auto;
+    overscroll-behavior: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    // transition: 0.25s ease;
+}
+
+.body {
+    width: 100%;
+    margin-top: 64px;
+    height: 800px;
+}
+
+.collapse {
+    width: calc(100% - 57px);
+}
+
+.active {
+    visibility: visible;
+}
+
+.close-btn-container {
+    width: fit-content;
+}
+
+.close-btn {
+    font-size: 2rem;
+}

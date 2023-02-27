@@ -2,10 +2,11 @@
     width: calc(100% - 300px);
     background-color: #fff;
     height: 64px;
-    z-index: 998;
     position: fixed;
+    z-index: 998;
+    top: 0;
     right: 0;
-    transition: 0.25s ease;
+    transition: width 0.25s ease;
 }
 
 .collapse {
@@ -27,8 +28,11 @@
     color: #4147bd;
 }
 
-.search-btn,
-.notify-btn {
+.btn-container {
+    display: flex;
+}
+
+.button {
     width: 40px;
     height: 40px;
     border: none;
