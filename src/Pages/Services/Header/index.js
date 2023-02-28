@@ -19,14 +19,12 @@ function Header({ setModal }) {
                 <Button primary className={cx('add-new-btn')} onClick={() => setIsOpen(!isOpen)}>
                     Thêm mới
                 </Button>
-                {
-                    <Popper className={cx('dropdown-menu', { active: isOpen })}>
-                        <Button className={cx('dropdown-item')} onClick={handleClick}>
-                            Thêm mới dịch vụ
-                        </Button>
-                        <Button className={cx('dropdown-item')}>Thêm mới loại dịch vụ</Button>
-                    </Popper>
-                }
+                <Popper className={cx('dropdown-menu', { active: isOpen })}>
+                    <Button className={cx('dropdown-item')} onClick={handleClick}>
+                        Thêm mới dịch vụ
+                    </Button>
+                    <Button className={cx('dropdown-item')}>Thêm mới loại dịch vụ</Button>
+                </Popper>
             </div>
         </div>
     );

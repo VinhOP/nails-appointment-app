@@ -141,6 +141,7 @@ function Menu({ isCollapse }) {
             },
         ]);
     }, [auth.currentUser]);
+
     return (
         <div className={cx('wrapper')}>
             <MenuItem isCollapse={isCollapse} menuList={menuList} setMenuList={setMenuList} />

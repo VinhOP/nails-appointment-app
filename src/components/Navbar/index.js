@@ -9,43 +9,32 @@ import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Navbar({ leftButtons = false, rightButtons = false }) {
-    const [title, setTitle] = useState('');
+function Navbar({
+    title,
+    leftButtons = false,
+    modal = false,
+    isModal = false,
+    rightIcons = [
+        {
+            icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+            onClick: () => {},
+        },
+        {
+            icon: <FontAwesomeIcon icon={faBell} />,
+            onClick: () => {},
+        },
+    ],
+}) {
     const sidebar = useSidebar();
-    const location = useLocation();
-
-    // const props = {
-    //     onClick,
-    // };
-
-    useEffect(() => {
-        switch (location.pathname) {
-            case '/services':
-                setTitle('Dịch vụ');
-                break;
-            case '/appointment':
-                setTitle('Lịch hẹn');
-                break;
-            case '/client-management':
-                setTitle('Khách Hàng');
-                break;
-            case '/staff':
-                setTitle('Nhân viên');
-                break;
-            default:
-                setTitle('Tính năng này đang được phát triển');
-                break;
-        }
-    }, [location.pathname]);
 
     return (
-        <header className={cx('wrapper', { collapse: sidebar.isCollapse })}>
+        <header className={cx('wrapper', { collapse: sidebar.isCollapse, active: modal, isModal: isModal })}>
             <div className={cx('content')}>
                 {leftButtons && (
                     <span className={cx('btn-container')}>
-                        {leftButtons.map((button) => {
+                        {leftButtons.map((button, i) => {
                             return (
-                                <Button onClick={button.onClick} className={cx('button')}>
+                                <Button key={i} onClick={button.onClick} className={cx('icon')}>
                                     {button.icon}
                                 </Button>
                             );
@@ -53,11 +42,15 @@ function Navbar({ leftButtons = false, rightButtons = false }) {
                     </span>
                 )}
                 <h1 className={cx('title')}> {title} </h1>
-                {rightButtons && (
+                {rightIcons && (
                     <span className={cx('btn-container')}>
-                        {rightButtons.map((button) => {
+                        {rightIcons.map((button, i) => {
                             return (
-                                <Button onClick={button.onClick} className={cx('button')}>
+                                <Button
+                                    key={i}
+                                    onClick={button.onClick}
+                                    className={cx('icon', { button: button.buttonStyle })}
+                                >
                                     {button.icon}
                                 </Button>
                             );

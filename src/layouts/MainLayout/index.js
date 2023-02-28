@@ -14,19 +14,9 @@ import styles from './MainLayout.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MainLayout({ children }) {
+function MainLayout({ children, title }) {
     const auth = useAuth();
     const navigate = useNavigate();
-    const rightButtons = [
-        {
-            icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
-            onClick: () => {},
-        },
-        {
-            icon: <FontAwesomeIcon icon={faBell} />,
-            onClick: () => {},
-        },
-    ];
 
     useEffect(() => {
         auth.getCurrentUser();
@@ -38,7 +28,7 @@ function MainLayout({ children }) {
     return (
         <div className={cx('wrapper')}>
             <Sidebar />
-            <MainContentPopper rightButtons={rightButtons}>{children}</MainContentPopper>
+            {children}
         </div>
     );
 }

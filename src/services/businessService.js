@@ -8,3 +8,12 @@ export const types = async () => {
         console.log(err);
     }
 };
+
+export const getCategoriesList = async (id) => {
+    try {
+        const categories = await httpsRequest.get(`categories?partner_id=${id}`);
+        return categories;
+    } catch (err) {
+        console.log(err);
+    }
+};

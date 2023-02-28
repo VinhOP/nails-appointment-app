@@ -1,15 +1,22 @@
 .wrapper {
     visibility: hidden;
-    width: calc(100% - 300px);
+    width: 0;
     height: 800px;
-    // background-color: red;
     z-index: 999;
     overflow: auto;
     overscroll-behavior: none;
     position: fixed;
     top: 0;
     right: 0;
-    // transition: 0.25s ease;
+    transition: 0.25s ease;
+}
+
+.main-content {
+    width: 100%;
+    margin-top: 64px;
+    height: 800px;
+    overflow: auto;
+    background-color: #fafafa;
 }
 
 .body {
@@ -18,12 +25,22 @@
     height: 800px;
 }
 
-.collapse {
-    width: calc(100% - 57px);
+.active {
+    width: calc(100% - var(--sidebar-width));
+    visibility: visible;
+    transition: 0.25s ease; 
 }
 
-.active {
-    visibility: visible;
+.collapse {
+    width: calc(100% - var(--sidebar-collapse-width));
+    transition: 0.25s ease;
+}
+
+.save-btn {
+    min-width: 143px;
+    border-radius: 20px;
+    height: 45px;
+    transform: translateX(-100px);
 }
 
 .close-btn-container {
