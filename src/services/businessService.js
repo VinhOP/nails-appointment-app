@@ -9,9 +9,9 @@ export const types = async () => {
     }
 };
 
-export const getCategoriesList = async (id) => {
+export const getCategoriesList = async (page, id) => {
     try {
-        const categories = await httpsRequest.get(`categories?partner_id=${id}`);
+        const categories = await httpsRequest.get(`categories?page=${page}&partner_id=${id}`);
         return categories;
     } catch (err) {
         console.log(err);

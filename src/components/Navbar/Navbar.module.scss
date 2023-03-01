@@ -9,6 +9,10 @@
     transition: width 0.25s ease, visibility 0.25s ease;
 }
 
+.medium-height {
+    height: 110px;
+}
+
 .isModal {
     width: 0;
     visibility: hidden;

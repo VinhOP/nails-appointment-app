@@ -1,8 +1,6 @@
 import { faBell, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useSidebar } from '../../Contexts/SidebarContext';
 import Button from '../Button';
 import styles from './Navbar.module.scss';
@@ -14,6 +12,7 @@ function Navbar({
     leftButtons = false,
     modal = false,
     isModal = false,
+    mediumHeight = false,
     rightIcons = [
         {
             icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
@@ -27,8 +26,15 @@ function Navbar({
 }) {
     const sidebar = useSidebar();
 
+    const classes = cx('wrapper', {
+        collapse: sidebar.isCollapse,
+        active: modal,
+        isModal: isModal,
+        'medium-height': mediumHeight,
+    });
+
     return (
-        <header className={cx('wrapper', { collapse: sidebar.isCollapse, active: modal, isModal: isModal })}>
+        <header className={classes}>
             <div className={cx('content')}>
                 {leftButtons && (
                     <span className={cx('btn-container')}>

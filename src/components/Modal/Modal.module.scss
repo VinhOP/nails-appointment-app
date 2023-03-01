@@ -25,14 +25,14 @@
     height: 800px;
 }
 
-.active {
+.activeSize {
     width: calc(100% - var(--sidebar-width));
     visibility: visible;
-    transition: 0.25s ease; 
+    transition: 0.25s ease;
 }
 
-.collapse {
-    width: calc(100% - var(--sidebar-collapse-width));
+.collapseSize {
+    width: calc(100% + var(--sidebar-collapse-width));
     transition: 0.25s ease;
 }
 
