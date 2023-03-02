@@ -116,7 +116,7 @@ function Menu({ isCollapse }) {
                 url: '/help',
             },
             {
-                name: `${auth.currentUser?.first_name} ${auth.currentUser?.last_name}`,
+                name: `${auth.currentUser?.first_name || ''} ${auth.currentUser?.last_name || ''}`,
                 leftIcon: <Image src={auth.currentUser?.photo_url} alt="avatar" />,
                 rightIcon: <FontAwesomeIcon icon={faChevronLeft} />,
                 children: [

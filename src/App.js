@@ -1,12 +1,9 @@
 import './App.css';
-import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
-import { Fragment, useEffect } from 'react';
-import { useAuth } from './Contexts/AuthContext';
+import { Fragment } from 'react';
 
 function App() {
-    const auth = useAuth();
-
     return (
         <Router>
             <div className="App">

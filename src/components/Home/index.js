@@ -1,10 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-import { useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Contexts/AuthContext';
-import { useSidebar } from '../../Contexts/SidebarContext';
-
 const cx = classNames.bind(styles);
 
 function Home() {

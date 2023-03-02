@@ -8,20 +8,20 @@ export const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [isToken, setIsToken] = useState(!!localStorage.getItem('userToken'));
+    const [isToken, setIsToken] = useState(!!sessionStorage.getItem('userToken'));
     const [currentUser, setCurrentUser] = useState();
 
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
 
     useEffect(() => {
-        setIsToken(!!localStorage.getItem('userToken'));
+        setIsToken(!!sessionStorage.getItem('userToken'));
     }, []);
 
     const getCurrentUser = async () => {
         try {
             if (isToken) {
-                const token = localStorage.getItem('userToken');
+                const token = sessionStorage.getItem('userToken');
                 const response = await userService.getCurrentUser(token);
                 setCurrentUser(response);
             }
@@ -66,7 +66,7 @@ function AuthProvider({ children }) {
                 return;
             }
             notifySuccess('Đăng nhập thành cônggi');
-            localStorage.setItem('userToken', response.access_token);
+            sessionStorage.setItem('userToken', response.access_token);
             setIsLoading(false);
             setTimeout(() => {
                 setIsToken(true);
@@ -77,14 +77,46 @@ function AuthProvider({ children }) {
         }
     };
 
-    const signout = () => {
-        localStorage.removeItem('userToken');
+    const signinWithGoogle = () => {
+        try {
+
+        } catch(err) {
+            
+        }
+    }
+
+    const resetPassword = async (email) => {
+        try {
+            setIsLoading(true);
+            const response = await userService.resetPassword({ email });
+            if (typeof response !== 'object') {
+                setIsLoading(false);
+                notifyError(response);
+                return;
+            }
+            if (response.message.includes('thất bại')) {
+                setIsLoading(false);
+                notifyError(response.message);
+                return;
+            }
+            notifySuccess(`${response.message}, vui lòng kiểm tra hộp thư`);
+            setIsLoading(false);
+        } catch (err) {
+            setIsLoading(false);
+        }
+    };
+
+    const signout = async () => {
+        const token = sessionStorage.getItem('user-token');
+        const response = await userService.signout(token);
+        sessionStorage.removeItem('userToken');
         setIsToken(false);
     };
 
     const value = {
         signup,
         signin,
+        resetPassword,
         signout,
         isLoading,
         isToken,

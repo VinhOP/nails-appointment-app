@@ -1,28 +1,28 @@
 .wrapper {
     visibility: hidden;
     width: 0;
-    height: 800px;
     z-index: 999;
-    overflow: auto;
     overscroll-behavior: none;
     position: fixed;
     top: 0;
     right: 0;
+    bottom: 0;
     transition: 0.25s ease;
 }
 
 .main-content {
     width: 100%;
-    margin-top: 64px;
-    height: 800px;
-    overflow: auto;
+    height: 100%;
+    position: relative;
+    top: 120px;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: #fafafa;
 }
 
-.body {
-    width: 100%;
-    margin-top: 64px;
-    height: 800px;
+.modal {
+    height: 700px;
 }
 
 .activeSize {
@@ -34,19 +34,4 @@
 .collapseSize {
     width: calc(100% + var(--sidebar-collapse-width));
     transition: 0.25s ease;
-}
-
-.save-btn {
-    min-width: 143px;
-    border-radius: 20px;
-    height: 45px;
-    transform: translateX(-100px);
-}
-
-.close-btn-container {
-    width: fit-content;
-}
-
-.close-btn {
-    font-size: 2rem;
 }

@@ -1,11 +1,8 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect } from 'react';
 import { useSidebar } from '../../Contexts/SidebarContext';
-import Button from '../Button';
 import Navbar from '../Navbar';
-import MainContentPopper from '../Popper/MainContentPopper';
 import styles from './Modal.module.scss';
 
 const cx = classNames.bind(styles);
@@ -38,7 +35,9 @@ function Modal({ modal, setModal }) {
                 leftButtons={leftButtons}
                 rightIcons={rightIcons}
             />
-            <div className={cx('main-content')}> Modal </div>
+            <div className={cx('main-content')}>
+                <div className={cx('modal')}>Modal</div>
+            </div>
         </div>
     );
 }

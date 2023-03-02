@@ -1,8 +1,7 @@
 import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { Fragment, useEffect, useRef, useState } from 'react';
-import Menu from '..';
+import { Fragment } from 'react';
 import Button from '../../Button';
 import styles from './MenuItem.module.scss';
 const cx = classNames.bind(styles);

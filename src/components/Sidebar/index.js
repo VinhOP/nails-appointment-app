@@ -1,9 +1,7 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import { useSidebar } from '../../Contexts/SidebarContext';
-import Button from '../Button';
 import Image from '../Image';
 import Menu from '../Menu';
 import styles from './Sidebar.module.scss';

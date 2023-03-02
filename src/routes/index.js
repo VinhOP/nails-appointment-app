@@ -5,6 +5,7 @@ import Signin from '../components/Signin';
 import MainLayout from '../layouts/MainLayout';
 import PlaceHolder from '../Pages/PlaceHolder';
 import Services from '../Pages/Services';
+import ResetPassword from '../components/ResetPassword';
 
 const publicRoutes = [
     {
@@ -20,6 +21,11 @@ const publicRoutes = [
     {
         path: '/signin',
         component: Signin,
+        layout: DefaultLayout,
+    },
+    {
+        path: '/reset-password',
+        component: ResetPassword,
         layout: DefaultLayout,
     },
     {
