@@ -9,8 +9,8 @@ export const get = async (path, headers = {}, option = {}) => {
     return respone.data;
 };
 
-export const post = async (path, body = {}, option = {}) => {
-    const respone = await request.post(path, body, option);
+export const post = async (path, body = {}, headers = {}, option = {}) => {
+    const respone = await request.post(path, body, headers, option);
     return respone.data;
 };
 

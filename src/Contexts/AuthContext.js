@@ -10,6 +10,7 @@ function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isToken, setIsToken] = useState(!!sessionStorage.getItem('userToken'));
     const [currentUser, setCurrentUser] = useState();
+    const [currentProviderUser, setCurrentProviderUser] = useState();
 
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
@@ -30,7 +31,7 @@ function AuthProvider({ children }) {
         }
     };
 
-    const signup = async (email, password, business_type_id, first_name, last_name, phone) => {
+    const signup = async ({ email, password, business_type_id, first_name, last_name, phone }) => {
         try {
             setIsLoading(true);
             const response = await userService.signup({
@@ -65,7 +66,7 @@ function AuthProvider({ children }) {
                 notifyError(response);
                 return;
             }
-            notifySuccess('Đăng nhập thành cônggi');
+            notifySuccess('Đăng nhập thành công');
             sessionStorage.setItem('userToken', response.access_token);
             setIsLoading(false);
             setTimeout(() => {
@@ -77,13 +78,39 @@ function AuthProvider({ children }) {
         }
     };
 
-    const signinWithGoogle = () => {
+    const signinWithGoogle = async (auth, provider) => {
         try {
+            const providerResponse = await userService.signinWithGoogle(auth, provider);
+            setCurrentProviderUser(providerResponse.user);
+            console.log(providerResponse.user);
 
-        } catch(err) {
-            
+            const response = await userService.loginViaSocialAccount({
+                access_token: providerResponse.user.accessToken,
+                provider: 'google',
+                email: providerResponse.user.email,
+                first_name: providerResponse.user.displayName,
+            });
+            if (response.error) {
+                notifyError(response.error);
+                return response;
+            }
+            return response;
+        } catch (err) {
+            console.log(err);
         }
-    }
+    };
+
+    // const signinWithFacebook = async (auth, provider) => {
+    //     try {
+    //         const providerResponse = await userService.signinWithFacebook(auth, provider);
+    //         console.log(providerResponse);
+    //         // const response = await userService.loginViaSocialAccount(providerResponse.user.accessToken, 'facebook');
+    //         // console.log(response);
+    //         // return response;
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
 
     const resetPassword = async (email) => {
         try {
@@ -116,12 +143,14 @@ function AuthProvider({ children }) {
     const value = {
         signup,
         signin,
+        signinWithGoogle,
         resetPassword,
         signout,
         isLoading,
         isToken,
         currentUser,
         getCurrentUser,
+        currentProviderUser,
     };
 
     return (

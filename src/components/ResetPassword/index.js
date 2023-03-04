@@ -41,6 +41,7 @@ function ResetPassword() {
                     <Button
                         className={cx('submit-btn')}
                         primary
+                        borderBold
                         disabled={auth.isLoading}
                         type="submit"
                         onClick={handleSendPasswordReset}

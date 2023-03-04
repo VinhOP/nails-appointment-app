@@ -76,6 +76,7 @@ function Signin() {
                         <Button
                             className={cx('submit-btn')}
                             primary
+                            borderBold
                             disabled={auth.isLoading}
                             type="submit"
                             onClick={handleSignIn}
@@ -86,7 +87,7 @@ function Signin() {
                     <div className={cx('actions')}>
                         <div className={cx('action-item')}>
                             <input id="save-info" className={cx('checkbox')} type="checkbox" />
-                            <label for="save-info">Lưu thông tin đăng nhập</label>
+                            <label htmlFor="save-info">Lưu thông tin đăng nhập</label>
                         </div>
                         <div className={cx('action-item')}>
                             <Link to="/reset-password" className={cx('reset-password-btn')}>

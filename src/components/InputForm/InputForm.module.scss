@@ -1,4 +1,5 @@
 .wrapper {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -6,18 +7,18 @@
 .title {
     display: inline-block;
     font-weight: 600;
-    margin-bottom: 8px;
 }
 
 .input-container {
+    width: 100%;
     display: flex;
     align-items: center;
-
     color: rgba(0, 0, 0, 0.87);
     border: 1px solid transparent;
     border-color: rgb(221, 217, 217);
     border-radius: 5px;
     max-height: 40px;
+    // background-color: red;
 
     &:focus-within {
         outline: none;
@@ -25,6 +26,37 @@
     }
 }
 
-.title {
+.title,
+.readonly-value {
     text-align: left;
+}
+
+.read-only {
+    // border: none;
+    // outline: none;
+
+    &:hover > input {
+        cursor: default;
+    }
+}
+
+.text-area {
+    width: 100%;
+    height: 120px;
+    max-height: none;
+    align-items: flex-start;
+}
+
+.button-style {
+    input {
+        cursor: default;
+    }
+}
+
+.right-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

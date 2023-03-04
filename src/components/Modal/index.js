@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import { useSidebar } from '../../Contexts/SidebarContext';
 import Navbar from '../Navbar';
 import styles from './Modal.module.scss';
+import ServiceModal from './ServiceModal';
 
 const cx = classNames.bind(styles);
 
@@ -36,7 +37,9 @@ function Modal({ modal, setModal }) {
                 rightIcons={rightIcons}
             />
             <div className={cx('main-content')}>
-                <div className={cx('modal')}>Modal</div>
+                <div className={cx('modal')}>
+                    <ServiceModal />
+                </div>
             </div>
         </div>
     );

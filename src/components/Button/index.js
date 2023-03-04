@@ -14,6 +14,7 @@ function Button({
     rightIcon = false,
     primary = false,
     disabled = false,
+    borderBold = false,
     onClick,
 }) {
     let Comp = 'button';
@@ -29,6 +30,7 @@ function Button({
     const classes = cx('wrapper', {
         primary,
         disabled,
+        'border-bold': borderBold,
         [className]: className,
     });
 

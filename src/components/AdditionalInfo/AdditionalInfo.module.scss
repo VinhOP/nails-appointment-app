@@ -1,0 +1,23 @@
+.wrapper {
+    width: 450px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 24px;
+}
+
+.title {
+    font-size: 2.8rem;
+    line-height: 34px;
+    margin-bottom: 32px;
+    color: #2c2c2c;
+}
+
+.input-form {
+    padding: 8px;
+}
+
+.submit-btn {
+    margin-top: 24px;
+}

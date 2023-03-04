@@ -3,30 +3,39 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Button from '../Button';
 import styles from './LoginMethods.module.scss';
-import * as userService from '../../services/userServices';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { provider } from '../../firebase/auth_google_provider_create';
-import { auth } from '../../firebase/firebaseConfig';
+import { provider as ggProvider } from '../../firebase/auth_google_provider_create';
+import { provider as fbProvider } from '../../firebase/auth_facebook_provider_create';
+import { auth as firebaseAuth } from '../../firebase/firebaseConfig';
+import { useAuth } from '../../Contexts/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function LoginMethods() {
+    const auth = useAuth();
+    const navigate = useNavigate();
+
     const loginMethods = [
         {
             name: 'Facebook',
             icon: <FontAwesomeIcon icon={faFacebook} className={cx('fb-style')} />,
             color: 'blue',
             style: 'fb-style',
-            onClick: () => {
-                userService.signinWithGoogle(auth, provider);
-            },
+            onClick: () => {},
         },
         {
             name: 'Google',
             icon: <FontAwesomeIcon icon={faGoogle} className={cx('gg-style')} />,
             color: 'red',
             style: 'gg-style',
-            onClick: () => {},
+            onClick: async () => {
+                const response = await auth.signinWithGoogle(firebaseAuth, ggProvider);
+                response.error &&
+                    setTimeout(() => {
+                        navigate('/additional-info');
+                    }, 2000);
+            },
         },
     ];
     return (

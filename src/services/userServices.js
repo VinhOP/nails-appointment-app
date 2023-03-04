@@ -32,9 +32,34 @@ export const signin = async ({ email, password }) => {
 export const signinWithGoogle = async (auth, provider) => {
     try {
         const user = await signInWithPopup(auth, provider);
-        console.log(user);
+        return user;
+    } catch (err) {
+        // console.log(err);
+        return err;
+    }
+};
+
+export const signinWithFacebook = async (auth, provider) => {
+    try {
+        const user = await signInWithPopup(auth, provider);
+        return user;
     } catch (err) {
         console.log(err);
+        return err;
+    }
+};
+
+export const loginViaSocialAccount = async ({ access_token, provider, email, first_name }) => {
+    try {
+        const response = await httpsRequest.post('partners/login_via_social_account', {
+            access_token,
+            provider,
+            email,
+            first_name,
+        });
+        return response;
+    } catch (err) {
+        return err.response.data;
     }
 };
 

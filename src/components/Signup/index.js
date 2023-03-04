@@ -10,33 +10,27 @@ import InputForm from '../InputForm';
 import LoginMethods from '../LoginMethods';
 import { useUserInfo } from '../../Contexts/UserInfoContext';
 import { useAuth } from '../../Contexts/AuthContext';
-import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import Spinner from '../Spinner';
 import { ToastContainer } from 'react-toastify';
+import BusinessType from '../BusinessType';
+import PhoneNumber from '../PhoneNumber';
 
 const cx = classNames.bind(styles);
 
 function Signup() {
-    const [isOpen, setIsOpen] = useState(false);
-
     const userInfo = useUserInfo();
     const auth = useAuth();
     const navigate = useNavigate();
 
-    const businessTypeModalRef = useRef();
-
     useEffect(() => {
         return () => {
+            // console.log('unmount');
             userInfo.requiredFields.forEach((field) => {
                 field.setToUndefined();
             });
         };
     }, []);
-
-    const handleSetBusiness = (type) => {
-        userInfo.setBusinessSelected({ ...userInfo.businessSelected, id: type.id, value: type.name });
-    };
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -116,22 +110,7 @@ function Signup() {
                                         <p className={cx('error-notice')}> Vui lòng nhập tên</p>
                                     )}
                                 </div>
-                                <div className={cx('form-item')}>
-                                    <label>Số điện thoại</label>
-                                    <div className={cx('input-container')}>
-                                        <PhoneInput
-                                            id={cx('phone-number')}
-                                            name="phone"
-                                            defaultCountry="US"
-                                            value={userInfo.phone}
-                                            onChange={userInfo.setPhone}
-                                            onBlur={handleOnBlur}
-                                        />
-                                    </div>
-                                    {userInfo.phone?.trim().length < 1 && (
-                                        <p className={cx('error-notice')}> Vui lòng nhập số điện thoại</p>
-                                    )}
-                                </div>
+                                <PhoneNumber onBlur={handleOnBlur} />
                                 <div className={cx('form-item')}>
                                     <InputForm
                                         type="email"
@@ -158,42 +137,14 @@ function Signup() {
                                         <p className={cx('error-notice')}> Vui lòng nhập mật khẩu</p>
                                     )}
                                 </div>
-
-                                <div
-                                    className={cx('business-types-section', 'form-item')}
-                                    onClick={() => setIsOpen(!isOpen)}
-                                    ref={businessTypeModalRef}
-                                >
-                                    <label> Loại hình kinh doanh </label>
-                                    <div className={cx('input-container')}>
-                                        <input type="text" value={userInfo.businessSelected.value} disabled />
-                                        <i className={cx('dropdown-icon')}>
-                                            <FontAwesomeIcon icon={faCaretDown} />
-                                        </i>
-                                    </div>
-                                    <Popper className={cx('business-container', { active: isOpen })}>
-                                        {userInfo.businessTypes?.map((type) => {
-                                            return (
-                                                <input
-                                                    type="button"
-                                                    className={cx('business-type')}
-                                                    onClick={() => handleSetBusiness(type)}
-                                                    value={type.name}
-                                                    key={type.id}
-                                                />
-                                            );
-                                        })}
-                                    </Popper>
-                                    {userInfo.businessSelected.id?.length < 1 && (
-                                        <p className={cx('error-notice')}> Vui lòng chọn hình thức kinh doanh</p>
-                                    )}
-                                </div>
+                                <BusinessType />
                             </div>
                             <div className={cx('submit-btn-container')}>
                                 <Button
                                     type="submit"
                                     className={cx('submit-btn')}
                                     primary
+                                    borderBold
                                     disabled={auth.isLoading}
                                     onClick={handleRegister}
                                 >
