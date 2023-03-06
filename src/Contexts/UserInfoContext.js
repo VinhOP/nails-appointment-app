@@ -15,6 +15,8 @@ function UserInfoProvider({ children }) {
         id: undefined,
         value: '',
     });
+    const [categories, setCategories] = useState([]);
+    const [staffs, setStaffs] = useState();
 
     useEffect(() => {
         getBusinessTypes();
@@ -102,6 +104,10 @@ function UserInfoProvider({ children }) {
         businessTypes,
         setBusinessTypes,
         requiredFields,
+        categories,
+        setCategories,
+        staffs,
+        setStaffs,
     };
     return <UserInfoContext.Provider value={value}>{children}</UserInfoContext.Provider>;
 }

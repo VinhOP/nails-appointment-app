@@ -1,0 +1,33 @@
+.wrapper {
+    margin-top: 24px;
+    position: relative;
+}
+
+.service-types-popper {
+    position: absolute;
+    background-color: #fff;
+    text-align: left;
+    z-index: 2;
+    right: 0;
+    left: 0;
+    overflow-y: auto;
+    overscroll-behavior: none;
+    max-height: 280px;
+    padding: 0;
+}
+
+.service-types-content {
+    margin: 4px 0;
+}
+
+.service-item {
+    padding: 8px 12px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    color: #837d7d;
+
+    &:hover {
+        background-color: #deebff;
+    }
+}

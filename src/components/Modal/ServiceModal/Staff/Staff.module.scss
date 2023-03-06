@@ -1,0 +1,31 @@
+.title {
+    margin-bottom: 10px;
+}
+
+.staff-list {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    justify-items: flex-start;
+}
+
+.staff-item {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+}
+
+.staff-name {
+    width: 100%;
+    font-size: 1.6rem;
+    text-align: left;
+    line-height: 1.5;
+    cursor: pointer;
+    padding-left: 16px;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+}

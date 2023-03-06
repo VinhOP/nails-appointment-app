@@ -12,18 +12,19 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/Button';
 import Spinner from '../../components/Spinner';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useUserInfo } from '../../Contexts/UserInfoContext';
 
 const cx = classNames.bind(styles);
 
 function Services() {
     const [modal, setModal] = useState(false);
-    const [categories, setCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
     const humanizeDuration = require('humanize-duration');
 
     const auth = useAuth();
+    const userInfo = useUserInfo();
 
     useEffect(() => {
         modal ? (document.body.style.overflowY = 'hidden') : (document.body.style.overflowY = 'auto');
@@ -41,7 +42,7 @@ function Services() {
         const res = await businessService.getCategoriesList(page, auth.currentUser.id);
         setPage(res.pagination.next);
         setCount(res.pagination.count);
-        setCategories([...categories, ...res.data]);
+        userInfo.setCategories([...userInfo.categories, ...res.data]);
         setIsLoading(false);
     };
 
@@ -53,7 +54,7 @@ function Services() {
             <div className={cx('content')}>
                 <Header setModal={setModal} />
                 <div className={cx('service-list')}>
-                    {categories.map((item) => {
+                    {userInfo.categories.map((item) => {
                         return (
                             <div key={item.id} className={cx('service-container')}>
                                 <div className={cx('header')}>
@@ -95,7 +96,7 @@ function Services() {
                             </div>
                         );
                     })}
-                    {categories.length > 0 && categories.length < count && (
+                    {userInfo.categories.length > 0 && userInfo.categories.length < count && (
                         <div className={cx('footer')}>
                             <Button className={cx('more-btn')} primary disabled={isLoading} onClick={getCategories}>
                                 {isLoading ? <Spinner /> : 'Xem thêm'}

@@ -9,6 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isToken, setIsToken] = useState(!!sessionStorage.getItem('userToken'));
+    const [accessToken, setAccessToken] = useState();
     const [currentUser, setCurrentUser] = useState();
     const [currentProviderUser, setCurrentProviderUser] = useState();
 
@@ -17,6 +18,7 @@ function AuthProvider({ children }) {
 
     useEffect(() => {
         setIsToken(!!sessionStorage.getItem('userToken'));
+        setAccessToken(sessionStorage.getItem('userToken'));
     }, []);
 
     const getCurrentUser = async () => {
@@ -24,6 +26,7 @@ function AuthProvider({ children }) {
             if (isToken) {
                 const token = sessionStorage.getItem('userToken');
                 const response = await userService.getCurrentUser(token);
+                console.log(response);
                 setCurrentUser(response);
             }
         } catch (error) {
@@ -138,6 +141,7 @@ function AuthProvider({ children }) {
         const response = await userService.signout(token);
         sessionStorage.removeItem('userToken');
         setIsToken(false);
+        setAccessToken();
     };
 
     const value = {
@@ -151,6 +155,8 @@ function AuthProvider({ children }) {
         currentUser,
         getCurrentUser,
         currentProviderUser,
+        accessToken,
+        setAccessToken,
     };
 
     return (
