@@ -16,7 +16,12 @@ function Header({ setModal }) {
     return (
         <div className={cx('header')}>
             <div className={cx('btn-container')}>
-                <Button primary className={cx('add-new-btn')} onClick={() => setIsOpen(!isOpen)}>
+                <Button
+                    primary
+                    className={cx('add-new-btn')}
+                    onClick={() => setIsOpen(!isOpen)}
+                    onBlur={() => setIsOpen(false)}
+                >
                     Thêm mới
                 </Button>
                 <Popper className={cx('dropdown-menu', { active: isOpen })}>

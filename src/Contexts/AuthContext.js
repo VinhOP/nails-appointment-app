@@ -85,7 +85,6 @@ function AuthProvider({ children }) {
         try {
             const providerResponse = await userService.signinWithGoogle(auth, provider);
             setCurrentProviderUser(providerResponse.user);
-            console.log(providerResponse.user);
 
             const response = await userService.loginViaSocialAccount({
                 access_token: providerResponse.user.accessToken,

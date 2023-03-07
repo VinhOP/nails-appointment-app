@@ -16,10 +16,12 @@ function InputForm({
     error,
     onBlur,
     onChange,
+    placeholder,
     fixedValue,
     textArea = false,
     readOnly = false,
     isButton = false,
+    whiteBg = false,
     className,
     ...arg
 }) {
@@ -32,9 +34,8 @@ function InputForm({
         error,
         onBlur,
         onChange,
-        textArea,
+        placeholder,
         readOnly,
-        isButton,
         ...arg,
     };
 
@@ -63,6 +64,7 @@ function InputForm({
                         { error: error },
                         { 'text-area': textArea },
                         { 'button-style': isButton },
+                        { 'white-bg': whiteBg },
                     )}
                 >
                     <Comp {...props} />

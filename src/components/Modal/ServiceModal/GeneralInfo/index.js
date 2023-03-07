@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './GeneralInfo.module.scss';
 import { useEffect, useState } from 'react';
 import ServiceTypes from './ServiceTypes';
+import Popper from '../../../Popper/DropdownPopper';
 const cx = classNames.bind(styles);
 
 function GeneralInfo() {
@@ -19,9 +20,14 @@ function GeneralInfo() {
                 </InputForm>
             </div>
             <div className={cx('info-item')}>
-                <InputForm isButton readOnly placeHolder="mọi người">
+                <InputForm isButton readOnly placeholder="Mọi người">
                     Đối tượng sử dụng
                 </InputForm>
+                <Popper className={cx('target-popper')}>
+                    <div className={cx('target-list')}>
+                        <div className={cx('target-user')}>Mọi người</div>
+                    </div>
+                </Popper>
             </div>
         </div>
     );

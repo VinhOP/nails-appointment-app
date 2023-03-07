@@ -2,8 +2,20 @@
     max-width: 695px;
     height: 100%;
     margin: auto;
+
+    &::after {
+        content: '';
+        display: block;
+        height: 1px;
+    }
 }
 
 .online-booking {
     height: 100%;
+}
+
+.service-presets {
+    padding: 0;
+    margin: 40px 0;
+    border: 1px solid #0000001f;
 }

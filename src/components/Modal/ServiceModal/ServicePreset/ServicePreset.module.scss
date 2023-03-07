@@ -1,0 +1,37 @@
+.wrapper {
+    // border: 1px solid #0000001f;
+    // padding: 0;
+    // margin: 40px 0;
+}
+
+.header {
+    margin-top: 24px;
+
+    .title {
+        margin-bottom: 10px;
+        font-size: 2.4rem;
+        line-height: 1.21;
+    }
+}
+
+.splitter {
+    border: 1px solid #0000001f;
+}
+
+.footer {
+    display: flex;
+    padding: 16px;
+    justify-content: left;
+}
+
+.add-more-btn {
+    border: none;
+    width: fit-content;
+    font-size: 1.6rem;
+    color: #005dff;
+    font-weight: bold;
+}
+
+.close-icon {
+    cursor: pointer;
+}

@@ -14,7 +14,7 @@ function OnlineBooking() {
                     Mở tính năng đặt lịch trực tuyến, chọn nhân viên sẵn sàng cho dịch vụ và thêm một mô tả ngắn gọn.
                 </p>
             </div>
-            <hr className={cx('spliter')}/>
+            <hr className={cx('spliter')} />
             <div className={cx('body')}>
                 <FormControlLabel
                     className={cx('form-item')}

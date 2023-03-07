@@ -22,8 +22,11 @@ function ServiceTypes() {
                 onClick={() => {
                     setOpenDropdown(!openDropdown);
                 }}
+                onBlur={() => {
+                    setOpenDropdown(false);
+                }}
                 readOnly
-                placeHolder="Lựa chọn..."
+                placeholder="Lựa chọn..."
                 isButton
                 value={selectedService}
             >

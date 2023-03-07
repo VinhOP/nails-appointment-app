@@ -31,7 +31,8 @@ function LoginMethods() {
             style: 'gg-style',
             onClick: async () => {
                 const response = await auth.signinWithGoogle(firebaseAuth, ggProvider);
-                response.error &&
+
+                !!response.error &&
                     setTimeout(() => {
                         navigate('/additional-info');
                     }, 2000);

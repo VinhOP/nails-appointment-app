@@ -6,6 +6,7 @@
 
 .title {
     display: inline-block;
+    margin-bottom: 8px;
     font-weight: 600;
 }
 
@@ -18,7 +19,6 @@
     border-color: rgb(221, 217, 217);
     border-radius: 5px;
     max-height: 40px;
-    // background-color: red;
 
     &:focus-within {
         outline: none;
@@ -32,9 +32,6 @@
 }
 
 .read-only {
-    // border: none;
-    // outline: none;
-
     &:hover > input {
         cursor: default;
     }
@@ -59,4 +56,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.white-bg {
+    background-color: #fff;
 }

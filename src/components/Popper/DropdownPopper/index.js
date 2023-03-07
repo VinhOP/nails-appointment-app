@@ -7,7 +7,7 @@ function Popper({ className, children }) {
     const classes = cx('wrapper', {
         [className]: className,
     });
-    
+
     return <div className={classes}>{children}</div>;
 }
 

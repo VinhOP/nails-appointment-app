@@ -15,12 +15,15 @@ function Button({
     primary = false,
     disabled = false,
     borderBold = false,
+    pointer = false,
     onClick,
+    onBlur,
 }) {
     let Comp = 'button';
 
     const props = {
         onClick,
+        onBlur,
     };
 
     if (to) {
@@ -36,9 +39,9 @@ function Button({
 
     return (
         <Comp className={classes} {...props}>
-            {leftIcon && <span className={cx('left-icon')}>{leftIcon}</span>}
+            {leftIcon && <span className={cx('left-icon', { pointer: pointer })}>{leftIcon}</span>}
             {children}
-            {rightIcon && <span className={cx('right-icon')}>{rightIcon}</span>}
+            {rightIcon && <span className={cx('right-icon', { pointer: pointer })}>{rightIcon}</span>}
         </Comp>
     );
 }

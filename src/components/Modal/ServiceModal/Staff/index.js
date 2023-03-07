@@ -4,9 +4,7 @@ import Popper from '../../../Popper/DropdownPopper';
 import styles from './Staff.module.scss';
 import * as staffService from '../../../../services/staffService';
 import { useAuth } from '../../../../Contexts/AuthContext';
-import { loginViaSocialAccount } from '../../../../services/userServices';
 import { useUserInfo } from '../../../../Contexts/UserInfoContext';
-import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 const cx = classNames.bind(styles);
 
 function Staff() {
@@ -27,10 +25,10 @@ function Staff() {
             <div className={cx('staff-list')}>
                 {userInfo.staffs?.map((staff) => {
                     return (
-                        <div className={cx('staff-item')}>
+                        <div key={staff.id} className={cx('staff-item')}>
                             <input className={cx('checkbox')} type="checkbox" id={staff.id} />
                             <label htmlFor={staff.id} className={cx('staff-name')}>
-                                {staff.first_name}
+                                {`${staff.first_name} ${staff.last_name}`}
                             </label>
                         </div>
                     );
