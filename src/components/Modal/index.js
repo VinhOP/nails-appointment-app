@@ -21,8 +21,9 @@ function Modal({ modal, setModal }) {
 
     const rightIcons = [
         {
-            icon: 'Save',
+            name: 'Save',
             buttonStyle: true,
+            onClick: () => {},
         },
     ];
 

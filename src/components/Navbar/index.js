@@ -57,7 +57,7 @@ function Navbar({
                                     onClick={button.onClick}
                                     className={cx('icon', { button: button.buttonStyle })}
                                 >
-                                    {button.icon}
+                                    {button.name}
                                 </Button>
                             );
                         })}

@@ -4,6 +4,10 @@ import styles from './GeneralInfo.module.scss';
 import { useEffect, useState } from 'react';
 import ServiceTypes from './ServiceTypes';
 import Popper from '../../../Popper/DropdownPopper';
+import TargetUsers from './TargetUsers';
+import { useServiceInfo } from '../../../../Contexts/ServiceInfoContext';
+import ServiceName from './ServiceName';
+import ServiceDescription from './ServiceDescription';
 const cx = classNames.bind(styles);
 
 function GeneralInfo() {
@@ -11,23 +15,16 @@ function GeneralInfo() {
         <div className={cx('wrapper')}>
             <h1 className={cx('title')}>Thông tin cơ bản</h1>
             <div className={cx('info-item')}>
-                <InputForm type="text">Tên dịch vụ</InputForm>
-            </div>
-            <ServiceTypes />
-            <div className={cx('info-item')}>
-                <InputForm textArea type="text-area">
-                    Mô tả dịch vụ
-                </InputForm>
+                <ServiceName />
             </div>
             <div className={cx('info-item')}>
-                <InputForm isButton readOnly placeholder="Mọi người">
-                    Đối tượng sử dụng
-                </InputForm>
-                <Popper className={cx('target-popper')}>
-                    <div className={cx('target-list')}>
-                        <div className={cx('target-user')}>Mọi người</div>
-                    </div>
-                </Popper>
+                <ServiceTypes />
+            </div>
+            <div className={cx('info-item')}>
+                <ServiceDescription />
+            </div>
+            <div className={cx('info-item')}>
+                <TargetUsers />
             </div>
         </div>
     );

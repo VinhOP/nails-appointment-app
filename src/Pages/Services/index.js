@@ -32,6 +32,8 @@ function Services() {
 
     useEffect(() => {
         getCategories();
+
+        return () => userInfo.setCategories([]);
     }, [auth.currentUser]);
 
     const getCategories = async () => {

@@ -25,7 +25,7 @@ function Header({ setModal }) {
                     Thêm mới
                 </Button>
                 <Popper className={cx('dropdown-menu', { active: isOpen })}>
-                    <Button className={cx('dropdown-item')} onClick={handleClick}>
+                    <Button className={cx('dropdown-item')} onMouseDown={handleClick}>
                         Thêm mới dịch vụ
                     </Button>
                     <Button className={cx('dropdown-item')}>Thêm mới loại dịch vụ</Button>

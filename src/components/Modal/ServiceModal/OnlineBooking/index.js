@@ -1,11 +1,25 @@
 import { FormControlLabel, Switch, Typography } from '@mui/material';
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useServiceInfo } from '../../../../Contexts/ServiceInfoContext';
 import Popper from '../../../Popper/DropdownPopper';
 import styles from './OnlineBooking.module.scss';
 
 const cx = classNames.bind(styles);
 
 function OnlineBooking() {
+    const [isChecked, setIsChecked] = useState(false);
+    const serviceInfo = useServiceInfo();
+
+    const handleChecked = () => {
+        setIsChecked(!isChecked);
+    };
+
+    useEffect(() => {
+        serviceInfo.handleSetServiceFields('enabled_online_booking', isChecked);
+    }, [isChecked]);
+
     return (
         <Popper className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -18,7 +32,7 @@ function OnlineBooking() {
             <div className={cx('body')}>
                 <FormControlLabel
                     className={cx('form-item')}
-                    control={<Switch />}
+                    control={<Switch checked={isChecked} onClick={handleChecked} />}
                     label={<Typography fontSize={'2.2rem'}>Mở đặt lịch trực tuyến</Typography>}
                 />
             </div>

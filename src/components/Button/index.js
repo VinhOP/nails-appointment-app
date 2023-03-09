@@ -18,12 +18,14 @@ function Button({
     pointer = false,
     onClick,
     onBlur,
+    onMouseDown,
 }) {
     let Comp = 'button';
 
     const props = {
         onClick,
         onBlur,
+        onMouseDown,
     };
 
     if (to) {

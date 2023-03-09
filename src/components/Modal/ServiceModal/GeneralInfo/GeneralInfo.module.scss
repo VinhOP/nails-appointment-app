@@ -13,32 +13,3 @@
     margin-top: 24px;
     position: relative;
 }
-
-.target-popper {
-    position: absolute;
-    background-color: #fff;
-    text-align: left;
-    z-index: 2;
-    right: 0;
-    left: 0;
-    overflow-y: auto;
-    overscroll-behavior: none;
-    max-height: 280px;
-    padding: 0;
-}
-
-.target-list {
-    margin: 4px 0;
-}
-
-.target-user {
-    padding: 8px 12px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    color: #837d7d;
-
-    &:hover {
-        background-color: #deebff;
-    }
-}

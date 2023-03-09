@@ -4,31 +4,38 @@ import classNames from 'classnames/bind';
 import styles from './ServiceTypes.module.scss';
 import { useUserInfo } from '../../../../../Contexts/UserInfoContext';
 import { useState } from 'react';
+import { useServiceInfo } from '../../../../../Contexts/ServiceInfoContext';
+import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 function ServiceTypes() {
-    const userInfo = useUserInfo();
     const [openDropdown, setOpenDropdown] = useState(false);
-    const [selectedService, setSelectedService] = useState();
+    const [selectedServiceId, setSelectedServiceId] = useState();
+    const [selectedServiceName, setSelectedServiceName] = useState('');
 
-    const handleSelectService = (e) => {
+    const userInfo = useUserInfo();
+    const serviceInfo = useServiceInfo();
+
+    const handleSelectService = (type) => {
+        setSelectedServiceId(type.id);
+        setSelectedServiceName(type.name);
         setOpenDropdown(false);
-        setSelectedService(e.target.innerText);
     };
 
+    useEffect(() => {
+        serviceInfo.handleSetServiceFields('category_id', selectedServiceId);
+    }, [selectedServiceId]);
+
     return (
-        <div className={cx('wrapper')}>
+        <>
             <InputForm
                 onClick={() => {
                     setOpenDropdown(!openDropdown);
                 }}
-                onBlur={() => {
-                    setOpenDropdown(false);
-                }}
                 readOnly
                 placeholder="Lựa chọn..."
                 isButton
-                value={selectedService}
+                value={selectedServiceName}
             >
                 Loại dịch vụ
             </InputForm>
@@ -37,7 +44,11 @@ function ServiceTypes() {
                     <div className={cx('service-types-content')}>
                         {userInfo.categories?.map((type) => {
                             return (
-                                <div onClick={handleSelectService} className={cx('service-item')} key={type.id}>
+                                <div
+                                    onClick={() => handleSelectService(type)}
+                                    className={cx('service-item')}
+                                    key={type.id}
+                                >
                                     {type.name}
                                 </div>
                             );
@@ -45,7 +56,7 @@ function ServiceTypes() {
                     </div>
                 </Popper>
             )}
-        </div>
+        </>
     );
 }
 
