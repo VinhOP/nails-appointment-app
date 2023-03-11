@@ -17,3 +17,25 @@ export const getCategoriesList = async (page = 1, id, getAll = false) => {
         console.log(err);
     }
 };
+
+export const saveService = async ({ token, name, category_id, service_pricing_rules_attributes, partner_id }) => {
+    try {
+        const response = await httpsRequest.post(
+            `services`,
+            {
+                name,
+                category_id,
+                service_pricing_rules_attributes,
+                services_staffs_attributes: partner_id,
+            },
+            {
+                headers: {
+                    Authorization: token,
+                },
+            },
+        );
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+};

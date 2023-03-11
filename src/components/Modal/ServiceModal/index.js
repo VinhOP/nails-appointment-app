@@ -9,7 +9,6 @@ import Staff from './Staff';
 const cx = classNames.bind(styles);
 
 function ServiceModal() {
-    console.log('rerender');
     return (
         <div className={cx('wrapper')}>
             <GeneralInfo />

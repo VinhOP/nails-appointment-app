@@ -13,12 +13,14 @@ function Staff() {
     const userInfo = useUserInfo();
     const serviceInfo = useServiceInfo();
 
-    const handleOnChange = (e, staff) => {
-        console.log(staff);
+    const handleOnChange = (e, selectedStaff) => {
+
         if (e.target.checked) {
-            serviceInfo.handleSetServiceFields('staffs', [...serviceInfo.serviceFields.staffs, staff]);
+            serviceInfo.handleSetServiceFields('staffs', [...serviceInfo.serviceFields.staffs, selectedStaff]);
             return;
         }
+        const newStaffs = serviceInfo.serviceFields.staffs.filter((staff) => staff.id !== selectedStaff.id);
+        serviceInfo.handleSetServiceFields('staffs', [...newStaffs]);
     };
 
     useEffect(() => {
@@ -35,7 +37,6 @@ function Staff() {
             <h1 className={cx('title')}> Nhân Viên </h1>
             <div className={cx('staff-list')}>
                 {userInfo.staffs?.map((staff) => {
-                    // console.log(staff);
                     return (
                         <div key={staff.id} className={cx('staff-item')}>
                             <input

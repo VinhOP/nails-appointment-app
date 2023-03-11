@@ -71,6 +71,7 @@ function AuthProvider({ children }) {
             }
             notifySuccess('Đăng nhập thành công');
             sessionStorage.setItem('userToken', response.access_token);
+            setAccessToken(sessionStorage.getItem('userToken'));
             setIsLoading(false);
             setTimeout(() => {
                 setIsToken(true);

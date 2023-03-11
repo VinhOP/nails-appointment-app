@@ -1,6 +1,7 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
 import { useSidebar } from '../../Contexts/SidebarContext';
 import Navbar from '../Navbar';
 import styles from './Modal.module.scss';
@@ -10,6 +11,7 @@ const cx = classNames.bind(styles);
 
 function Modal({ modal, setModal }) {
     const sidebar = useSidebar();
+    const serviceInfo = useServiceInfo();
     const leftButtons = [
         {
             icon: <FontAwesomeIcon icon={faClose} />,
@@ -23,7 +25,9 @@ function Modal({ modal, setModal }) {
         {
             name: 'Save',
             buttonStyle: true,
-            onClick: () => {},
+            onClick: () => {
+                serviceInfo.handleSaveService();
+            },
         },
     ];
 
