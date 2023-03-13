@@ -1,6 +1,7 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { ToastContainer } from 'react-toastify';
 import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
 import { useSidebar } from '../../Contexts/SidebarContext';
 import Navbar from '../Navbar';
@@ -46,6 +47,7 @@ function Modal({ modal, setModal }) {
                     <ServiceModal />
                 </div>
             </div>
+            <ToastContainer hideProgressBar />
         </div>
     );
 }

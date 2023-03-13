@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useContext } from 'react';
 import { createContext } from 'react';
+import { toast } from 'react-toastify';
 import * as businessService from '../services/businessService';
+import { useAuth } from './AuthContext';
 const ServiceInfoContext = createContext();
 
 export const useServiceInfo = () => useContext(ServiceInfoContext);
@@ -16,7 +18,7 @@ function ServiceInfoProvider({ children }) {
         service_pricing_rules: [
             {
                 name: '',
-                duration: 15,
+                duration: 1800000,
                 price: '0',
                 price_type: 'fixed',
                 special_price: '0',
@@ -24,9 +26,38 @@ function ServiceInfoProvider({ children }) {
         ],
         staffs: [],
     });
+    const [categoriesList, setCategoriesList] = useState([]);
+    const [isLoading, setIsLoading] = useState();
+
+    const auth = useAuth();
+
+    const notifySuccess = (message) => toast.success(message);
     const token = sessionStorage.getItem('userToken');
 
-    // console.log(serviceFields);
+    const getCategories = async (page) => {
+        try {
+            setIsLoading(true);
+            if (!auth.currentUser) {
+                return;
+            }
+            const res = await businessService.getCategoriesList(page, auth.currentUser.id);
+
+            setIsLoading(false);
+            return res;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const deleteCategory = async (id, index) => {
+        try {
+            const res = await businessService.deleteCategory(id, token);
+            setCategoriesList(categoriesList.filter((category, i) => i !== index));
+            notifySuccess(res.message);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const handleSetServiceFields = (key, value) => {
         setServiceFields({ ...serviceFields, [key]: value });
@@ -69,10 +100,13 @@ function ServiceInfoProvider({ children }) {
                 token: token,
                 name: serviceFields.name,
                 category_id: serviceFields.category_id,
-                service_pricing_rules_attributes: serviceFields.service_pricing_rules,
+                service_pricing_rules_attributes: serviceFields.service_pricing_rules.map((rules) => {
+                    return { ...rules, duration: rules.duration / 60000 };
+                }),
                 partner_id: serviceFields.staffs.map((staff) => staff.id),
             });
             console.log(response);
+            notifySuccess(response.message);
         } catch (err) {
             console.log(err);
         }
@@ -86,6 +120,12 @@ function ServiceInfoProvider({ children }) {
         handleAddPricingRules,
         handleDeletePricingRules,
         handleSaveService,
+        getCategories,
+        setCategoriesList,
+        deleteCategory,
+        categoriesList,
+        isLoading,
+        setIsLoading,
     };
     return <ServiceInfoContext.Provider value={value}>{children}</ServiceInfoContext.Provider>;
 }

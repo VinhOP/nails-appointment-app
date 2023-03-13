@@ -15,7 +15,6 @@ function UserInfoProvider({ children }) {
         id: undefined,
         value: '',
     });
-    const [categories, setCategories] = useState([]);
     const [staffs, setStaffs] = useState();
 
     useEffect(() => {
@@ -104,8 +103,6 @@ function UserInfoProvider({ children }) {
         businessTypes,
         setBusinessTypes,
         requiredFields,
-        categories,
-        setCategories,
         staffs,
         setStaffs,
     };

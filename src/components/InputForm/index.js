@@ -1,6 +1,8 @@
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useRef } from 'react';
 import Button from '../Button';
 import styles from './InputForm.module.scss';
@@ -14,6 +16,7 @@ function InputForm({
     name,
     value,
     error,
+    errorText,
     onBlur,
     onChange,
     placeholder,
@@ -26,6 +29,12 @@ function InputForm({
     ...arg
 }) {
     const inputContainerRef = useRef();
+    const [errorNotice, setErrorNotice] = useState('');
+
+    useEffect(() => {
+        setErrorNotice(errorText);
+    }, [errorText]);
+
     const props = {
         type,
         id,
@@ -75,6 +84,7 @@ function InputForm({
                     )}
                 </div>
             )}
+            {errorNotice && <div className={cx('error')}>{errorNotice}</div>}
         </div>
     );
 }

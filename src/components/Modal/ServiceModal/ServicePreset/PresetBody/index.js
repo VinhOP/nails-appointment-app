@@ -13,7 +13,6 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
     const [workTimePopper, setWorkTimePopper] = useState(false);
     const [priceTypePopper, setPriceTypePopper] = useState(false);
     const [duration, setDuration] = useState([]);
-    // const [selectedPriceType, setSelectedPriceType] = useState();
 
     const priceTypes = [
         {

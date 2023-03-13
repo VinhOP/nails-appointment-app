@@ -18,6 +18,19 @@ export const getCategoriesList = async (page = 1, id, getAll = false) => {
     }
 };
 
+export const deleteCategory = async (id, token) => {
+    try {
+        const res = await httpsRequest.del(`categories/${id}`, {
+            headers: {
+                Authorization: token,
+            },
+        });
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 export const saveService = async ({ token, name, category_id, service_pricing_rules_attributes, partner_id }) => {
     try {
         const response = await httpsRequest.post(

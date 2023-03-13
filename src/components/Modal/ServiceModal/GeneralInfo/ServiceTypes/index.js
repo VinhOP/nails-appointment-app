@@ -12,14 +12,18 @@ function ServiceTypes() {
     const [openDropdown, setOpenDropdown] = useState(false);
     const [selectedServiceId, setSelectedServiceId] = useState();
     const [selectedServiceName, setSelectedServiceName] = useState('');
-
-    const userInfo = useUserInfo();
+    const [error, setError] = useState('');
     const serviceInfo = useServiceInfo();
 
     const handleSelectService = (type) => {
         setSelectedServiceId(type.id);
         setSelectedServiceName(type.name);
+        setError('');
         setOpenDropdown(false);
+    };
+
+    const handleOnBlur = () => {
+        serviceInfo.serviceFields?.category_id.length < 1 ? setError('Vui lòng chọn loại dịch vụ') : setError('');
     };
 
     useEffect(() => {
@@ -36,13 +40,15 @@ function ServiceTypes() {
                 placeholder="Lựa chọn..."
                 isButton
                 value={selectedServiceName}
+                errorText={error}
+                onBlur={handleOnBlur}
             >
                 Loại dịch vụ
             </InputForm>
             {openDropdown && (
                 <Popper className={cx('service-types-popper')}>
                     <div className={cx('service-types-content')}>
-                        {userInfo.categories?.map((type) => {
+                        {serviceInfo.categoriesList?.map((type) => {
                             return (
                                 <div
                                     onClick={() => handleSelectService(type)}
