@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 import Button from '../../../components/Button';
 import InputForm from '../../../components/InputForm';
 import { useServiceInfo } from '../../../Contexts/ServiceInfoContext';
-import styles from './AddServiceTypeModal.module.scss';
+import styles from './ServiceTypeModal.module.scss';
 const cx = classNames.bind(styles);
 
-function AddServiceTypeModal({ serviceTypeModal, setServiceTypeModal }) {
-    const [serviceName, setServiceName] = useState();
-    const [serviceDesciption, setServiceDescription] = useState();
+function ServiceTypeModal({ title, category = false, index, setServiceTypeModal, type }) {
+    const [serviceName, setServiceName] = useState(category.name || '');
+    const [serviceDesciption, setServiceDescription] = useState(category.description || '');
 
     const serviceInfo = useServiceInfo();
 
@@ -21,7 +21,16 @@ function AddServiceTypeModal({ serviceTypeModal, setServiceTypeModal }) {
 
     const handleSave = async (e) => {
         e.preventDefault();
-        await serviceInfo.addCategory(serviceName, serviceDesciption);
+        switch (type) {
+            case 'add':
+                await serviceInfo.addCategory(serviceName, serviceDesciption);
+                break;
+            case 'edit':
+                await serviceInfo.editCategory(category.id, serviceName, serviceDesciption, index);
+                break;
+            default:
+                break;
+        }
         setServiceTypeModal(false);
     };
 
@@ -35,7 +44,7 @@ function AddServiceTypeModal({ serviceTypeModal, setServiceTypeModal }) {
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className={cx('header')}>
-                    <h1 className={cx('title')}> Thêm mới loại dịch vụ </h1>
+                    <h1 className={cx('title')}> {title} </h1>
                     <span className={cx('close-btn')} onClick={handleClose}>
                         <FontAwesomeIcon icon={faClose} />
                     </span>
@@ -43,10 +52,15 @@ function AddServiceTypeModal({ serviceTypeModal, setServiceTypeModal }) {
                 <hr />
                 <div className={cx('body')}>
                     <div className={cx('input-container')}>
-                        <InputForm className={cx('input-item')} onChange={(e) => setServiceName(e.target.value)}>
+                        <InputForm
+                            value={serviceName}
+                            className={cx('input-item')}
+                            onChange={(e) => setServiceName(e.target.value)}
+                        >
                             TÊN LOẠI DỊCH VỤ
                         </InputForm>
                         <InputForm
+                            value={serviceDesciption}
                             className={cx('input-item')}
                             textArea
                             onChange={(e) => setServiceDescription(e.target.value)}
@@ -62,9 +76,8 @@ function AddServiceTypeModal({ serviceTypeModal, setServiceTypeModal }) {
                     </Button>
                 </div>
             </div>
-            <div></div>
         </div>
     );
 }
 
-export default AddServiceTypeModal;
+export default ServiceTypeModal;

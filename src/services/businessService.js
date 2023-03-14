@@ -52,6 +52,26 @@ export const deleteCategory = async (id, token) => {
     }
 };
 
+export const editCategory = async (id, name, description, token) => {
+    try {
+        const res = await httpsRequest.put(
+            `categories/${id}`,
+            {
+                name,
+                description,
+            },
+            {
+                headers: {
+                    Authorization: token,
+                },
+            },
+        );
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 export const saveService = async ({ token, name, category_id, service_pricing_rules_attributes, partner_id }) => {
     try {
         const response = await httpsRequest.post(

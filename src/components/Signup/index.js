@@ -25,7 +25,6 @@ function Signup() {
 
     useEffect(() => {
         return () => {
-            // console.log('unmount');
             userInfo.requiredFields.forEach((field) => {
                 field.setToUndefined();
             });

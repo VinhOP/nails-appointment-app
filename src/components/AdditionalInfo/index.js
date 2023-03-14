@@ -17,7 +17,6 @@ function AdditionalInfo() {
 
     const handleSignUp = (e) => {
         e.preventDefault();
-        console.log(userInfo.email);
         auth.signup({ email: userInfo.email, business_type_id: userInfo.businessSelected.id, phone: userInfo.phone });
     };
 

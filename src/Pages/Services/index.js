@@ -20,7 +20,6 @@ function Services() {
     const [modal, setModal] = useState(false);
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
-    console.log('run');
 
     const humanizeDuration = require('humanize-duration');
 

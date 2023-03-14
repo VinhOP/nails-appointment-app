@@ -11,13 +11,17 @@ export const get = async (path, headers = {}, option = {}) => {
 
 export const post = async (path, body = {}, headers = {}, option = {}) => {
     const respone = await request.post(path, body, headers, option);
-    console.log(respone);
     return respone.data;
 };
 
 export const del = async (path, headers = {}) => {
     const respone = await request.delete(path, headers);
     return respone.data;
+};
+
+export const put = async (path, body = {}, headers = {}) => {
+    const response = await request.put(path, body, headers);
+    return response.data;
 };
 
 export default request;

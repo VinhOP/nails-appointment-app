@@ -3,13 +3,13 @@ import Popper from '../../../components/Popper/DropdownPopper';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { useState } from 'react';
-import AddServiceTypeModal from '../AddServiceTypeModal';
+import ServiceTypeModal from '../ServiceTypeModal';
 
 const cx = classNames.bind(styles);
 
 function Header({ setModal }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [serviceTypeModal, setServiceTypeModal] = useState(false);
+    const [addServiceTypeModal, setAddServiceTypeModal] = useState(false);
 
     const handleClick = () => {
         setIsOpen(false);
@@ -17,7 +17,7 @@ function Header({ setModal }) {
     };
 
     const handleOpenServiceType = () => {
-        setServiceTypeModal(true);
+        setAddServiceTypeModal(true);
     };
 
     return (
@@ -32,7 +32,7 @@ function Header({ setModal }) {
                     Thêm mới
                 </Button>
                 <Popper className={cx('dropdown-menu', { active: isOpen })}>
-                    <Button className={cx('dropdown-item')} onMouseDown={handleClick}>
+                    <Button className={cx('dropdown-item')} onClick={handleClick}>
                         Thêm mới dịch vụ
                     </Button>
                     <Button className={cx('dropdown-item')} onClick={handleOpenServiceType}>
@@ -40,8 +40,13 @@ function Header({ setModal }) {
                     </Button>
                 </Popper>
             </div>
-            {serviceTypeModal && (
-                <AddServiceTypeModal serviceTypeModal={serviceTypeModal} setServiceTypeModal={setServiceTypeModal} />
+            {addServiceTypeModal && (
+                <ServiceTypeModal
+                    type={'add'}
+                    title={'Thêm mới loại dịch vụ'}
+                    serviceTypeModal={addServiceTypeModal}
+                    setServiceTypeModal={setAddServiceTypeModal}
+                />
             )}
         </div>
     );

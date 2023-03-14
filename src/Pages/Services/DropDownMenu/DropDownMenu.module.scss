@@ -1,16 +1,35 @@
-.dropdown-container {
-    z-index: 999;
-    position: absolute;
-    width: 191px;
-    transform: translate(-50%, -50%);
-    top: 80px;
+.wrapper {
+    position: relative;
+    min-width: 191px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1.8rem;
+    border-radius: 50%;
+    z-index: 1;
+
+    &:hover {
+        background-color: #ccc;
+    }
 }
 
 .dropdown-menu {
+    position: absolute;
     padding: 0;
     opacity: 0;
+    top: 50px;
+    right: -70px;
     visibility: hidden;
     transition: opacity 0.15s linear, visibility 0.15s linear;
+    z-index: 1400;
 }
 
 .active {
