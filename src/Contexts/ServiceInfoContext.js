@@ -28,6 +28,7 @@ function ServiceInfoProvider({ children }) {
     });
     const [categoriesList, setCategoriesList] = useState([]);
     const [isLoading, setIsLoading] = useState();
+    console.log(categoriesList);
 
     const auth = useAuth();
 
@@ -53,6 +54,16 @@ function ServiceInfoProvider({ children }) {
         try {
             const res = await businessService.deleteCategory(id, token);
             setCategoriesList(categoriesList.filter((category, i) => i !== index));
+            notifySuccess(res.message);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const addCategory = async (name, description) => {
+        try {
+            const res = await businessService.addCategory(name, description, token);
+            setCategoriesList([res.object, ...categoriesList]);
             notifySuccess(res.message);
         } catch (err) {
             console.log(err);
@@ -123,6 +134,7 @@ function ServiceInfoProvider({ children }) {
         getCategories,
         setCategoriesList,
         deleteCategory,
+        addCategory,
         categoriesList,
         isLoading,
         setIsLoading,

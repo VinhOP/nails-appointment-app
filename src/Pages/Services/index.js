@@ -10,7 +10,6 @@ import { useAuth } from '../../Contexts/AuthContext';
 import Button from '../../components/Button';
 import Spinner from '../../components/Spinner';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useUserInfo } from '../../Contexts/UserInfoContext';
 import DropDownMenu from './DropDownMenu';
 import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
 import { ToastContainer } from 'react-toastify';
@@ -21,6 +20,7 @@ function Services() {
     const [modal, setModal] = useState(false);
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
+    console.log('run');
 
     const humanizeDuration = require('humanize-duration');
 

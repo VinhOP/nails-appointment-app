@@ -40,7 +40,9 @@ function Header({ setModal }) {
                     </Button>
                 </Popper>
             </div>
-            <AddServiceTypeModal />
+            {serviceTypeModal && (
+                <AddServiceTypeModal serviceTypeModal={serviceTypeModal} setServiceTypeModal={setServiceTypeModal} />
+            )}
         </div>
     );
 }
