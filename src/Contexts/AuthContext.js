@@ -26,7 +26,6 @@ function AuthProvider({ children }) {
             if (isToken) {
                 const token = sessionStorage.getItem('userToken');
                 const response = await userService.getCurrentUser(token);
-                console.log(response);
                 setCurrentUser(response);
             }
         } catch (error) {
@@ -137,8 +136,9 @@ function AuthProvider({ children }) {
     };
 
     const signout = async () => {
-        const token = sessionStorage.getItem('user-token');
-        const response = await userService.signout(token);
+        // const token = sessionStorage.getItem('user-token');
+        const response = await userService.signout(accessToken);
+        console.log(response);
         sessionStorage.removeItem('userToken');
         setIsToken(false);
         setAccessToken();

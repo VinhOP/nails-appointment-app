@@ -37,14 +37,14 @@ function Signup() {
             !field.value && field.setToEmpty();
         });
         if (userInfo.requiredFields.every((field) => field.value)) {
-            const signup = await auth.signup(
-                userInfo.email,
-                userInfo.password,
-                userInfo.businessSelected.id,
-                userInfo.firstName,
-                userInfo.lastName,
-                userInfo.phone,
-            );
+            const signup = await auth.signup({
+                email: userInfo.email,
+                password: userInfo.password,
+                business_type_id: userInfo.businessSelected.id,
+                first_name: userInfo.firstName,
+                last_name: userInfo.lastName,
+                phone: userInfo.phone,
+            });
             signup &&
                 setTimeout(() => {
                     navigate('/signin');

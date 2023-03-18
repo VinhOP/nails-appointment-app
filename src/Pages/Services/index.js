@@ -22,7 +22,6 @@ function Services() {
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
     const [isEditModal, setIsEditModal] = useState(false);
-    const [rerender, setRerender] = useState(false);
 
     const serviceInfo = useServiceInfo();
     const auth = useAuth();

@@ -75,12 +75,15 @@ export const resetPassword = async ({ email }) => {
 
 export const signout = async (token) => {
     try {
-        const user = await httpsRequest.del('sign_out', {
+        const user = await httpsRequest.del('partners/sign_out', {
             headers: {
                 Authorization: token,
             },
         });
-    } catch (err) {}
+        return user;
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const getCurrentUser = async (token) => {
