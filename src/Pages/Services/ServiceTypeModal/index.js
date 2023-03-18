@@ -9,9 +9,12 @@ import { useServiceInfo } from '../../../Contexts/ServiceInfoContext';
 import styles from './ServiceTypeModal.module.scss';
 const cx = classNames.bind(styles);
 
+const ERROR_NOTICE = 'Vui lòng nhập tên dịch vụ';
+
 function ServiceTypeModal({ title, category = false, index, setServiceTypeModal, type }) {
     const [serviceName, setServiceName] = useState(category.name || '');
     const [serviceDesciption, setServiceDescription] = useState(category.description || '');
+    const [error, setError] = useState();
 
     const serviceInfo = useServiceInfo();
 
@@ -21,6 +24,10 @@ function ServiceTypeModal({ title, category = false, index, setServiceTypeModal,
 
     const handleSave = async (e) => {
         e.preventDefault();
+        if (!serviceName.trim()) {
+            setError(ERROR_NOTICE);
+            return;
+        }
         switch (type) {
             case 'add':
                 await serviceInfo.addCategory(serviceName, serviceDesciption);
@@ -56,6 +63,7 @@ function ServiceTypeModal({ title, category = false, index, setServiceTypeModal,
                             value={serviceName}
                             className={cx('input-item')}
                             onChange={(e) => setServiceName(e.target.value)}
+                            errorText={error}
                         >
                             TÊN LOẠI DỊCH VỤ
                         </InputForm>

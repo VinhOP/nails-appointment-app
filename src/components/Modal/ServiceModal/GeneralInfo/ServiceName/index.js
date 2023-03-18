@@ -1,28 +1,35 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useServiceInfo } from '../../../../../Contexts/ServiceInfoContext';
 import InputForm from '../../../../InputForm';
 
+const ERROR_VALUE = '*Vui lòng nhập tên';
+
 function ServiceName() {
     const serviceInfo = useServiceInfo();
-    const [error, setError] = useState('');
+    const [error, setError] = useState(false);
 
     const handleSetName = (e) => {
-        e.target.value.length > 0 ? setError('') : setError('Vui lòng nhập tên');
+        e.target.value.length > 0 ? setError(false) : setError(true);
         serviceInfo.handleSetServiceFields('name', e.target.value);
     };
 
-    const handleOnBlur = () => {
-        serviceInfo.serviceFields?.name.length < 1 ? setError('Vui lòng nhập tên') : setError('');
+    const handleError = () => {
+        !serviceInfo.serviceFields.name.trim() && setError(true);
     };
 
+    useEffect(() => {
+        setError(serviceInfo.error);
+    }, [serviceInfo.error]);
     return (
         <>
             <InputForm
                 value={serviceInfo.serviceFields.name}
                 onChange={handleSetName}
                 type="text"
-                errorText={error}
-                onBlur={handleOnBlur}
+                errorText={ERROR_VALUE}
+                errorStatus={error}
+                onBlur={handleError}
             >
                 Tên dịch vụ
             </InputForm>

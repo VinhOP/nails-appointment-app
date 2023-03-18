@@ -72,15 +72,27 @@ export const editCategory = async (id, name, description, token) => {
     }
 };
 
-export const saveService = async ({ token, name, category_id, service_pricing_rules_attributes, partner_id }) => {
+export const saveService = async ({
+    token,
+    name,
+    category_id,
+    description,
+    service_available_for,
+    enabled_online_booking,
+    service_pricing_rules_attributes,
+    services_staffs_attributes,
+}) => {
     try {
         const response = await httpsRequest.post(
             `services`,
             {
                 name,
                 category_id,
+                description,
+                service_available_for,
+                enabled_online_booking,
                 service_pricing_rules_attributes,
-                services_staffs_attributes: partner_id,
+                services_staffs_attributes,
             },
             {
                 headers: {
@@ -89,6 +101,35 @@ export const saveService = async ({ token, name, category_id, service_pricing_ru
             },
         );
         return response;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const editService = async ({
+    token,
+    id,
+    category_id,
+    name,
+    service_pricing_rules_attributes,
+    services_staffs_attributes,
+}) => {
+    try {
+        const res = await httpsRequest.put(
+            `services/${id}`,
+            {
+                category_id,
+                name,
+                service_pricing_rules_attributes,
+                services_staffs_attributes,
+            },
+            {
+                headers: {
+                    Authorization: token,
+                },
+            },
+        );
+        return res;
     } catch (err) {
         console.log(err);
     }

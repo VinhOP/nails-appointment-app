@@ -10,8 +10,10 @@ export const useServiceInfo = () => useContext(ServiceInfoContext);
 
 function ServiceInfoProvider({ children }) {
     const [serviceFields, setServiceFields] = useState({
+        id: '',
         name: '',
         category_id: '',
+        category_name: '',
         description: '',
         service_available_for: '',
         enabled_online_booking: '',
@@ -19,16 +21,17 @@ function ServiceInfoProvider({ children }) {
             {
                 name: '',
                 duration: 1800000,
-                price: '0',
+                price: 0,
                 price_type: 'fixed',
-                special_price: '0',
+                special_price: 0,
             },
         ],
         staffs: [],
     });
+
     const [categoriesList, setCategoriesList] = useState([]);
     const [isLoading, setIsLoading] = useState();
-    console.log(categoriesList);
+    const [error, setError] = useState(false);
 
     const auth = useAuth();
 
@@ -72,7 +75,6 @@ function ServiceInfoProvider({ children }) {
     const editCategory = async (id, name, description, index) => {
         try {
             const res = await businessService.editCategory(id, name, description, token);
-            console.log(res);
             setCategoriesList([
                 ...categoriesList.slice(0, index),
                 { ...categoriesList[index], name: res.object.name, description: res.object.description },
@@ -99,12 +101,26 @@ function ServiceInfoProvider({ children }) {
         });
     };
 
+    const handleSetStaffs = (key, value, index) => {
+        setServiceFields({
+            ...serviceFields,
+            staffs: [
+                // ...serviceFields.staffs.slice(0, index),
+                // { ...serviceFields.staffs[index], [key]: value },
+                // ...serviceFields.staffs.slice(index + 1),
+                ...serviceFields.staffs,
+                { [key]: value },
+            ],
+        });
+    };
+
     const handleAddPricingRules = () => {
         setServiceFields({
             ...serviceFields,
             service_pricing_rules: [
                 ...serviceFields.service_pricing_rules,
                 {
+                    name: '',
                     duration: 1800000,
                     price: '0',
                     price_type: 'fixed',
@@ -125,12 +141,36 @@ function ServiceInfoProvider({ children }) {
                 token: token,
                 name: serviceFields.name,
                 category_id: serviceFields.category_id,
+                description: serviceFields.description,
+                service_available_for: serviceFields.service_available_for,
+                enabled_online_booking: serviceFields.enabled_online_booking,
                 service_pricing_rules_attributes: serviceFields.service_pricing_rules.map((rules) => {
                     return { ...rules, duration: rules.duration / 60000 };
                 }),
-                partner_id: serviceFields.staffs.map((staff) => staff.id),
+                services_staffs_attributes: serviceFields.staffs,
             });
-            console.log(response);
+            const res = await getCategories();
+            setCategoriesList(res.data);
+            notifySuccess(response.message);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleEditService = async () => {
+        try {
+            const response = await businessService.editService({
+                token: token,
+                id: serviceFields.id,
+                name: serviceFields.name,
+                category_id: serviceFields.category_id,
+                service_pricing_rules_attributes: serviceFields.service_pricing_rules.map((rules) => {
+                    return { ...rules, duration: rules.duration / 60000 };
+                }),
+                services_staffs_attributes: serviceFields.staffs,
+            });
+            const res = await getCategories();
+            setCategoriesList(res.data);
             notifySuccess(response.message);
         } catch (err) {
             console.log(err);
@@ -144,7 +184,9 @@ function ServiceInfoProvider({ children }) {
         handleSetPricingRules,
         handleAddPricingRules,
         handleDeletePricingRules,
+        handleSetStaffs,
         handleSaveService,
+        handleEditService,
         getCategories,
         setCategoriesList,
         addCategory,
@@ -153,6 +195,8 @@ function ServiceInfoProvider({ children }) {
         categoriesList,
         isLoading,
         setIsLoading,
+        error,
+        setError,
     };
     return <ServiceInfoContext.Provider value={value}>{children}</ServiceInfoContext.Provider>;
 }

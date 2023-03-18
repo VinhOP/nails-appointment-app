@@ -1,11 +1,7 @@
-import InputForm from '../../../InputForm';
 import classNames from 'classnames/bind';
 import styles from './GeneralInfo.module.scss';
-import { useEffect, useState } from 'react';
 import ServiceTypes from './ServiceTypes';
-import Popper from '../../../Popper/DropdownPopper';
 import TargetUsers from './TargetUsers';
-import { useServiceInfo } from '../../../../Contexts/ServiceInfoContext';
 import ServiceName from './ServiceName';
 import ServiceDescription from './ServiceDescription';
 const cx = classNames.bind(styles);

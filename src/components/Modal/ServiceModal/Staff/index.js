@@ -14,12 +14,11 @@ function Staff() {
     const serviceInfo = useServiceInfo();
 
     const handleOnChange = (e, selectedStaff) => {
-
         if (e.target.checked) {
-            serviceInfo.handleSetServiceFields('staffs', [...serviceInfo.serviceFields.staffs, selectedStaff]);
+            serviceInfo.handleSetStaffs('partner_id', selectedStaff.id);
             return;
         }
-        const newStaffs = serviceInfo.serviceFields.staffs.filter((staff) => staff.id !== selectedStaff.id);
+        const newStaffs = serviceInfo.serviceFields.staffs.filter((staff) => staff.partner_id !== selectedStaff.id);
         serviceInfo.handleSetServiceFields('staffs', [...newStaffs]);
     };
 
@@ -44,6 +43,9 @@ function Staff() {
                                 onChange={(e) => handleOnChange(e, staff)}
                                 type="checkbox"
                                 id={staff.id}
+                                defaultChecked={serviceInfo.serviceFields.staffs
+                                    .map((addedStaff) => addedStaff.partner_id)
+                                    .includes(staff.id)}
                             />
                             <label htmlFor={staff.id} className={cx('staff-name')}>
                                 {`${staff.first_name} ${staff.last_name}`}

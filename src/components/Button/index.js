@@ -26,6 +26,7 @@ function Button({
         onClick,
         onBlur,
         onMouseDown,
+        type,
     };
 
     if (to) {

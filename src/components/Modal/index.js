@@ -1,6 +1,8 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
 import { useSidebar } from '../../Contexts/SidebarContext';
@@ -10,9 +12,31 @@ import ServiceModal from './ServiceModal';
 
 const cx = classNames.bind(styles);
 
-function Modal({ modal, setModal }) {
+function Modal({ modal, setModal, isEdit = false, setIsEdit }) {
     const sidebar = useSidebar();
     const serviceInfo = useServiceInfo();
+
+    const handleSubmit = async () => {
+        if (!serviceInfo.serviceFields.name.trim() || !serviceInfo.serviceFields.category_id) {
+            serviceInfo.setError(true);
+            return;
+        }
+        if (isEdit) {
+            if (
+                serviceInfo.serviceFields.service_pricing_rules.some((rule) => rule.name) &&
+                serviceInfo.serviceFields.staffs.some((staff) => staff.partner_id)
+            ) {
+                await serviceInfo.handleEditService();
+                setModal(false);
+                return;
+            }
+            serviceInfo.setError(true);
+        } else {
+            await serviceInfo.handleSaveService();
+            setModal(false);
+        }
+    };
+
     const leftButtons = [
         {
             icon: <FontAwesomeIcon icon={faClose} />,
@@ -26,11 +50,35 @@ function Modal({ modal, setModal }) {
         {
             name: 'Save',
             buttonStyle: true,
-            onClick: () => {
-                serviceInfo.handleSaveService();
-            },
+            onClick: handleSubmit,
         },
     ];
+
+    useEffect(() => {
+        return () => {
+            serviceInfo.setServiceFields({
+                id: '',
+                name: '',
+                category_id: '',
+                category_name: '',
+                description: '',
+                service_available_for: '',
+                enabled_online_booking: '',
+                service_pricing_rules: [
+                    {
+                        name: '',
+                        duration: 1800000,
+                        price: '0',
+                        price_type: 'fixed',
+                        special_price: '0',
+                    },
+                ],
+                staffs: [],
+            });
+            setIsEdit(false);
+            serviceInfo.setError(false);
+        };
+    }, []);
 
     return (
         <div className={cx('wrapper', { collapseSize: sidebar.isCollapse, activeSize: modal })}>

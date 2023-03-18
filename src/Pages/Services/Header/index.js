@@ -7,16 +7,18 @@ import ServiceTypeModal from '../ServiceTypeModal';
 
 const cx = classNames.bind(styles);
 
-function Header({ setModal }) {
+function Header({ setModal, setIsEditModal }) {
     const [isOpen, setIsOpen] = useState(false);
     const [addServiceTypeModal, setAddServiceTypeModal] = useState(false);
 
     const handleClick = () => {
         setIsOpen(false);
         setModal(true);
+        setIsEditModal(false);
     };
 
     const handleOpenServiceType = () => {
+        setIsOpen(false);
         setAddServiceTypeModal(true);
     };
 
@@ -27,7 +29,7 @@ function Header({ setModal }) {
                     primary
                     className={cx('add-new-btn')}
                     onClick={() => setIsOpen(!isOpen)}
-                    onBlur={() => setIsOpen(false)}
+                    // onBlur={() => setIsOpen(false)}
                 >
                     Thêm mới
                 </Button>

@@ -13,6 +13,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import DropDownMenu from './DropDownMenu';
 import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
 import { ToastContainer } from 'react-toastify';
+import ServicePricingRules from './ServicePricingRules';
 
 const cx = classNames.bind(styles);
 
@@ -20,8 +21,8 @@ function Services() {
     const [modal, setModal] = useState(false);
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
-
-    const humanizeDuration = require('humanize-duration');
+    const [isEditModal, setIsEditModal] = useState(false);
+    const [rerender, setRerender] = useState(false);
 
     const serviceInfo = useServiceInfo();
     const auth = useAuth();
@@ -53,7 +54,7 @@ function Services() {
                 <Navbar title="Dịch vụ" />
             </div>
             <div className={cx('content')}>
-                <Header setModal={setModal} />
+                <Header setModal={setModal} setIsEditModal={setIsEditModal} />
                 <div className={cx('service-list')}>
                     {serviceInfo.categoriesList.map((item, i) => {
                         return (
@@ -70,27 +71,13 @@ function Services() {
                                     {item.services.length < 1 && <div className={cx('service-item')}> Trống </div>}
                                     {item.services.map((service) => {
                                         return (
-                                            <div key={service.id} className={cx('service-item')}>
-                                                <div className={cx('title')}>{service.name}</div>
-                                                <ul className={cx('rules-list')}>
-                                                    {service.service_pricing_rules.map((rule) => {
-                                                        return (
-                                                            <li key={rule.id} className={cx('rule')}>
-                                                                <div className={cx('rule-name')}>{rule.name}</div>
-                                                                <div className={cx('rule-duration')}>
-                                                                    {humanizeDuration(rule.duration * 60 * 1000, {
-                                                                        language: 'vi',
-                                                                    })}
-                                                                </div>
-                                                                <div className={cx('rule-price')}>{rule.price}</div>
-                                                                <div className={cx('rule-special-price')}>
-                                                                    {rule.special_price}$
-                                                                </div>
-                                                            </li>
-                                                        );
-                                                    })}
-                                                </ul>
-                                            </div>
+                                            <ServicePricingRules
+                                                service={service}
+                                                modal={modal}
+                                                setModal={setModal}
+                                                setIsEditModal={setIsEditModal}
+                                                key={service.id}
+                                            />
                                         );
                                     })}
                                 </div>
@@ -111,7 +98,7 @@ function Services() {
                     )}
                 </div>
             </div>
-            <Modal modal={modal} setModal={setModal} />
+            {modal && <Modal modal={modal} setModal={setModal} isEdit={isEditModal} setIsEdit={setIsEditModal} />}
             <ToastContainer hideProgressBar />
         </div>
     );

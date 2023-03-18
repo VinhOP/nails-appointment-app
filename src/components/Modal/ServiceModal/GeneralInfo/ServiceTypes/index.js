@@ -6,29 +6,40 @@ import { useUserInfo } from '../../../../../Contexts/UserInfoContext';
 import { useState } from 'react';
 import { useServiceInfo } from '../../../../../Contexts/ServiceInfoContext';
 import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 const cx = classNames.bind(styles);
 
+const ERROR_VALUE = '*Vui lòng nhập loại dịch vụ';
+
 function ServiceTypes() {
-    const [openDropdown, setOpenDropdown] = useState(false);
-    const [selectedServiceId, setSelectedServiceId] = useState();
-    const [selectedServiceName, setSelectedServiceName] = useState('');
-    const [error, setError] = useState('');
     const serviceInfo = useServiceInfo();
 
+    const [openDropdown, setOpenDropdown] = useState(false);
+    const [selectedServiceName, setSelectedServiceName] = useState('');
+    const [error, setError] = useState(false);
+
     const handleSelectService = (type) => {
-        setSelectedServiceId(type.id);
-        setSelectedServiceName(type.name);
-        setError('');
+        serviceInfo.handleSetServiceFields('category_id', type.id);
+        // setSelectedServiceName(type.name);
+        // setSelectedServiceId(type.id);
+        setError(false);
         setOpenDropdown(false);
     };
 
     const handleOnBlur = () => {
-        serviceInfo.serviceFields?.category_id.length < 1 ? setError('Vui lòng chọn loại dịch vụ') : setError('');
+        serviceInfo.serviceFields?.category_id.length < 1 ? setError(true) : setError(false);
     };
 
+    useLayoutEffect(() => {
+        const category = serviceInfo.categoriesList.find(
+            (category) => category.id === serviceInfo.serviceFields.category_id,
+        );
+        setSelectedServiceName(category?.name);
+    }, [serviceInfo.serviceFields.category_id]);
+
     useEffect(() => {
-        serviceInfo.handleSetServiceFields('category_id', selectedServiceId);
-    }, [selectedServiceId]);
+        setError(serviceInfo.error);
+    }, [serviceInfo.error]);
 
     return (
         <>
@@ -40,7 +51,8 @@ function ServiceTypes() {
                 placeholder="Lựa chọn..."
                 isButton
                 value={selectedServiceName}
-                errorText={error}
+                errorText={ERROR_VALUE}
+                errorStatus={error}
                 onBlur={handleOnBlur}
             >
                 Loại dịch vụ

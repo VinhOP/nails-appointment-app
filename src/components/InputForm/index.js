@@ -16,6 +16,7 @@ function InputForm({
     name,
     value,
     error,
+    errorStatus,
     errorText,
     onBlur,
     onChange,
@@ -25,15 +26,16 @@ function InputForm({
     readOnly = false,
     isButton = false,
     whiteBg = false,
+    fade = false,
     className,
     ...arg
 }) {
     const inputContainerRef = useRef();
-    const [errorNotice, setErrorNotice] = useState('');
+    const [errorNotice, setErrorNotice] = useState(false);
 
     useEffect(() => {
-        setErrorNotice(errorText);
-    }, [errorText]);
+        setErrorNotice(errorStatus);
+    }, [errorStatus]);
 
     const props = {
         type,
@@ -84,7 +86,7 @@ function InputForm({
                     )}
                 </div>
             )}
-            {errorNotice && <div className={cx('error')}>{errorNotice}</div>}
+            {errorNotice && <div className={cx('error')}>{errorText}</div>}
         </div>
     );
 }

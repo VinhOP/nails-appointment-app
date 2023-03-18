@@ -9,8 +9,9 @@ import styles from './OnlineBooking.module.scss';
 const cx = classNames.bind(styles);
 
 function OnlineBooking() {
-    const [isChecked, setIsChecked] = useState(false);
     const serviceInfo = useServiceInfo();
+
+    const [isChecked, setIsChecked] = useState(serviceInfo.serviceFields.enabled_online_booking || false);
 
     const handleChecked = () => {
         setIsChecked(!isChecked);
