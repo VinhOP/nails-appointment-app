@@ -16,7 +16,7 @@ function ServiceInfoProvider({ children }) {
         category_name: '',
         description: '',
         service_available_for: '',
-        enabled_online_booking: '',
+        enabled_online_booking: false,
         service_pricing_rules: [
             {
                 name: '',
@@ -161,13 +161,16 @@ function ServiceInfoProvider({ children }) {
         try {
             const response = await businessService.editService({
                 token: token,
-                id: serviceFields.id,
                 name: serviceFields.name,
                 category_id: serviceFields.category_id,
+                description: serviceFields.description,
+                service_available_for: serviceFields.service_available_for,
+                enabled_online_booking: serviceFields.enabled_online_booking,
                 service_pricing_rules_attributes: serviceFields.service_pricing_rules.map((rules) => {
                     return { ...rules, duration: rules.duration / 60000 };
                 }),
                 services_staffs_attributes: serviceFields.staffs,
+                id: serviceFields.id,
             });
             const res = await getCategories();
             setCategoriesList(res.data);

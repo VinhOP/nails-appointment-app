@@ -17,23 +17,17 @@ function Modal({ modal, setModal, isEdit = false, setIsEdit }) {
     const serviceInfo = useServiceInfo();
 
     const handleSubmit = async () => {
-        if (!serviceInfo.serviceFields.name.trim() || !serviceInfo.serviceFields.category_id) {
-            serviceInfo.setError(true);
-            return;
-        }
+        console.log(serviceInfo.serviceFields.name);
+        console.log(serviceInfo.serviceFields.category_id);
         if (isEdit) {
-            if (
-                serviceInfo.serviceFields.service_pricing_rules.some((rule) => rule.name) &&
-                serviceInfo.serviceFields.staffs.some((staff) => staff.partner_id)
-            ) {
-                await serviceInfo.handleEditService();
-                setModal(false);
-                return;
-            }
-            serviceInfo.setError(true);
-        } else {
-            await serviceInfo.handleSaveService();
+            await serviceInfo.handleEditService();
             setModal(false);
+            return;
+        } else {
+            if (!serviceInfo.serviceFields.name.trim() || !serviceInfo.serviceFields.category_id) {
+                await serviceInfo.handleSaveService();
+                setModal(false);
+            }
         }
     };
 
@@ -63,7 +57,7 @@ function Modal({ modal, setModal, isEdit = false, setIsEdit }) {
                 category_name: '',
                 description: '',
                 service_available_for: '',
-                enabled_online_booking: '',
+                enabled_online_booking: false,
                 service_pricing_rules: [
                     {
                         name: '',

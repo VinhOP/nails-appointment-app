@@ -55,7 +55,7 @@ function Services() {
             <div className={cx('content')}>
                 <Header setModal={setModal} setIsEditModal={setIsEditModal} />
                 <div className={cx('service-list')}>
-                    {serviceInfo.categoriesList.map((item, i) => {
+                    {serviceInfo.categoriesList?.map((item, i) => {
                         return (
                             <div key={item.id} className={cx('service-container')}>
                                 <div className={cx('header')}>

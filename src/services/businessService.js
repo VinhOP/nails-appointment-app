@@ -110,7 +110,10 @@ export const editService = async ({
     token,
     id,
     category_id,
+    description,
     name,
+    service_available_for,
+    enabled_online_booking,
     service_pricing_rules_attributes,
     services_staffs_attributes,
 }) => {
@@ -120,6 +123,9 @@ export const editService = async ({
             {
                 category_id,
                 name,
+                description,
+                enabled_online_booking,
+                service_available_for,
                 service_pricing_rules_attributes,
                 services_staffs_attributes,
             },
