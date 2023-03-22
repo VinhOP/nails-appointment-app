@@ -13,7 +13,6 @@ function OnlineBooking() {
 
     const [isChecked, setIsChecked] = useState(serviceInfo.serviceFields.enabled_online_booking);
 
-    console.log(serviceInfo.serviceFields);
     const handleChecked = () => {
         setIsChecked(!isChecked);
     };

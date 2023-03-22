@@ -7,8 +7,9 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
+    const token = sessionStorage.getItem('userToken');
     const [isLoading, setIsLoading] = useState(false);
-    const [isToken, setIsToken] = useState(!!sessionStorage.getItem('userToken'));
+    const [isToken, setIsToken] = useState(!!token);
     const [accessToken, setAccessToken] = useState();
     const [currentUser, setCurrentUser] = useState();
     const [currentProviderUser, setCurrentProviderUser] = useState();
@@ -17,9 +18,15 @@ function AuthProvider({ children }) {
     const notifyError = (message) => toast.error(message);
 
     useEffect(() => {
-        setIsToken(!!sessionStorage.getItem('userToken'));
-        setAccessToken(sessionStorage.getItem('userToken'));
-    }, []);
+        if (!token) {
+            return;
+        }
+        setAccessToken(token);
+        setAccessToken(token);
+        setTimeout(() => {
+            setIsToken(!!token);
+        }, 2000);
+    }, [token]);
 
     const getCurrentUser = async () => {
         try {
@@ -70,11 +77,7 @@ function AuthProvider({ children }) {
             }
             notifySuccess('Đăng nhập thành công');
             sessionStorage.setItem('userToken', response.access_token);
-            setAccessToken(sessionStorage.getItem('userToken'));
             setIsLoading(false);
-            setTimeout(() => {
-                setIsToken(true);
-            }, 2000);
         } catch (err) {
             console.log(err);
             setIsLoading(false);
@@ -83,15 +86,21 @@ function AuthProvider({ children }) {
 
     const signinWithGoogle = async (auth, provider) => {
         try {
+            console.log(auth);
             const providerResponse = await userService.signinWithGoogle(auth, provider);
+            console.log(providerResponse);
             setCurrentProviderUser(providerResponse.user);
 
             const response = await userService.loginViaSocialAccount({
-                access_token: providerResponse.user.accessToken,
+                access_token: providerResponse._tokenResponse.oauthIdToken,
                 provider: 'google',
                 email: providerResponse.user.email,
                 first_name: providerResponse.user.displayName,
             });
+            console.log(response);
+            sessionStorage.setItem('userToken', response.access_token);
+            setCurrentUser(response.object);
+            notifySuccess('Đăng nhập thành công');
             if (response.error) {
                 notifyError(response.error);
                 return response;
@@ -136,9 +145,7 @@ function AuthProvider({ children }) {
     };
 
     const signout = async () => {
-        // const token = sessionStorage.getItem('user-token');
         const response = await userService.signout(accessToken);
-        console.log(response);
         sessionStorage.removeItem('userToken');
         setIsToken(false);
         setAccessToken();

@@ -46,6 +46,7 @@ function ServiceInfoProvider({ children }) {
             }
             const res = await businessService.getCategoriesList(page, auth.currentUser.id);
             setIsLoading(false);
+            console.log(res);
             return res;
         } catch (err) {
             console.log(err);
@@ -64,9 +65,10 @@ function ServiceInfoProvider({ children }) {
 
     const addCategory = async (name, description) => {
         try {
-            const res = await businessService.addCategory(name, description, token);
+            const res = await businessService.addCategory({ name, description, token });
             setCategoriesList([res.object, ...categoriesList]);
             notifySuccess(res.message);
+            return res;
         } catch (err) {
             console.log(err);
         }

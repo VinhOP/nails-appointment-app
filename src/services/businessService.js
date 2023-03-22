@@ -11,14 +11,14 @@ export const types = async () => {
 
 export const getCategoriesList = async (page = 1, id, getAll = false) => {
     try {
-        const categories = await httpsRequest.get(`categories?page=${page}&partner_id=${id}&get_all=${getAll}`);
+        const categories = await httpsRequest.get(`categories?page=${page}&partner_id=${id}`);
         return categories;
     } catch (err) {
         console.log(err);
     }
 };
 
-export const addCategory = async (name, description, token) => {
+export const addCategory = async ({ name, description, token }) => {
     try {
         const res = await httpsRequest.post(
             `categories`,
@@ -32,7 +32,6 @@ export const addCategory = async (name, description, token) => {
                 },
             },
         );
-        console.log(res);
         return res;
     } catch (err) {
         console.log(err);

@@ -35,7 +35,7 @@ function Staff() {
         <Popper className={cx('wrapper')}>
             <h1 className={cx('title')}> Nhân Viên </h1>
             <div className={cx('staff-list')}>
-                {userInfo.staffs?.map((staff) => {
+                {userInfo.staffs.map((staff) => {
                     return (
                         <div key={staff.id} className={cx('staff-item')}>
                             <input

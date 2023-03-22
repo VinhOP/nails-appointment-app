@@ -30,7 +30,7 @@ function ServiceTypeModal({ title, category = false, index, setServiceTypeModal,
         }
         switch (type) {
             case 'add':
-                await serviceInfo.addCategory(serviceName, serviceDesciption);
+                const res = await serviceInfo.addCategory(serviceName, serviceDesciption);
                 break;
             case 'edit':
                 await serviceInfo.editCategory(category.id, serviceName, serviceDesciption, index);

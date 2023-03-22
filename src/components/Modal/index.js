@@ -17,14 +17,12 @@ function Modal({ modal, setModal, isEdit = false, setIsEdit }) {
     const serviceInfo = useServiceInfo();
 
     const handleSubmit = async () => {
-        console.log(serviceInfo.serviceFields.name);
-        console.log(serviceInfo.serviceFields.category_id);
         if (isEdit) {
             await serviceInfo.handleEditService();
             setModal(false);
             return;
         } else {
-            if (!serviceInfo.serviceFields.name.trim() || !serviceInfo.serviceFields.category_id) {
+            if (serviceInfo.serviceFields.name.trim() && serviceInfo.serviceFields.category_id) {
                 await serviceInfo.handleSaveService();
                 setModal(false);
             }

@@ -15,7 +15,7 @@ function UserInfoProvider({ children }) {
         id: undefined,
         value: '',
     });
-    const [staffs, setStaffs] = useState();
+    const [staffs, setStaffs] = useState([]);
 
     useEffect(() => {
         getBusinessTypes();

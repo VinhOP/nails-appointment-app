@@ -24,6 +24,9 @@ function Signup() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (auth.isToken) {
+            navigate('/appointment');
+        }
         return () => {
             userInfo.requiredFields.forEach((field) => {
                 field.setToUndefined();

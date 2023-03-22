@@ -7,6 +7,7 @@ export const getStaffs = async (token) => {
                 Authorization: token,
             },
         });
+        console.log(res);
         return res;
     } catch (err) {
         console.log(err);

@@ -8,7 +8,10 @@ const cx = classNames.bind(styles);
 
 function MenuItem({ menuList, setMenuList, isCollapse, active = false }) {
     const handleClick = (item, i) => {
-        item.logOut && item.logOut();
+        if (item.logOut) {
+            item.logOut();
+            return;
+        }
         if (!item.children) {
             const newMenu = menuList.map((item, index) => {
                 return { ...item, isOpen: i === index };
