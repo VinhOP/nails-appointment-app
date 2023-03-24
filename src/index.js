@@ -8,6 +8,7 @@ import UserInfoProvider from './Contexts/UserInfoContext';
 import AuthProvider from './Contexts/AuthContext';
 import SidebarProvider from './Contexts/SidebarContext';
 import ServiceInfoProvider from './Contexts/ServiceInfoContext';
+import ModalProvider from './Contexts/ModalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +17,9 @@ root.render(
             <UserInfoProvider>
                 <SidebarProvider>
                     <ServiceInfoProvider>
-                        <App />
+                        <ModalProvider>
+                            <App />
+                        </ModalProvider>
                     </ServiceInfoProvider>
                 </SidebarProvider>
             </UserInfoProvider>

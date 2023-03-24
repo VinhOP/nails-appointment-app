@@ -10,7 +10,7 @@ function PhoneNumber({ onBlur }) {
 
     return (
         <div className={cx('form-item')}>
-            <label>Số điện thoại</label>
+            <label className={cx('title')}>Số điện thoại</label>
             <div className={cx('input-container')}>
                 <PhoneInput
                     className={cx('input')}

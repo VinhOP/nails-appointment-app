@@ -98,13 +98,13 @@ function AuthProvider({ children }) {
                 first_name: providerResponse.user.displayName,
             });
             console.log(response);
-            sessionStorage.setItem('userToken', response.access_token);
             setCurrentUser(response.object);
-            notifySuccess('Đăng nhập thành công');
             if (response.error) {
                 notifyError(response.error);
                 return response;
             }
+            sessionStorage.setItem('userToken', response.access_token);
+            notifySuccess('Đăng nhập thành công');
             return response;
         } catch (err) {
             console.log(err);

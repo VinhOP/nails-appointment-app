@@ -15,9 +15,14 @@ function AdditionalInfo() {
     const auth = useAuth();
     const userInfo = useUserInfo();
 
-    const handleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
-        auth.signup({ email: userInfo.email, business_type_id: userInfo.businessSelected.id, phone: userInfo.phone });
+        const res = await auth.signup({
+            email: userInfo.email,
+            business_type_id: userInfo.businessSelected.id,
+            phone: userInfo.phone,
+        });
+        console.log(res);
     };
 
     useEffect(() => {
@@ -28,7 +33,7 @@ function AdditionalInfo() {
         <Popper className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className={cx('title')}>Bổ sung thông tin</div>
-                <InputForm className={cx('input-form')} fixedValue value={auth.currentProviderUser?.email}>
+                <InputForm className={cx('input-form')} fixedValue={auth.currentProviderUser?.email}>
                     Email
                 </InputForm>
                 <BusinessType className={cx('input-form')} />

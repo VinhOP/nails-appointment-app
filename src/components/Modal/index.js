@@ -1,30 +1,39 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { useAuth } from '../../Contexts/AuthContext';
+import { useModal } from '../../Contexts/ModalContext';
 import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
 import { useSidebar } from '../../Contexts/SidebarContext';
+import { useUserInfo } from '../../Contexts/UserInfoContext';
 import Navbar from '../Navbar';
 import styles from './Modal.module.scss';
-import ServiceModal from './ServiceModal';
 
 const cx = classNames.bind(styles);
 
-function Modal({ modal, setModal, isEdit = false, setIsEdit }) {
+function Modal({ isEdit = false, setIsEdit, children, title, isService = false, isProfile = false }) {
     const sidebar = useSidebar();
     const serviceInfo = useServiceInfo();
+    const modal = useModal();
+    const userInfo = useUserInfo();
+    const auth = useAuth();
 
     const handleSubmit = async () => {
+        if (isProfile) {
+            await userInfo.changeUserInfo();
+            return;
+        }
         if (isEdit) {
             await serviceInfo.handleEditService();
-            setModal(false);
+            modal.setModal(false);
             return;
         } else {
             if (serviceInfo.serviceFields.name.trim() && serviceInfo.serviceFields.category_id) {
                 await serviceInfo.handleSaveService();
-                setModal(false);
+                modal.setModal(false);
             }
         }
     };
@@ -33,7 +42,12 @@ function Modal({ modal, setModal, isEdit = false, setIsEdit }) {
         {
             icon: <FontAwesomeIcon icon={faClose} />,
             onClick: () => {
-                setModal(false);
+                if (isProfile) {
+                    modal.setProfileModal(false);
+                    return;
+                }
+                isService && modal.setServiceModal(false);
+                modal.setModal(false);
             },
         },
     ];
@@ -67,25 +81,29 @@ function Modal({ modal, setModal, isEdit = false, setIsEdit }) {
                 ],
                 staffs: [],
             });
-            setIsEdit(false);
+            setIsEdit && setIsEdit(false);
             serviceInfo.setError(false);
         };
     }, []);
 
     return (
-        <div className={cx('wrapper', { collapseSize: sidebar.isCollapse, activeSize: modal })}>
+        <div
+            className={cx('wrapper', {
+                collapseSize: sidebar.isCollapse,
+                activeSize: modal.modal,
+                isProfile: isProfile,
+            })}
+        >
             <Navbar
-                title="Thêm mới một dịch vụ"
+                title={title}
                 mediumHeight
-                modal={modal}
+                modal={modal.modal}
                 isModal
                 leftButtons={leftButtons}
                 rightIcons={rightIcons}
             />
             <div className={cx('main-content')}>
-                <div className={cx('modal')}>
-                    <ServiceModal />
-                </div>
+                <div className={cx('modal')}>{children}</div>
             </div>
             <ToastContainer hideProgressBar />
         </div>

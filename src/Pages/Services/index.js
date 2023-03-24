@@ -14,27 +14,29 @@ import DropDownMenu from './DropDownMenu';
 import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
 import { ToastContainer } from 'react-toastify';
 import ServicePricingRules from './ServicePricingRules';
+import { useModal } from '../../Contexts/ModalContext';
+import ServiceModal from '../../components/Modal/ServiceModal';
 
 const cx = classNames.bind(styles);
 
 function Services() {
-    const [modal, setModal] = useState(false);
     const [page, setPage] = useState(1);
     const [count, setCount] = useState();
     const [isEditModal, setIsEditModal] = useState(false);
 
     const serviceInfo = useServiceInfo();
     const auth = useAuth();
-
-    useEffect(() => {
-        modal ? (document.body.style.overflowY = 'hidden') : (document.body.style.overflowY = 'auto');
-    }, [modal]);
+    const modal = useModal();
 
     useEffect(() => {
         getCategories();
 
         return () => serviceInfo.setCategoriesList([]);
     }, [auth.currentUser]);
+
+    useEffect(() => {
+        modal.setProfileModal(false);
+    }, []);
 
     const getCategories = async () => {
         try {
@@ -53,51 +55,66 @@ function Services() {
                 <Navbar title="Dịch vụ" />
             </div>
             <div className={cx('content')}>
-                <Header setModal={setModal} setIsEditModal={setIsEditModal} />
-                <div className={cx('service-list')}>
-                    {serviceInfo.categoriesList?.map((item, i) => {
-                        return (
-                            <div key={item.id} className={cx('service-container')}>
-                                <div className={cx('header')}>
-                                    <div className={cx('service-type')}>
-                                        <h5>{item.name}</h5>
+                <Header setIsEditModal={setIsEditModal} />
+                {serviceInfo.categoriesList.length >= 1 ? (
+                    <div className={cx('service-list')}>
+                        {serviceInfo.categoriesList?.map((item, i) => {
+                            return (
+                                <div key={item.id} className={cx('service-container')}>
+                                    <div className={cx('header')}>
+                                        <div className={cx('service-type')}>
+                                            <h5>{item.name}</h5>
+                                        </div>
+                                        <div className={cx('actions')}>
+                                            <DropDownMenu category={item} index={i} />
+                                        </div>
                                     </div>
-                                    <div className={cx('actions')}>
-                                        <DropDownMenu category={item} index={i} />
+                                    <div className={cx('service-body')}>
+                                        {item.services.length < 1 && <div className={cx('service-item')}> Trống </div>}
+                                        {item.services.map((service) => {
+                                            return (
+                                                <ServicePricingRules
+                                                    service={service}
+                                                    modal={modal}
+                                                    setModal={modal.setModal}
+                                                    setIsEditModal={setIsEditModal}
+                                                    key={service.id}
+                                                />
+                                            );
+                                        })}
                                     </div>
                                 </div>
-                                <div className={cx('service-body')}>
-                                    {item.services.length < 1 && <div className={cx('service-item')}> Trống </div>}
-                                    {item.services.map((service) => {
-                                        return (
-                                            <ServicePricingRules
-                                                service={service}
-                                                modal={modal}
-                                                setModal={setModal}
-                                                setIsEditModal={setIsEditModal}
-                                                key={service.id}
-                                            />
-                                        );
-                                    })}
-                                </div>
+                            );
+                        })}
+                        {serviceInfo.categoriesList.length > 0 && serviceInfo.categoriesList.length < count && (
+                            <div className={cx('footer')}>
+                                <Button
+                                    className={cx('more-btn')}
+                                    primary
+                                    disabled={serviceInfo.isLoading}
+                                    onClick={getCategories}
+                                >
+                                    {serviceInfo.isLoading ? <Spinner /> : 'Xem thêm'}
+                                </Button>
                             </div>
-                        );
-                    })}
-                    {serviceInfo.categoriesList.length > 0 && serviceInfo.categoriesList.length < count && (
-                        <div className={cx('footer')}>
-                            <Button
-                                className={cx('more-btn')}
-                                primary
-                                disabled={serviceInfo.isLoading}
-                                onClick={getCategories}
-                            >
-                                {serviceInfo.isLoading ? <Spinner /> : 'Xem thêm'}
-                            </Button>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                ) : (
+                    <p className={cx('empty-notice')}> Danh sách trống, thêm mới loại dịch vụ ngay </p>
+                )}
             </div>
-            {modal && <Modal modal={modal} setModal={setModal} isEdit={isEditModal} setIsEdit={setIsEditModal} />}
+            {modal.serviceModal && (
+                <Modal
+                    title="Thêm mới một dịch vụ"
+                    modal={modal.modal}
+                    setModal={modal.setModal}
+                    isEdit={isEditModal}
+                    setIsEdit={setIsEditModal}
+                    isService
+                >
+                    <ServiceModal />
+                </Modal>
+            )}
             <ToastContainer hideProgressBar />
         </div>
     );

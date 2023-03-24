@@ -28,10 +28,15 @@ import {
 import { useEffect, useState } from 'react';
 import Image from '../Image';
 import { useAuth } from '../../Contexts/AuthContext';
+import { useModal } from '../../Contexts/ModalContext';
+import Modal from '../Modal';
+import ProfileModal from '../Modal/ProfileModal';
 
 const cx = classNames.bind(styles);
 function Menu({ isCollapse }) {
     const auth = useAuth();
+    const modal = useModal();
+
     const [menuList, setMenuList] = useState();
 
     useEffect(() => {
@@ -123,6 +128,10 @@ function Menu({ isCollapse }) {
                     {
                         name: 'Hồ sơ',
                         leftIcon: <FontAwesomeIcon icon={faUserCircle} />,
+                        profile: () => {
+                            modal.setModal(true);
+                            modal.setProfileModal(true);
+                        },
                     },
                     {
                         name: 'Liên hệ hỗ trợ',
@@ -144,6 +153,11 @@ function Menu({ isCollapse }) {
 
     return (
         <div className={cx('wrapper')}>
+            {modal.profileModal && (
+                <Modal title="My Profile" isProfile>
+                    <ProfileModal />
+                </Modal>
+            )}
             <MenuItem isCollapse={isCollapse} menuList={menuList} setMenuList={setMenuList} />
         </div>
     );

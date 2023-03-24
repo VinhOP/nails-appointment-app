@@ -15,6 +15,7 @@ function InputForm({
     type,
     name,
     value,
+    defaultValue,
     error,
     errorStatus,
     errorText,
@@ -22,6 +23,7 @@ function InputForm({
     onChange,
     placeholder,
     fixedValue,
+    hideValue = false,
     textArea = false,
     readOnly = false,
     isButton = false,
@@ -42,6 +44,7 @@ function InputForm({
         id,
         name,
         value,
+        defaultValue,
         error,
         onBlur,
         onChange,
@@ -66,7 +69,7 @@ function InputForm({
                 {children}
             </label>
             {fixedValue ? (
-                <p className={cx('readonly-value')}>{value}</p>
+                <p className={cx('readonly-value')}>{fixedValue}</p>
             ) : (
                 <div
                     ref={inputContainerRef}

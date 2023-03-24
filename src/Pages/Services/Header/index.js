@@ -4,16 +4,19 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { useState } from 'react';
 import ServiceTypeModal from '../ServiceTypeModal';
+import { useModal } from '../../../Contexts/ModalContext';
 
 const cx = classNames.bind(styles);
 
-function Header({ setModal, setIsEditModal }) {
+function Header({ setIsEditModal }) {
     const [isOpen, setIsOpen] = useState(false);
     const [addServiceTypeModal, setAddServiceTypeModal] = useState(false);
+    const modal = useModal();
 
     const handleClick = () => {
         setIsOpen(false);
-        setModal(true);
+        modal.setModal(true);
+        modal.setServiceModal(true);
         setIsEditModal(false);
     };
 

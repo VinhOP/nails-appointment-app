@@ -98,3 +98,38 @@ export const getCurrentUser = async (token) => {
         console.log(err);
     }
 };
+
+export const editUserInfo = async ({
+    token,
+    first_name,
+    last_name,
+    email,
+    phone,
+    current_password,
+    password,
+    password_confirmation,
+}) => {
+    try {
+        console.log(token);
+        const user = await httpsRequest.put(
+            'partners/me',
+            {
+                first_name,
+                last_name,
+                email,
+                phone,
+                current_password,
+                password,
+                password_confirmation,
+            },
+            {
+                headers: {
+                    Authorization: token,
+                },
+            },
+        );
+        return user;
+    } catch (err) {
+        console.log(err);
+    }
+};

@@ -2,6 +2,7 @@
     max-width: 695px;
     height: 100%;
     margin: auto;
+    z-index: 1001;
 
     &::after {
         content: '';

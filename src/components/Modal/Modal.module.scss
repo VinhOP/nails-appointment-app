@@ -1,7 +1,7 @@
 .wrapper {
     visibility: hidden;
     width: 0;
-    z-index: 9999;
+    z-index: 1000;
     overscroll-behavior: none;
     position: fixed;
     top: 0;
@@ -35,4 +35,8 @@
 .collapseSize {
     width: calc(100% - var(--sidebar-collapse-width));
     transition: 0.25s ease;
+}
+
+.isProfile {
+    z-index: 9000;
 }
