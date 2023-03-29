@@ -46,7 +46,6 @@ function ServiceInfoProvider({ children }) {
             }
             const res = await businessService.getCategoriesList(page, auth.currentUser.id);
             setIsLoading(false);
-            console.log(res);
             return res;
         } catch (err) {
             console.log(err);

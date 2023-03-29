@@ -31,12 +31,13 @@ import { useAuth } from '../../Contexts/AuthContext';
 import { useModal } from '../../Contexts/ModalContext';
 import Modal from '../Modal';
 import ProfileModal from '../Modal/ProfileModal';
+import { useUserInfo } from '../../Contexts/UserInfoContext';
 
 const cx = classNames.bind(styles);
 function Menu({ isCollapse }) {
     const auth = useAuth();
     const modal = useModal();
-
+    const userInfo = useUserInfo();
     const [menuList, setMenuList] = useState();
 
     useEffect(() => {
@@ -122,7 +123,7 @@ function Menu({ isCollapse }) {
             },
             {
                 name: `${auth.currentUser?.first_name || ''} ${auth.currentUser?.last_name || ''}`,
-                leftIcon: <Image src={auth.currentUser?.photo_url} alt="avatar" />,
+                leftIcon: <Image src={userInfo.photo || auth.currentUser?.photo_url} alt="avatar" />,
                 rightIcon: <FontAwesomeIcon icon={faChevronLeft} />,
                 children: [
                     {

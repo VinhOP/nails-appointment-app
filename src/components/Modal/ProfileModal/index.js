@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useLayoutEffect } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useAuth } from '../../../Contexts/AuthContext';
@@ -15,11 +16,19 @@ function ProfileModal() {
     const auth = useAuth();
     const userInfo = useUserInfo();
 
+    const handleChangeAvatar = () => {};
+
+    const handlePreviewImage = (e) => {
+        userInfo.setFile(e.target.files[0]);
+        const photoURL = URL.createObjectURL(e.target.files[0]);
+        userInfo.setPhotoBlob(photoURL);
+    };
+
     useEffect(() => {
         userInfo.setLastName(auth.currentUser.last_name);
         userInfo.setPhone(auth.currentUser.phone);
         userInfo.setFirstName(auth.currentUser.first_name);
-    }, []);
+    }, [auth.currentUser]);
 
     return (
         <div className={cx('wrapper')}>
@@ -28,8 +37,22 @@ function ProfileModal() {
                     <h1 className={cx('title')}>Thông tin cá nhân</h1>
                     <Popper className={cx('container')}>
                         <div className={cx('avatar-section')}>
-                            <Image className={cx('avatar')} img={auth.currentUser.photo_url} />
-                            <label className={cx('description')}>Thay đổi ảnh hồ sơ</label>
+                            <div className={cx('avatar-container')}>
+                                <Image
+                                    className={cx('avatar')}
+                                    src={userInfo.photoBlob || auth.currentUser.photo_url}
+                                />
+                            </div>
+                            <label htmlFor={'avatar'} className={cx('description')} onClick={handleChangeAvatar}>
+                                Thay đổi ảnh hồ sơ
+                            </label>
+                            <input
+                                className={cx('file-input')}
+                                name={'avatar'}
+                                id={'avatar'}
+                                type={'file'}
+                                onChange={(e) => handlePreviewImage(e)}
+                            />
                         </div>
                         <form className={cx('info-section')}>
                             <InputForm

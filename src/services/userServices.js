@@ -110,7 +110,6 @@ export const editUserInfo = async ({
     password_confirmation,
 }) => {
     try {
-        console.log(token);
         const user = await httpsRequest.put(
             'partners/me',
             {
@@ -129,6 +128,39 @@ export const editUserInfo = async ({
             },
         );
         return user;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const createPhotoURL = async ({ attachment }) => {
+    try {
+        const res = await httpsRequest.post('attachments/photo', {
+            attachment,
+        });
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getPhoto = async (photoUrl) => {
+    try {
+        const res = await httpsRequest.get(photoUrl);
+        return res;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const uploadPhoto = async (attachmentUrl, file) => {
+    try {
+        const res = await httpsRequest.put(attachmentUrl, file, {
+            headers: {
+                'Content-Type': file && file.type,
+            },
+        });
+        return res;
     } catch (err) {
         console.log(err);
     }

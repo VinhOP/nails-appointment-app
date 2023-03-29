@@ -2,7 +2,9 @@ import { faBell, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useSidebar } from '../../Contexts/SidebarContext';
+import { useUserInfo } from '../../Contexts/UserInfoContext';
 import Button from '../Button';
+import Spinner from '../Spinner';
 import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
@@ -25,6 +27,7 @@ function Navbar({
     ],
 }) {
     const sidebar = useSidebar();
+    const userInfo = useUserInfo();
 
     const classes = cx('wrapper', {
         collapse: sidebar.isCollapse,
@@ -56,8 +59,9 @@ function Navbar({
                                     key={i}
                                     onClick={button.onClick}
                                     className={cx('icon', { button: button.buttonStyle })}
+                                    disabled={userInfo.isLoading}
                                 >
-                                    {button.name}
+                                    {userInfo.isLoading ? <Spinner /> : button.name}
                                 </Button>
                             );
                         })}

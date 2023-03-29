@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as businessService from '../services/businessService';
 import * as userService from '../services/userServices';
+import { useAuth } from './AuthContext';
 
 export const useUserInfo = () => useContext(UserInfoContext);
 const UserInfoContext = createContext();
@@ -21,6 +22,10 @@ function UserInfoProvider({ children }) {
     const [currentPassword, setCurrentPassword] = useState();
     const [passwordConfirm, setPasswordConfirm] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [photo, setPhoto] = useState();
+    const [photoBlob, setPhotoBlob] = useState();
+    const [file, setFile] = useState();
+
     useEffect(() => {
         getBusinessTypes();
     }, []);
@@ -50,8 +55,39 @@ function UserInfoProvider({ children }) {
                 password: password,
                 password_confirmation: passwordConfirm,
             });
-            console.log(res);
             notifySuccess(res.message);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getPhoto = async (photoURL) => {
+        try {
+            await userService.getPhoto(photoURL);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const createPhotoURL = async (userID) => {
+        try {
+            const res = await userService.createPhotoURL({
+                attachment: {
+                    photoable_id: userID,
+                    photoable_type: 'Partner',
+                },
+            });
+            return res;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const uploadPhoto = async (attachment_url) => {
+        try {
+            const res = await userService.uploadPhoto(attachment_url, file);
+            console.log(res);
+            return res;
         } catch (err) {
             console.log(err);
         }
@@ -135,6 +171,17 @@ function UserInfoProvider({ children }) {
         changeUserInfo,
         currentPassword,
         passwordConfirm,
+        uploadPhoto,
+        file,
+        setFile,
+        getPhoto,
+        photoBlob,
+        setPhotoBlob,
+        isLoading,
+        setIsLoading,
+        photo,
+        setPhoto,
+        createPhotoURL,
     };
     return <UserInfoContext.Provider value={value}>{children}</UserInfoContext.Provider>;
 }

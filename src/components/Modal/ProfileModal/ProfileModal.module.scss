@@ -40,7 +40,12 @@
     border-radius: 50%;
 }
 
+.file-input {
+    display: none;
+}
+
 .description {
+    height: fit-content;
     color: #0076ff;
     cursor: pointer;
     margin-top: 16px;

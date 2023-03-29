@@ -45,9 +45,9 @@
 }
 
 .disabled {
-    background-color: #ccc;
-    pointer-events: none;
-    cursor: none;
+    background-color: #ccc !important;
+    pointer-events: none !important;
+    cursor: none !important;
 }
 
 .border-bold {

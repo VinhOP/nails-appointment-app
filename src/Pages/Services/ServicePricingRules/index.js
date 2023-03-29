@@ -30,6 +30,7 @@ function ServicePricingRules({ service, modal, setModal, setIsEditModal }) {
         });
         setIsEditModal(true);
         setModal(true);
+        modal.setServiceModal(true);
     };
 
     return (

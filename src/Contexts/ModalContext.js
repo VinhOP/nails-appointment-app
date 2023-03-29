@@ -7,7 +7,6 @@ function ModalProvider({ children }) {
     const [modal, setModal] = useState(false);
     const [serviceModal, setServiceModal] = useState(false);
     const [profileModal, setProfileModal] = useState(false);
-    console.log(modal);
 
     useEffect(() => {
         modal ? (document.body.style.overflowY = 'hidden') : (document.body.style.overflowY = 'auto');

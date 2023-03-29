@@ -22,7 +22,6 @@ function AdditionalInfo() {
             business_type_id: userInfo.businessSelected.id,
             phone: userInfo.phone,
         });
-        console.log(res);
     };
 
     useEffect(() => {

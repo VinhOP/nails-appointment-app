@@ -86,9 +86,7 @@ function AuthProvider({ children }) {
 
     const signinWithGoogle = async (auth, provider) => {
         try {
-            console.log(auth);
             const providerResponse = await userService.signinWithGoogle(auth, provider);
-            console.log(providerResponse);
             setCurrentProviderUser(providerResponse.user);
 
             const response = await userService.loginViaSocialAccount({
@@ -97,7 +95,6 @@ function AuthProvider({ children }) {
                 email: providerResponse.user.email,
                 first_name: providerResponse.user.displayName,
             });
-            console.log(response);
             setCurrentUser(response.object);
             if (response.error) {
                 notifyError(response.error);

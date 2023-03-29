@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import ServicePricingRules from './ServicePricingRules';
 import { useModal } from '../../Contexts/ModalContext';
 import ServiceModal from '../../components/Modal/ServiceModal';
+import { useUserInfo } from '../../Contexts/UserInfoContext';
 
 const cx = classNames.bind(styles);
 
@@ -27,9 +28,11 @@ function Services() {
     const serviceInfo = useServiceInfo();
     const auth = useAuth();
     const modal = useModal();
+    const userInfo = useUserInfo();
 
     useEffect(() => {
         getCategories();
+        userInfo.getPhoto(auth.currentUser?.photo_url);
 
         return () => serviceInfo.setCategoriesList([]);
     }, [auth.currentUser]);

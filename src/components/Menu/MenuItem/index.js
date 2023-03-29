@@ -1,7 +1,7 @@
 import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useModal } from '../../../Contexts/ModalContext';
 import Button from '../../Button';
 import Modal from '../../Modal';
@@ -12,7 +12,6 @@ function MenuItem({ menuList, setMenuList, isCollapse, active = false }) {
     const modal = useModal();
     const handleClick = (item, i) => {
         modal.setProfileModal(false);
-        modal.setServiceModal(false);
         if (item.logOut) {
             item.logOut();
             return;
@@ -27,6 +26,7 @@ function MenuItem({ menuList, setMenuList, isCollapse, active = false }) {
             const newMenu = menuList.map((item, index) => {
                 return { ...item, isOpen: i === index };
             });
+            modal.setServiceModal(false);
             setMenuList(newMenu);
             return;
         }

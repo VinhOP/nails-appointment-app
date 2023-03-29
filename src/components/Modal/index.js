@@ -23,9 +23,19 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
 
     const handleSubmit = async () => {
         if (isProfile) {
+            userInfo.setIsLoading(true);
+            if (userInfo.photoBlob) {
+                const res = await userInfo.createPhotoURL(auth.currentUser.id);
+                await userInfo.uploadPhoto(res.attachment.attachment_url);
+                userInfo.setIsLoading(false);
+            }
             await userInfo.changeUserInfo();
+            await auth.getCurrentUser();
+            userInfo.setPhotoBlob();
+            userInfo.setIsLoading(false);
             return;
         }
+
         if (isEdit) {
             await serviceInfo.handleEditService();
             modal.setModal(false);
