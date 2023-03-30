@@ -129,7 +129,7 @@ export const editUserInfo = async ({
         );
         return user;
     } catch (err) {
-        console.log(err);
+        return err;
     }
 };
 

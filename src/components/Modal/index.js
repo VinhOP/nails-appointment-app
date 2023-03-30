@@ -23,6 +23,11 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
 
     const handleSubmit = async () => {
         if (isProfile) {
+            if (userInfo.password || userInfo.passwordConfirm) {
+                if (userInfo.password !== userInfo.passwordConfirm) {
+                    return;
+                }
+            }
             userInfo.setIsLoading(true);
             if (userInfo.photoBlob) {
                 const res = await userInfo.createPhotoURL(auth.currentUser.id);

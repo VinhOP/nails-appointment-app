@@ -31,14 +31,15 @@ function Services() {
     const userInfo = useUserInfo();
 
     useEffect(() => {
-        getCategories();
-        userInfo.getPhoto(auth.currentUser?.photo_url);
-
-        return () => serviceInfo.setCategoriesList([]);
+        !modal.profileModal && getCategories();
     }, [auth.currentUser]);
 
     useEffect(() => {
         modal.setProfileModal(false);
+
+        return () => {
+            serviceInfo.setCategoriesList([]);
+        };
     }, []);
 
     const getCategories = async () => {
@@ -118,7 +119,6 @@ function Services() {
                     <ServiceModal />
                 </Modal>
             )}
-            <ToastContainer hideProgressBar />
         </div>
     );
 }

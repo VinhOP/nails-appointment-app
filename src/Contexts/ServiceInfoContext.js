@@ -30,7 +30,7 @@ function ServiceInfoProvider({ children }) {
     });
 
     const [categoriesList, setCategoriesList] = useState([]);
-    const [isLoading, setIsLoading] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
 
     const auth = useAuth();

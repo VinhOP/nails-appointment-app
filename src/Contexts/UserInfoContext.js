@@ -8,19 +8,19 @@ export const useUserInfo = () => useContext(UserInfoContext);
 const UserInfoContext = createContext();
 
 function UserInfoProvider({ children }) {
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState();
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState();
+    const [currentPassword, setCurrentPassword] = useState();
+    const [passwordConfirm, setPasswordConfirm] = useState();
     const [businessTypes, setBusinessTypes] = useState();
     const [businessSelected, setBusinessSelected] = useState({
         id: undefined,
         value: '',
     });
     const [staffs, setStaffs] = useState([]);
-    const [currentPassword, setCurrentPassword] = useState();
-    const [passwordConfirm, setPasswordConfirm] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [photo, setPhoto] = useState();
     const [photoBlob, setPhotoBlob] = useState();
@@ -52,10 +52,14 @@ function UserInfoProvider({ children }) {
                 phone: phone,
                 last_name: lastName,
                 current_password: currentPassword,
-                password: password,
-                password_confirmation: passwordConfirm,
+                password: password || null,
+                password_confirmation: passwordConfirm || null,
             });
-            notifySuccess(res.message);
+            if (res.response?.data?.error) {
+                notifyError(res.response.data.error);
+                return;
+            }
+            res.message && notifySuccess(res.message);
         } catch (err) {
             console.log(err);
         }
@@ -171,6 +175,8 @@ function UserInfoProvider({ children }) {
         changeUserInfo,
         currentPassword,
         passwordConfirm,
+        setCurrentPassword,
+        setPasswordConfirm,
         uploadPhoto,
         file,
         setFile,

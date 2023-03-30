@@ -16,8 +16,6 @@ function ProfileModal() {
     const auth = useAuth();
     const userInfo = useUserInfo();
 
-    const handleChangeAvatar = () => {};
-
     const handlePreviewImage = (e) => {
         userInfo.setFile(e.target.files[0]);
         const photoURL = URL.createObjectURL(e.target.files[0]);
@@ -43,7 +41,7 @@ function ProfileModal() {
                                     src={userInfo.photoBlob || auth.currentUser.photo_url}
                                 />
                             </div>
-                            <label htmlFor={'avatar'} className={cx('description')} onClick={handleChangeAvatar}>
+                            <label htmlFor={'avatar'} className={cx('description')}>
                                 Thay đổi ảnh hồ sơ
                             </label>
                             <input
