@@ -123,9 +123,9 @@ function ServiceInfoProvider({ children }) {
                 {
                     name: '',
                     duration: 1800000,
-                    price: '0',
+                    price: 0,
                     price_type: 'fixed',
-                    special_price: '0',
+                    special_price: 0,
                 },
             ],
         });

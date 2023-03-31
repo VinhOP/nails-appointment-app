@@ -62,11 +62,12 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
     };
 
     const handleSetPrice = (e) => {
-        serviceInfo.handleSetPricingRules('price', Number(e.target.value), count);
+        console.log(e.target.value);
+        serviceInfo.handleSetPricingRules('price', e.target.value, count);
     };
 
     const handleSetSpecialPrice = (e) => {
-        serviceInfo.handleSetPricingRules('special_price', Number(e.target.value), count);
+        serviceInfo.handleSetPricingRules('special_price', e.target.value, count);
     };
 
     const handleRender = (type) => {

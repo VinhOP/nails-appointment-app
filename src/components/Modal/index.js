@@ -47,6 +47,13 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
             return;
         } else {
             if (serviceInfo.serviceFields.name.trim() && serviceInfo.serviceFields.category_id) {
+                if (
+                    serviceInfo.serviceFields.service_pricing_rules.every(
+                        (rules) => !/^\d+$/.test(rules.price) || !/^\d+$/.test(rules.special_price),
+                    )
+                ) {
+                    return;
+                }
                 await serviceInfo.handleSaveService();
                 modal.setModal(false);
             }
@@ -89,9 +96,9 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
                     {
                         name: '',
                         duration: 1800000,
-                        price: '0',
+                        price: 0,
                         price_type: 'fixed',
-                        special_price: '0',
+                        special_price: 0,
                     },
                 ],
                 staffs: [],

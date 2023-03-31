@@ -5,14 +5,12 @@ import Modal from '../../components/Modal';
 import Navbar from '../../components/Navbar';
 import Header from './Header';
 import styles from './Services.module.scss';
-import * as businessService from '../../services/businessService';
 import { useAuth } from '../../Contexts/AuthContext';
 import Button from '../../components/Button';
 import Spinner from '../../components/Spinner';
 import 'react-loading-skeleton/dist/skeleton.css';
 import DropDownMenu from './DropDownMenu';
 import { useServiceInfo } from '../../Contexts/ServiceInfoContext';
-import { ToastContainer } from 'react-toastify';
 import ServicePricingRules from './ServicePricingRules';
 import { useModal } from '../../Contexts/ModalContext';
 import ServiceModal from '../../components/Modal/ServiceModal';
@@ -28,7 +26,6 @@ function Services() {
     const serviceInfo = useServiceInfo();
     const auth = useAuth();
     const modal = useModal();
-    const userInfo = useUserInfo();
 
     useEffect(() => {
         !modal.profileModal && getCategories();

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
 import Popper from '../Popper/DropdownPopper';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Button from '../Button';
 import { Link, useNavigate } from 'react-router-dom';
 import InputForm from '../InputForm';
@@ -23,15 +23,14 @@ function Signup() {
     const auth = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (auth.isToken) {
             navigate('/appointment');
         }
-        return () => {
-            userInfo.requiredFields.forEach((field) => {
-                field.setToUndefined();
-            });
-        };
+
+        userInfo.requiredFields.forEach((field) => {
+            field.setToUndefined();
+        });
     }, []);
 
     const handleRegister = async (e) => {
