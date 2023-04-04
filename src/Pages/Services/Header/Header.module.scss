@@ -25,12 +25,7 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.15s linear, visibility 0.15s linear;
-    z-index: 9999;
-}
-
-.active {
-    visibility: visible;
-    opacity: 1;
+    z-index: 2000;
 }
 
 .dropdown-item {

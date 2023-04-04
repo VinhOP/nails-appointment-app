@@ -5,6 +5,7 @@ import styles from './Header.module.scss';
 import { useState } from 'react';
 import ServiceTypeModal from '../ServiceTypeModal';
 import { useModal } from '../../../Contexts/ModalContext';
+import ButtonPopper from '../../../components/Popper/ButtonPopper';
 
 const cx = classNames.bind(styles);
 
@@ -28,22 +29,17 @@ function Header({ setIsEditModal }) {
     return (
         <div className={cx('header')}>
             <div className={cx('btn-container')}>
-                <Button
-                    primary
-                    className={cx('add-new-btn')}
-                    onClick={() => setIsOpen(!isOpen)}
-                    // onBlur={() => setIsOpen(false)}
-                >
+                <Button primary className={cx('add-new-btn')} onClick={() => setIsOpen(!isOpen)}>
                     Thêm mới
                 </Button>
-                <Popper className={cx('dropdown-menu', { active: isOpen })}>
+                <ButtonPopper isOpen={isOpen} setIsOpen={setIsOpen} className={cx('dropdown-menu')}>
                     <Button className={cx('dropdown-item')} onClick={handleClick}>
                         Thêm mới dịch vụ
                     </Button>
                     <Button className={cx('dropdown-item')} onClick={handleOpenServiceType}>
                         Thêm mới loại dịch vụ
                     </Button>
-                </Popper>
+                </ButtonPopper>
             </div>
             {addServiceTypeModal && (
                 <ServiceTypeModal

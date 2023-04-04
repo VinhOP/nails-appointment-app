@@ -29,6 +29,8 @@ function Services() {
 
     useEffect(() => {
         !modal.profileModal && getCategories();
+
+        document.body.style.overflowY = 'auto';
     }, [auth.currentUser]);
 
     useEffect(() => {

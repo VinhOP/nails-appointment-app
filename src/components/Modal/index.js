@@ -83,6 +83,8 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
     ];
 
     useEffect(() => {
+        document.body.style.overflowY = 'hidden';
+
         return () => {
             serviceInfo.setServiceFields({
                 id: '',
@@ -105,6 +107,7 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
             });
             setIsEdit && setIsEdit(false);
             serviceInfo.setError(false);
+            document.body.style.overflowY = 'auto';
         };
     }, []);
 

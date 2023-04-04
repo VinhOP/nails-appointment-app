@@ -7,39 +7,36 @@ import Button from '../../../components/Button';
 import Popper from '../../../components/Popper/DropdownPopper';
 import { useServiceInfo } from '../../../Contexts/ServiceInfoContext';
 import ServiceTypeModal from '../ServiceTypeModal';
+import ButtonPopper from '../../../components/Popper/ButtonPopper';
 
 const cx = classNames.bind(styles);
 
 function DropDownMenu({ category, index }) {
     const serviceInfo = useServiceInfo();
-    const [openPopper, setOpenPopper] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const [editServiceTypeModal, setEditServiceTypeModal] = useState(false);
 
     const handleOpenServiceTypeModal = () => {
         setEditServiceTypeModal(true);
-        setOpenPopper(false);
+        setIsOpen(false);
     };
 
     const handleDelete = () => {
         serviceInfo.deleteCategory(category.id, index);
-        setOpenPopper(false);
+        setIsOpen(false);
     };
 
     return (
         <div className={cx('wrapper')}>
-            <FontAwesomeIcon
-                className={cx('action-btn')}
-                icon={faEllipsis}
-                onClick={() => setOpenPopper(!openPopper)}
-            />
-            <Popper className={cx('dropdown-menu', { active: openPopper })}>
-                <Button className={cx('dropdown-item')} onClick={handleOpenServiceTypeModal}>   
+            <FontAwesomeIcon className={cx('action-btn')} icon={faEllipsis} onClick={() => setIsOpen(!isOpen)} />
+            <ButtonPopper isOpen={isOpen} setIsOpen={setIsOpen} className={cx('dropdown-menu')}>
+                <Button className={cx('dropdown-item')} onClick={handleOpenServiceTypeModal}>
                     Chỉnh sửa loại dịch vụ
                 </Button>
                 <Button className={cx('dropdown-item')} onClick={handleDelete}>
                     Xoá loại dịch vụ
                 </Button>
-            </Popper>
+            </ButtonPopper>
             {editServiceTypeModal && (
                 <ServiceTypeModal
                     type="edit"
