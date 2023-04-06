@@ -7,12 +7,16 @@ import { useServiceInfo } from '../../../../../Contexts/ServiceInfoContext';
 import InputForm from '../../../../InputForm';
 import Popper from '../../../../Popper/DropdownPopper';
 import styles from './PresetBody.module.scss';
+import ButtonPopper from '../../../../Popper/ButtonPopper';
 const cx = classNames.bind(styles);
 
 function PresetBody({ data, pricingRules, setPricingRules, count }) {
     const [workTimePopper, setWorkTimePopper] = useState(false);
     const [priceTypePopper, setPriceTypePopper] = useState(false);
     const [duration, setDuration] = useState([]);
+    const [error, setError] = useState(false);
+
+    const serviceInfo = useServiceInfo();
 
     const priceTypes = [
         {
@@ -29,8 +33,11 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
         },
     ];
 
+    useEffect(() => {
+        serviceInfo.errorPrice && setError(!data.price);
+    }, [serviceInfo.errorPrice, data.price]);
+
     const humanizeDuration = require('humanize-duration');
-    const serviceInfo = useServiceInfo();
 
     const createTime = () => {
         if (duration.length < 24) {
@@ -62,7 +69,6 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
     };
 
     const handleSetPrice = (e) => {
-        console.log(e.target.value);
         serviceInfo.handleSetPricingRules('price', e.target.value, count);
     };
 
@@ -110,7 +116,11 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
                             Thời gian làm
                         </InputForm>
                         {workTimePopper && (
-                            <Popper className={cx('popper')}>
+                            <ButtonPopper
+                                isOpen={workTimePopper}
+                                setIsOpen={setWorkTimePopper}
+                                className={cx('popper')}
+                            >
                                 <div className={cx('list')}>
                                     {duration.map((time, i) => {
                                         return (
@@ -124,7 +134,7 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
                                         );
                                     })}
                                 </div>
-                            </Popper>
+                            </ButtonPopper>
                         )}
                     </div>
                     <div className={cx('preset-item')}>
@@ -138,7 +148,11 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
                             Thể loại giá
                         </InputForm>
                         {priceTypePopper && (
-                            <Popper className={cx('popper')}>
+                            <ButtonPopper
+                                isOpen={priceTypePopper}
+                                setIsOpen={setPriceTypePopper}
+                                className={cx('popper')}
+                            >
                                 <div className={cx('list')}>
                                     {priceTypes.map((type, i) => {
                                         return (
@@ -152,10 +166,16 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
                                         );
                                     })}
                                 </div>
-                            </Popper>
+                            </ButtonPopper>
                         )}
                     </div>
-                    <InputForm onChange={handleSetPrice} className={cx('preset-item')} value={data.price}>
+                    <InputForm
+                        errorStatus={error}
+                        errorText={'Thiếu giá tiền'}
+                        onChange={handleSetPrice}
+                        className={cx('preset-item')}
+                        value={data.price}
+                    >
                         Thành tiền
                     </InputForm>
                     <InputForm

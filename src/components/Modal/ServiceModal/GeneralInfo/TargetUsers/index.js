@@ -5,6 +5,7 @@ import { useServiceInfo } from '../../../../../Contexts/ServiceInfoContext';
 import InputForm from '../../../../InputForm';
 import Popper from '../../../../Popper/DropdownPopper';
 import styles from './TargetUsers.module.scss';
+import ButtonPopper from '../../../../Popper/ButtonPopper';
 const cx = classNames.bind(styles);
 
 function TargetUsers() {
@@ -30,13 +31,13 @@ function TargetUsers() {
                 Đối tượng sử dụng
             </InputForm>
             {isOpen && (
-                <Popper className={cx('target-popper')}>
+                <ButtonPopper isOpen={isOpen} setIsOpen={setIsOpen} className={cx('target-popper')}>
                     <div className={cx('target-list')}>
                         <div className={cx('target-user')} onClick={handleSelect}>
                             Mọi người
                         </div>
                     </div>
-                </Popper>
+                </ButtonPopper>
             )}
         </>
     );

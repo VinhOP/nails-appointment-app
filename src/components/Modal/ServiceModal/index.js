@@ -5,10 +5,15 @@ import OnlineBooking from './OnlineBooking';
 import styles from './ServiceModal.module.scss';
 import ServicePreset from './ServicePreset';
 import Staff from './Staff';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
 function ServiceModal() {
+    useEffect(() => {
+        document.body.style.overflowY = 'hidden';
+    }, []);
+
     return (
         <div className={cx('wrapper')}>
             <GeneralInfo />

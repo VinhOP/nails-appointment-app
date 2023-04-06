@@ -4,6 +4,7 @@ import { createContext } from 'react';
 import { toast } from 'react-toastify';
 import * as businessService from '../services/businessService';
 import { useAuth } from './AuthContext';
+import { useEffect } from 'react';
 const ServiceInfoContext = createContext();
 
 export const useServiceInfo = () => useContext(ServiceInfoContext);
@@ -21,9 +22,9 @@ function ServiceInfoProvider({ children }) {
             {
                 name: '',
                 duration: 1800000,
-                price: 0,
+                price: '0',
                 price_type: 'fixed',
-                special_price: 0,
+                special_price: '0',
             },
         ],
         staffs: [],
@@ -31,7 +32,30 @@ function ServiceInfoProvider({ children }) {
 
     const [categoriesList, setCategoriesList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [errorName, setErrorName] = useState(false);
+    const [errorCategory, setErrorCategory] = useState(false);
+    const [errorPrice, setErrorPrice] = useState(false);
+
+    // const [error, setError] = useState({
+    //     name: false,
+    //     category_id: false,
+    //     price: false,
+    // });
+
+    // const [requiredFields, setRequiredFields] = [
+    //     {
+    //         value: serviceFields.name,
+    //         error: false,
+    //     },
+    //     {
+    //         value: serviceFields.category_id,
+    //         error: false,
+    //     },
+    //     {
+    //         value: serviceFields.service_pricing_rules.some((rule) => rule.price),
+    //         error: false,
+    //     },
+    // ];
 
     const auth = useAuth();
 
@@ -123,9 +147,9 @@ function ServiceInfoProvider({ children }) {
                 {
                     name: '',
                     duration: 1800000,
-                    price: 0,
+                    price: '0',
                     price_type: 'fixed',
-                    special_price: 0,
+                    special_price: '0',
                 },
             ],
         });
@@ -199,8 +223,12 @@ function ServiceInfoProvider({ children }) {
         categoriesList,
         isLoading,
         setIsLoading,
-        error,
-        setError,
+        errorName,
+        setErrorName,
+        errorCategory,
+        setErrorCategory,
+        errorPrice,
+        setErrorPrice,
     };
     return <ServiceInfoContext.Provider value={value}>{children}</ServiceInfoContext.Provider>;
 }

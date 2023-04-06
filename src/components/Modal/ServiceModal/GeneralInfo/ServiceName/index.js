@@ -7,10 +7,10 @@ const ERROR_VALUE = '*Vui lòng nhập tên';
 
 function ServiceName() {
     const serviceInfo = useServiceInfo();
-    const [error, setError] = useState(false);
+    const [error, setError] = useState();
 
     const handleSetName = (e) => {
-        e.target.value.length > 0 ? setError(false) : setError(true);
+        e.target.value.length > 0 && setError(false);
         serviceInfo.handleSetServiceFields('name', e.target.value);
     };
 
@@ -19,8 +19,8 @@ function ServiceName() {
     };
 
     useEffect(() => {
-        setError(serviceInfo.error);
-    }, [serviceInfo.error]);
+        setError(serviceInfo.errorName);
+    }, [serviceInfo.errorName]);
     return (
         <>
             <InputForm

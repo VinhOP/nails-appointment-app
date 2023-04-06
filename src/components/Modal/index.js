@@ -41,6 +41,17 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
             return;
         }
 
+        if (!serviceInfo.serviceFields.name.trim()) {
+            serviceInfo.setErrorName(true);
+        }
+        if (!serviceInfo.serviceFields.category_id) {
+            serviceInfo.setErrorCategory(true);
+        }
+        if (serviceInfo.serviceFields.service_pricing_rules.some((rules) => !rules.price)) {
+            serviceInfo.setErrorPrice(true);
+            return;
+        }
+
         if (isEdit) {
             await serviceInfo.handleEditService();
             modal.setModal(false);
@@ -83,8 +94,6 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
     ];
 
     useEffect(() => {
-        document.body.style.overflowY = 'hidden';
-
         return () => {
             serviceInfo.setServiceFields({
                 id: '',
@@ -98,16 +107,17 @@ function Modal({ isEdit = false, setIsEdit, children, title, isService = false, 
                     {
                         name: '',
                         duration: 1800000,
-                        price: 0,
+                        price: '0',
                         price_type: 'fixed',
-                        special_price: 0,
+                        special_price: '0',
                     },
                 ],
                 staffs: [],
             });
             setIsEdit && setIsEdit(false);
-            serviceInfo.setError(false);
-            document.body.style.overflowY = 'auto';
+            serviceInfo.setErrorName(false);
+            serviceInfo.setErrorCategory(false);
+            serviceInfo.setErrorPrice(false);
         };
     }, []);
 

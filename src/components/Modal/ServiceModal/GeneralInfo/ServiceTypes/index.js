@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useServiceInfo } from '../../../../../Contexts/ServiceInfoContext';
 import { useEffect } from 'react';
 import { useLayoutEffect } from 'react';
+import ButtonPopper from '../../../../Popper/ButtonPopper';
 const cx = classNames.bind(styles);
 
 const ERROR_VALUE = '*Vui lòng nhập loại dịch vụ';
@@ -14,16 +15,16 @@ const ERROR_VALUE = '*Vui lòng nhập loại dịch vụ';
 function ServiceTypes() {
     const serviceInfo = useServiceInfo();
 
-    const [openDropdown, setOpenDropdown] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const [selectedServiceName, setSelectedServiceName] = useState('');
-    const [error, setError] = useState(false);
+    const [error, setError] = useState();
 
     const handleSelectService = (type) => {
         serviceInfo.handleSetServiceFields('category_id', type.id);
         // setSelectedServiceName(type.name);
         // setSelectedServiceId(type.id);
         setError(false);
-        setOpenDropdown(false);
+        setIsOpen(false);
     };
 
     const handleOnBlur = () => {
@@ -38,14 +39,14 @@ function ServiceTypes() {
     }, [serviceInfo.serviceFields.category_id]);
 
     useEffect(() => {
-        setError(serviceInfo.error);
-    }, [serviceInfo.error]);
+        setError(serviceInfo.errorCategory);
+    }, [serviceInfo.errorCategory]);
 
     return (
         <>
             <InputForm
                 onClick={() => {
-                    setOpenDropdown(!openDropdown);
+                    setIsOpen(!isOpen);
                 }}
                 readOnly
                 placeholder="Lựa chọn..."
@@ -57,8 +58,8 @@ function ServiceTypes() {
             >
                 Loại dịch vụ
             </InputForm>
-            {openDropdown && (
-                <Popper className={cx('service-types-popper')}>
+            {isOpen && (
+                <ButtonPopper isOpen={isOpen} setIsOpen={setIsOpen} className={cx('service-types-popper')}>
                     <div className={cx('service-types-content')}>
                         {serviceInfo.categoriesList?.map((type) => {
                             return (
@@ -72,7 +73,7 @@ function ServiceTypes() {
                             );
                         })}
                     </div>
-                </Popper>
+                </ButtonPopper>
             )}
         </>
     );

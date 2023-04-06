@@ -9,12 +9,14 @@ import InputForm from '../../InputForm';
 import PhoneNumber from '../../PhoneNumber';
 import Popper from '../../Popper/DropdownPopper';
 import styles from './ProfileModal.module.scss';
+import { useModal } from '../../../Contexts/ModalContext';
 
 const cx = classNames.bind(styles);
 
 function ProfileModal() {
     const auth = useAuth();
     const userInfo = useUserInfo();
+    const modal = useModal();
 
     const handlePreviewImage = (e) => {
         userInfo.setFile(e.target.files[0]);
@@ -26,6 +28,10 @@ function ProfileModal() {
         userInfo.setLastName(auth.currentUser.last_name);
         userInfo.setPhone(auth.currentUser.phone);
         userInfo.setFirstName(auth.currentUser.first_name);
+
+        return () => {
+            modal.serviceModal ? (document.body.style.overflowY = 'hidden') : (document.body.style.overflowY = 'auto');
+        };
     }, [auth.currentUser]);
 
     return (
