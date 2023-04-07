@@ -20,7 +20,12 @@ function ServicePricingRules({ service, modal, setModal, setIsEditModal }) {
             service_available_for: service.service_available_for,
             enabled_online_booking: service.enabled_online_booking,
             service_pricing_rules: service.service_pricing_rules.map((rule) => {
-                return { ...rule, duration: rule.duration * 60 * 1000 };
+                return {
+                    ...rule,
+                    duration: rule.duration * 60 * 1000,
+                    price: rule.price.toString(),
+                    special_price: rule.special_price.toString(),
+                };
             }),
             staffs: service.staffs.map((staff) => {
                 return {

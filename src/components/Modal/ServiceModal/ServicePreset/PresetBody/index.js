@@ -69,6 +69,8 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
     };
 
     const handleSetPrice = (e) => {
+        serviceInfo.setErrorPrice(false);
+        setError(false);
         serviceInfo.handleSetPricingRules('price', e.target.value, count);
     };
 

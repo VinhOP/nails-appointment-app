@@ -14,12 +14,14 @@ import styles from './Modal.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Modal({ isEdit = false, setIsEdit, children, title, isService = false, isProfile = false }) {
+function Modal({ isEdit = false, setIsEdit, children, isService = false, isProfile = false }) {
     const sidebar = useSidebar();
     const serviceInfo = useServiceInfo();
     const modal = useModal();
     const userInfo = useUserInfo();
     const auth = useAuth();
+
+    const title = isEdit ? 'Chỉnh sửa một dịch vụ' : 'Thêm mới một dịch vụ';
 
     const handleSubmit = async () => {
         if (isProfile) {

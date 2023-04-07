@@ -19,15 +19,13 @@ function BusinessType({ className }) {
         userInfo.setBusinessSelected({ ...userInfo.businessSelected, id: type.id, value: type.name });
     };
 
-
-
     const classes = cx('business-types-section', 'form-item', {
         [className]: className,
     });
     return (
         <div className={classes} ref={businessTypeModalRef}>
             <label> Loại hình kinh doanh </label>
-            <div className={cx('input-container')} onClick={() => setIsOpen(!isOpen)} onBlur={() => console.log('run')}>
+            <div className={cx('input-container')} onClick={() => setIsOpen(!isOpen)}>
                 <input type="text" value={userInfo.businessSelected.value} disabled />
                 <i className={cx('dropdown-icon')}>
                     <FontAwesomeIcon icon={faCaretDown} />

@@ -108,7 +108,7 @@ function Services() {
             </div>
             {modal.serviceModal && (
                 <Modal
-                    title="Thêm mới một dịch vụ"
+                    title="Chỉnh sửa một dịch vụ"
                     modal={modal.modal}
                     setModal={modal.setModal}
                     isEdit={isEditModal}
