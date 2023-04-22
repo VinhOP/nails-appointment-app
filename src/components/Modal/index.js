@@ -55,6 +55,9 @@ function Modal({ isEdit = false, setIsEdit, children, isService = false, isProfi
         }
 
         if (isEdit) {
+            if (serviceInfo.serviceFields.service_pricing_rules.some((rules) => !/^\d+$/.test(rules.price))) {
+                return;
+            }
             await serviceInfo.handleEditService();
             modal.setModal(false);
             return;

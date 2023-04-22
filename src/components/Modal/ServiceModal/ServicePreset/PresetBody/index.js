@@ -33,9 +33,18 @@ function PresetBody({ data, pricingRules, setPricingRules, count }) {
         },
     ];
 
+    console.log(serviceInfo.errorPrice);
     useEffect(() => {
-        serviceInfo.errorPrice && setError(!data.price);
-    }, [serviceInfo.errorPrice, data.price]);
+        if (serviceInfo.errorPrice) {
+            setError(!data.price);
+            return;
+        }
+
+        if (!/^\d+$/.test(data.price)) {
+            console.log('?');
+            setError(true);
+        }
+    }, [serviceInfo.errorPrice]);
 
     const humanizeDuration = require('humanize-duration');
 
